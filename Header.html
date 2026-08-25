@@ -368,8 +368,8 @@
   }
 
   .cde-mobile-close {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: none;
     background: var(--cde-gray-100);
@@ -378,6 +378,8 @@
     align-items: center;
     justify-content: center;
     transition: background var(--cde-transition);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   .cde-mobile-close:hover {
@@ -385,9 +387,10 @@
   }
 
   .cde-mobile-close svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     fill: var(--cde-blue);
+    pointer-events: none;
   }
 
   .cde-mobile-nav {
