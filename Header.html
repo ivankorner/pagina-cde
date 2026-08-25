@@ -1,0 +1,779 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --cde-blue: #1e3a5f;
+    --cde-blue-dark: #152c4a;
+    --cde-gold: #c9a227;
+    --cde-gold-light: #d4b445;
+    --cde-white: #ffffff;
+    --cde-gray-50: #f8f9fa;
+    --cde-gray-100: #f1f3f5;
+    --cde-gray-200: #e9ecef;
+    --cde-gray-600: #6c757d;
+    --cde-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --cde-shadow-lg: 0 4px 20px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.06);
+    --cde-radius: 8px;
+    --cde-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .cde-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: var(--cde-white);
+    transition: box-shadow var(--cde-transition), background var(--cde-transition);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .cde-header.scrolled {
+    box-shadow: var(--cde-shadow-lg);
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .cde-topbar {
+    background: var(--cde-blue);
+    color: var(--cde-white);
+    padding: 6px 0;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  .cde-topbar .cde-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cde-topbar a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    transition: color var(--cde-transition);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .cde-topbar a:hover { color: var(--cde-gold-light); }
+
+  .cde-topbar svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  .cde-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .cde-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 120px;
+  }
+
+  .cde-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .cde-logo img {
+    height: 100px;
+    width: auto;
+    transition: transform var(--cde-transition);
+  }
+
+  .cde-logo:hover img {
+    transform: scale(1.03);
+  }
+
+  .cde-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .cde-nav-item {
+    position: relative;
+  }
+
+  .cde-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 16px;
+    color: var(--cde-blue);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    border-radius: var(--cde-radius);
+    transition: background var(--cde-transition), color var(--cde-transition);
+    white-space: nowrap;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+
+  .cde-nav-link:hover,
+  .cde-nav-item.active > .cde-nav-link {
+    background: var(--cde-gray-100);
+    color: var(--cde-gold);
+  }
+
+  .cde-nav-link .arrow {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+    transition: transform var(--cde-transition);
+    flex-shrink: 0;
+  }
+
+  .cde-nav-item:hover > .cde-nav-link .arrow,
+  .cde-nav-item.open > .cde-nav-link .arrow {
+    transform: rotate(180deg);
+  }
+
+  .cde-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    opacity: 0;
+    visibility: hidden;
+    min-width: 240px;
+    background: var(--cde-white);
+    border-radius: var(--cde-radius);
+    box-shadow: var(--cde-shadow-lg);
+    border: 1px solid var(--cde-gray-200);
+    padding: 8px;
+    transition: opacity var(--cde-transition), transform var(--cde-transition), visibility var(--cde-transition);
+    z-index: 100;
+  }
+
+  .cde-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+  }
+
+  .cde-nav-item:hover > .cde-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .cde-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    color: var(--cde-blue);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background var(--cde-transition), color var(--cde-transition);
+    white-space: nowrap;
+  }
+
+  .cde-dropdown a:hover {
+    background: var(--cde-gray-100);
+    color: var(--cde-gold);
+  }
+
+  .cde-dropdown a::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cde-gold);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity var(--cde-transition), transform var(--cde-transition);
+    flex-shrink: 0;
+  }
+
+  .cde-dropdown a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Submenu anidado (PARLAMENTOS) */
+  .cde-dropdown .cde-has-sub {
+    position: relative;
+  }
+
+  .cde-dropdown .cde-has-sub > a {
+    justify-content: space-between;
+  }
+
+  .cde-dropdown .cde-submenu {
+    position: absolute;
+    top: -8px;
+    left: calc(100% + 8px);
+    min-width: 220px;
+    background: var(--cde-white);
+    border-radius: var(--cde-radius);
+    box-shadow: var(--cde-shadow-lg);
+    border: 1px solid var(--cde-gray-200);
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(4px);
+    transition: opacity var(--cde-transition), transform var(--cde-transition), visibility var(--cde-transition);
+  }
+
+  .cde-dropdown .cde-has-sub:hover > .cde-submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .cde-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cde-search-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: var(--cde-gray-100);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--cde-transition), transform var(--cde-transition);
+  }
+
+  .cde-search-btn:hover {
+    background: var(--cde-gray-200);
+    transform: scale(1.05);
+  }
+
+  .cde-search-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--cde-blue);
+  }
+
+  .cde-hamburger {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--cde-radius);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    transition: background var(--cde-transition);
+  }
+
+  .cde-hamburger:hover {
+    background: var(--cde-gray-100);
+  }
+
+  .cde-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background: var(--cde-blue);
+    border-radius: 2px;
+    transition: transform var(--cde-transition), opacity var(--cde-transition);
+  }
+
+  .cde-hamburger.active span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+
+  .cde-hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .cde-hamburger.active span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+  /* Mobile Overlay */
+  .cde-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity var(--cde-transition);
+  }
+
+  .cde-overlay.active {
+    opacity: 1;
+  }
+
+  /* Mobile Menu */
+  .cde-mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(380px, 85vw);
+    height: 100vh;
+    background: var(--cde-white);
+    z-index: 10001;
+    transition: right var(--cde-transition);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .cde-mobile-menu.active {
+    right: 0;
+  }
+
+  .cde-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--cde-gray-200);
+    position: sticky;
+    top: 0;
+    background: var(--cde-white);
+    z-index: 1;
+  }
+
+  .cde-mobile-header img {
+    height: 60px;
+    width: auto;
+  }
+
+  .cde-mobile-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--cde-gray-100);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--cde-transition);
+  }
+
+  .cde-mobile-close:hover {
+    background: var(--cde-gray-200);
+  }
+
+  .cde-mobile-close svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--cde-blue);
+  }
+
+  .cde-mobile-nav {
+    padding: 12px;
+  }
+
+  .cde-mobile-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    color: var(--cde-blue);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    border-radius: var(--cde-radius);
+    transition: background var(--cde-transition), color var(--cde-transition);
+  }
+
+  .cde-mobile-nav a:hover {
+    background: var(--cde-gray-100);
+    color: var(--cde-gold);
+  }
+
+  .cde-mobile-toggle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: var(--cde-gray-100);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--cde-transition), transform var(--cde-transition);
+    flex-shrink: 0;
+  }
+
+  .cde-mobile-toggle:hover {
+    background: var(--cde-gray-200);
+  }
+
+  .cde-mobile-toggle svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--cde-blue);
+    transition: transform var(--cde-transition);
+  }
+
+  .cde-mobile-toggle.open svg {
+    transform: rotate(180deg);
+  }
+
+  .cde-mobile-sub {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 12px;
+  }
+
+  .cde-mobile-sub.open {
+    max-height: 600px;
+  }
+
+  .cde-mobile-sub a {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    padding: 11px 16px 11px 28px;
+    color: var(--cde-gray-600);
+  }
+
+  .cde-mobile-sub a:hover {
+    color: var(--cde-gold);
+    background: var(--cde-gray-50);
+  }
+
+  .cde-mobile-sub .cde-mobile-sub-inner a {
+    padding-left: 44px;
+    font-size: 12.5px;
+  }
+
+  .cde-mobile-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px 24px;
+    border-top: 1px solid var(--cde-gray-200);
+    margin-top: 8px;
+  }
+
+  .cde-mobile-social a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--cde-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--cde-transition), transform var(--cde-transition);
+  }
+
+  .cde-mobile-social a:hover {
+    background: var(--cde-gold);
+    transform: translateY(-2px);
+  }
+
+  .cde-mobile-social a svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--cde-blue);
+    transition: fill var(--cde-transition);
+  }
+
+  .cde-mobile-social a:hover svg {
+    fill: var(--cde-white);
+  }
+
+  /* Spacer */
+  .cde-header-spacer {
+    height: calc(120px + 34px);
+    pointer-events: none;
+  }
+
+  .cde-topbar + .cde-main { height: 120px; }
+
+  @media (max-width: 1100px) {
+    .cde-nav { display: none; }
+    .cde-hamburger { display: flex; }
+    .cde-right .cde-search-btn { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .cde-topbar { display: none; }
+    .cde-header-spacer { height: 100px; }
+    .cde-logo img { height: 70px; }
+    .cde-main { height: 100px; }
+    .cde-container { padding: 0 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .cde-logo img { height: 60px; }
+  }
+</style>
+
+<header class="cde-header" id="cdeHeader">
+  <!-- Top Bar -->
+  <div class="cde-topbar">
+    <div class="cde-container">
+      <a href="https://www.facebook.com/cde.eldorado/" target="_blank" rel="nofollow" aria-label="Facebook">
+        <svg viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/cdeldorado/" target="_blank" rel="nofollow" aria-label="Instagram">
+        <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCyFOyHySEdYcSwOQkpgOxrg" target="_blank" rel="nofollow" aria-label="YouTube">
+        <svg viewBox="0 0 576 512"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+      </a>
+      <a href="https://twitter.com/cdeldorado" target="_blank" rel="nofollow" aria-label="Twitter">
+        <svg viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <div class="cde-container">
+    <div class="cde-main">
+      <!-- Logo -->
+      <div class="cde-logo">
+        <a href="https://cdeldorado.gob.ar">
+          <img src="https://cdeldorado.gob.ar/wp-content/uploads/2023/12/LOGO-CDE-2023-Fondo-Transparente-Pagina.png" alt="Concejo Deliberante de El Dorado" width="1726" height="1014">
+        </a>
+      </div>
+
+      <!-- Desktop Nav -->
+      <nav class="cde-nav">
+        <div class="cde-nav-item">
+          <a href="https://cdeldorado.gob.ar/" class="cde-nav-link">INICIO</a>
+        </div>
+
+        <div class="cde-nav-item">
+          <a href="#" class="cde-nav-link" onclick="return false;">INSTITUCIONAL <svg class="arrow" viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></a>
+          <div class="cde-dropdown">
+            <a href="https://cdeldorado.gob.ar/historia/">HISTORIA</a>
+            <a href="https://cdeldorado.gob.ar/secretarias/">SECRETARÍAS</a>
+            <a href="https://cdeldorado.gob.ar/concejales/">CONCEJALES</a>
+          </div>
+        </div>
+
+        <div class="cde-nav-item">
+          <a href="#" class="cde-nav-link" onclick="return false;">LEGISLACIÓN <svg class="arrow" viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></a>
+          <div class="cde-dropdown">
+            <a href="https://cdeldorado.gob.ar/digesto/">DIGESTO JURÍDICO MUNICIPAL</a>
+            <a href="https://instrumentos.online">BUSCADOR DE INSTRUMENTOS</a>
+            <a href="https://expedientescde.online">SEGUIMIENTO DE EXPEDIENTES</a>
+          </div>
+        </div>
+
+        <div class="cde-nav-item">
+          <a href="https://cdeldorado.gob.ar/contactos/" class="cde-nav-link">CONTACTOS</a>
+        </div>
+
+        <div class="cde-nav-item">
+          <a href="https://appcde.online/audiencias/public/" class="cde-nav-link">AUDIENCIAS PÚBLICAS</a>
+        </div>
+
+        <div class="cde-nav-item">
+          <a href="#" class="cde-nav-link" onclick="return false;">ACTIVIDADES <svg class="arrow" viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></a>
+          <div class="cde-dropdown">
+            <a href="https://appcde.online/eventos/public/">EVENTOS</a>
+            <div class="cde-has-sub">
+              <a href="#">PARLAMENTOS <svg class="arrow" viewBox="0 0 320 512" style="width:8px;margin-left:auto;"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></a>
+              <div class="cde-submenu cde-dropdown">
+                <a href="https://cdeldorado.gob.ar/parlamento-de-la-mujer/">Parlamento de la Mujer</a>
+                <a href="https://cdeldorado.gob.ar/parlamento-estudiantil/">Parlamento Estudiantil</a>
+                <a href="https://cdeldorado.gob.ar/parlamento-del-adulto-mayor/">Parlamento del Adulto Mayor</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="cde-right">
+        <button class="cde-search-btn" aria-label="Buscar">
+          <svg viewBox="0 0 512 512"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+        </button>
+
+        <button class="cde-hamburger" id="cdeHamburger" aria-label="Abrir menú">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Overlay -->
+<div class="cde-overlay" id="cdeOverlay"></div>
+
+<!-- Mobile Menu -->
+<div class="cde-mobile-menu" id="cdeMobileMenu">
+  <div class="cde-mobile-header">
+    <a href="https://cdeldorado.gob.ar">
+      <img src="https://cdeldorado.gob.ar/wp-content/uploads/2023/12/LOGO-CDE-2023-Fondo-Transparente-Pagina.png" alt="CDE" width="1726" height="1014">
+    </a>
+    <button class="cde-mobile-close" id="cdeMobileClose" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+  </div>
+
+  <nav class="cde-mobile-nav">
+    <a href="https://cdeldorado.gob.ar/">INICIO</a>
+
+    <a href="#" class="cde-mobile-toggle-parent" data-toggle="mob-institucional">
+      INSTITUCIONAL
+      <span class="cde-mobile-toggle"><svg viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></span>
+    </a>
+    <div class="cde-mobile-sub" id="mob-institucional">
+      <a href="https://cdeldorado.gob.ar/historia/">HISTORIA</a>
+      <a href="https://cdeldorado.gob.ar/secretarias/">SECRETARÍAS</a>
+      <a href="https://cdeldorado.gob.ar/concejales/">CONCEJALES</a>
+    </div>
+
+    <a href="#" class="cde-mobile-toggle-parent" data-toggle="mob-legislacion">
+      LEGISLACIÓN
+      <span class="cde-mobile-toggle"><svg viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></span>
+    </a>
+    <div class="cde-mobile-sub" id="mob-legislacion">
+      <a href="https://cdeldorado.gob.ar/digesto/">DIGESTO JURÍDICO MUNICIPAL</a>
+      <a href="https://instrumentos.online">BUSCADOR DE INSTRUMENTOS</a>
+      <a href="https://expedientescde.online">SEGUIMIENTO DE EXPEDIENTES</a>
+    </div>
+
+    <a href="https://cdeldorado.gob.ar/contactos/">CONTACTOS</a>
+
+    <a href="https://appcde.online/audiencias/public/">AUDIENCIAS PÚBLICAS</a>
+
+    <a href="#" class="cde-mobile-toggle-parent" data-toggle="mob-actividades">
+      ACTIVIDADES
+      <span class="cde-mobile-toggle"><svg viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></span>
+    </a>
+    <div class="cde-mobile-sub" id="mob-actividades">
+      <a href="https://appcde.online/eventos/public/">EVENTOS</a>
+      <a href="#" class="cde-mobile-toggle-parent" data-toggle="mob-parlamentos" style="font-size:13px;">
+        PARLAMENTOS
+        <span class="cde-mobile-toggle"><svg viewBox="0 0 320 512"><path d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"/></svg></span>
+      </a>
+      <div class="cde-mobile-sub cde-mobile-sub-inner" id="mob-parlamentos">
+        <a href="https://cdeldorado.gob.ar/parlamento-de-la-mujer/">Parlamento de la Mujer</a>
+        <a href="https://cdeldorado.gob.ar/parlamento-estudiantil/">Parlamento Estudiantil</a>
+        <a href="https://cdeldorado.gob.ar/parlamento-del-adulto-mayor/">Parlamento del Adulto Mayor</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="cde-mobile-social">
+    <a href="https://www.facebook.com/cde.eldorado/" target="_blank" rel="nofollow" aria-label="Facebook">
+      <svg viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/cdeldorado/" target="_blank" rel="nofollow" aria-label="Instagram">
+      <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+    <a href="https://www.youtube.com/channel/UCyFOyHySEdYcSwOQkpgOxrg" target="_blank" rel="nofollow" aria-label="YouTube">
+      <svg viewBox="0 0 576 512"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+    </a>
+    <a href="https://twitter.com/cdeldorado" target="_blank" rel="nofollow" aria-label="Twitter">
+      <svg viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- Spacer -->
+<div class="cde-header-spacer"></div>
+
+<script>
+(function() {
+  // Sticky header shadow
+  var header = document.getElementById('cdeHeader');
+  function checkScroll() {
+    if (window.scrollY > 10) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  checkScroll();
+
+  // Mobile menu
+  var hamburger = document.getElementById('cdeHamburger');
+  var overlay = document.getElementById('cdeOverlay');
+  var mobileMenu = document.getElementById('cdeMobileMenu');
+  var closeBtn = document.getElementById('cdeMobileClose');
+
+  function openMobile() {
+    hamburger.classList.add('active');
+    overlay.classList.add('active');
+    mobileMenu.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobile() {
+    hamburger.classList.remove('active');
+    overlay.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function() {
+    if (mobileMenu.classList.contains('active')) {
+      closeMobile();
+    } else {
+      openMobile();
+    }
+  });
+
+  overlay.addEventListener('click', closeMobile);
+  closeBtn.addEventListener('click', closeMobile);
+
+  // Mobile submenu toggles
+  var toggleParents = document.querySelectorAll('.cde-mobile-toggle-parent');
+  toggleParents.forEach(function(parent) {
+    parent.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('data-toggle');
+      var sub = document.getElementById(targetId);
+      var toggle = this.querySelector('.cde-mobile-toggle');
+
+      if (sub) {
+        sub.classList.toggle('open');
+        toggle.classList.toggle('open');
+      }
+    });
+  });
+
+  // Close mobile menu on resize to desktop
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 1100) {
+      closeMobile();
+    }
+  });
+})();
+</script>
