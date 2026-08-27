@@ -1,18 +1,12 @@
 <!-- ============================================================
-     Publicaciones por Post Type — Parlamento de la Mujer
-     Pegar dentro de un bloque "HTML personalizado" in WordPress.
+     Publicaciones por Post Type
+     Pegar dentro de un bloque "HTML personalizado" en WordPress.
+     Cambiar el valor de POST_TYPE_CONFIG.slug para cada post type.
      ============================================================ -->
 
-<!-- ENCABEZADO DECORATIVO -->
+<div class="cde-pt__page">
 <div class="cde-pt__header">
-  <div class="header-decoration">
-    <span></span>
-    <div class="flower">✦</div>
-    <span></span>
-  </div>
-  <h2 class="cde-pt__page-title">PARLAMENTO DE LA MUJER-2</h2>
-  <p class="cde-pt__subtitle">Impulsando voces, construyendo futuro</p>
-  <div class="cde-pt__gold-line"></div>
+  <h2 class="cde-pt__page-title">Parlamento de la Mujer-2</h2>
 </div>
 
 <div class="cde-pt" id="cde-pt-root">
@@ -27,140 +21,97 @@
   </div>
   <nav class="cde-pt__pagination" id="cde-pt-pagination"></nav>
 </div>
+</div>
 
 <style>
+  /* =========================================================
+     Scope: .cde-pt — no choca con estilos del tema ni Elementor.
+     ========================================================= */
+  .cde-pt__page {
+    --text: #1a1a1a;
+    background:
+      radial-gradient(
+        circle at 10% 20%,
+        rgba(249, 211, 233, 0.45),
+        transparent 25%
+      ),
+      radial-gradient(
+        circle at 90% 80%,
+        rgba(249, 211, 233, 0.45),
+        transparent 25%
+      ),
+      #ffffff;
+    color: var(--text);
+  }
+
   .cde-pt,
   .cde-pt *,
   .cde-pt *::before,
   .cde-pt *::after { box-sizing: border-box; }
 
   .cde-pt {
-    --cde-pt-pink: #c83d8c;
-    --cde-pt-pink-dark: #8d155f;
-    --cde-pt-pink-light: #f8d8e9;
-    --cde-pt-pink-soft: #fff4fa;
-    --cde-pt-purple: #54205f;
-    --cde-pt-gold: #d8a62a;
-    --cde-pt-title: #40204b;
-    --cde-pt-text: #707784;
+    --cde-pt-blue: #1e3a5f;
+    --cde-pt-gold: #c9a227;
+    --cde-pt-gold-light: #d4b445;
     --cde-pt-white: #ffffff;
     --cde-pt-gray-50: #f8f9fa;
     --cde-pt-gray-100: #f1f3f5;
     --cde-pt-gray-200: #e9ecef;
-    --cde-pt-gray-600: #7c818c;
-    --cde-pt-shadow: 0 15px 45px rgba(151, 54, 117, 0.10);
-    --cde-pt-shadow-lg: 0 22px 55px rgba(151, 54, 117, 0.17);
-    --cde-pt-radius: 18px;
-    --cde-pt-transition: 0.35s ease;
+    --cde-pt-gray-600: #6c757d;
+    --cde-pt-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --cde-pt-shadow-lg: 0 4px 20px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.06);
+    --cde-pt-radius: 8px;
+    --cde-pt-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: var(--cde-pt-text);
+    color: #1a1a1a;
     padding: clamp(32px, 4vw, 56px) 0;
-    background:
-      radial-gradient(circle at 10% 20%, rgba(249, 211, 233, 0.45), transparent 25%),
-      radial-gradient(circle at 90% 80%, rgba(249, 211, 233, 0.45), transparent 25%),
-      #ffffff;
   }
 
   .cde-pt__header {
     text-align: center;
-    margin-bottom: 45px;
+    padding: clamp(32px, 4vw, 56px) 24px 0;
   }
-
-  .header-decoration {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 12px;
-  }
-
-  .header-decoration span {
-    width: 140px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--cde-pt-gold));
-  }
-
-  .header-decoration span:last-child {
-    background: linear-gradient(90deg, var(--cde-pt-gold), transparent);
-  }
-
-  .flower {
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--cde-pt-pink);
-    font-size: 27px;
-    position: relative;
-  }
-
-  .flower::after {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--cde-pt-gold);
-    top: 3px;
-  }
-
   .cde-pt__page-title {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(34px, 4vw, 58px);
-    font-weight: 600;
-    letter-spacing: -1px;
-    color: var(--cde-pt-pink-dark);
-    line-height: 1.1;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: clamp(25px, 3vw, 32px);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #C64191;
     margin: 0;
   }
 
-  .cde-pt__subtitle {
-    margin-top: 16px;
-    font-size: 19px;
-    color: #777083;
-    letter-spacing: 0.5px;
-  }
-
-  .cde-pt__gold-line {
-    width: 85px;
-    height: 3px;
-    background: var(--cde-pt-gold);
-    margin: 22px auto 0;
-    border-radius: 10px;
-  }
-
+  /* --- Grid --- */
   .cde-pt__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    max-width: 1500px;
+    gap: 35px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 24px;
   }
 
+  /* --- Card --- */
   .cde-pt__card {
-    background: rgba(255, 255, 255, 0.96);
+    background: var(--cde-pt-white);
     border-radius: var(--cde-pt-radius);
     overflow: hidden;
-    border: 1px solid rgba(213, 73, 151, 0.12);
     box-shadow: var(--cde-pt-shadow);
     transition: transform var(--cde-pt-transition), box-shadow var(--cde-pt-transition);
     display: flex;
     flex-direction: column;
-    position: relative;
   }
   .cde-pt__card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-3px);
     box-shadow: var(--cde-pt-shadow-lg);
   }
 
+  /* --- Thumbnail --- */
   .cde-pt__thumb {
     position: relative;
     width: 100%;
-    height: 315px;
+    aspect-ratio: 3 / 2;
     overflow: hidden;
-    background: var(--cde-pt-pink-light);
+    background: var(--cde-pt-gray-100);
     display: block;
   }
   .cde-pt__thumb img {
@@ -168,56 +119,39 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform var(--cde-pt-transition);
   }
   .cde-pt__card:hover .cde-pt__thumb img {
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
   .cde-pt__thumb--placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--cde-pt-pink-light), #f0b8d8);
+    background: linear-gradient(135deg, #eef2f9, #dce6f5);
   }
   .cde-pt__thumb--placeholder svg {
     width: 48px;
     height: 48px;
-    fill: var(--cde-pt-pink);
-    opacity: 0.45;
+    fill: #b0c4de;
+    opacity: 0.6;
   }
 
-  .cde-pt__card-icon {
-    position: absolute;
-    left: 25px;
-    bottom: -24px;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #ffffff, #f7c5df);
-    color: var(--cde-pt-pink);
-    font-size: 25px;
-    box-shadow: 0 5px 18px rgba(144, 35, 104, 0.15);
-    border: 4px solid white;
-    z-index: 3;
-  }
-
+  /* --- Card Body --- */
   .cde-pt__body {
-    padding: 42px 26px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     flex: 1;
   }
 
+  /* --- Title --- */
   .cde-pt__title {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 700;
-    line-height: 1.38;
-    margin: 0 0 18px;
-    color: var(--cde-pt-title);
+    line-height: 1.3;
+    margin: 0 0 10px;
+    color: var(--cde-pt-blue);
   }
   .cde-pt__title a {
     color: inherit;
@@ -225,57 +159,47 @@
     transition: color var(--cde-pt-transition);
   }
   .cde-pt__title a:hover {
-    color: var(--cde-pt-pink);
+    color: var(--cde-pt-gold);
   }
 
+  /* --- Excerpt --- */
   .cde-pt__excerpt {
-    font-size: 17px;
-    line-height: 1.75;
-    color: var(--cde-pt-text);
-    margin: 0 0 15px;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--cde-pt-gray-600);
+    margin: 0 0 16px;
     flex: 1;
-    min-height: 145px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
+  /* --- Read More --- */
   .cde-pt__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--cde-pt-pink);
+    color: var(--cde-pt-gold);
     text-decoration: none;
     margin-bottom: 14px;
-    transition: color 0.25s ease, gap 0.25s ease;
-  }
-  .cde-pt__link::after {
-    content: "\2192";
-    font-size: 23px;
-    line-height: 0;
+    transition: color var(--cde-pt-transition);
   }
   .cde-pt__link:hover {
-    color: var(--cde-pt-pink-dark);
-    gap: 14px;
+    color: var(--cde-pt-gold-light);
   }
 
+  /* --- Date --- */
   .cde-pt__date {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
+    font-size: 0.8rem;
     color: var(--cde-pt-gray-600);
-    border-top: 1px solid rgba(120, 120, 120, 0.15);
-    padding-top: 18px;
-    margin-top: 20px;
+    border-top: 1px solid var(--cde-pt-gray-200);
+    padding-top: 12px;
   }
 
-  .cde-pt__date-icon {
-    color: var(--cde-pt-pink);
-    font-size: 18px;
-  }
-
+  /* --- Loading --- */
   .cde-pt__loading {
     text-align: center;
     padding: 60px 24px;
@@ -286,14 +210,15 @@
   .cde-pt__spinner {
     width: 36px;
     height: 36px;
-    border: 3px solid var(--cde-pt-pink-light);
-    border-top-color: var(--cde-pt-pink);
+    border: 3px solid var(--cde-pt-gray-200);
+    border-top-color: var(--cde-pt-gold);
     border-radius: 50%;
     margin: 0 auto;
     animation: cde-pt-spin 0.8s linear infinite;
   }
   @keyframes cde-pt-spin { to { transform: rotate(360deg); } }
 
+  /* --- Empty State --- */
   .cde-pt__empty {
     text-align: center;
     padding: 60px 24px;
@@ -310,20 +235,22 @@
     margin: 0;
   }
 
+  /* --- Error State --- */
   .cde-pt__error {
     text-align: center;
     padding: 48px 24px;
-    color: var(--cde-pt-pink-dark);
-    background: var(--cde-pt-pink-soft);
-    border: 1px solid var(--cde-pt-pink-light);
+    color: #b42318;
+    background: #fef3f2;
+    border: 1px solid #fecdca;
     border-radius: var(--cde-pt-radius);
     margin: 0 24px;
-    max-width: 1500px;
+    max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
   }
   .cde-pt__error p { margin: 0; font-size: 0.95rem; }
 
+  /* --- Pagination --- */
   .cde-pt__pagination {
     display: flex;
     justify-content: center;
@@ -342,10 +269,10 @@
     min-width: 40px;
     height: 40px;
     padding: 0 12px;
-    border: 1px solid var(--cde-pt-pink-light);
+    border: 1px solid var(--cde-pt-gray-200);
     border-radius: var(--cde-pt-radius);
     background: var(--cde-pt-white);
-    color: var(--cde-pt-pink-dark);
+    color: var(--cde-pt-blue);
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -353,12 +280,12 @@
     font-family: inherit;
   }
   .cde-pt__page-btn:hover:not(.cde-pt__page-btn--active):not(:disabled) {
-    background: var(--cde-pt-pink-soft);
-    border-color: var(--cde-pt-pink);
+    background: var(--cde-pt-gray-50);
+    border-color: var(--cde-pt-blue);
   }
   .cde-pt__page-btn--active {
-    background: var(--cde-pt-pink);
-    border-color: var(--cde-pt-pink);
+    background: var(--cde-pt-gold);
+    border-color: var(--cde-pt-gold);
     color: var(--cde-pt-white);
     font-weight: 600;
     cursor: default;
@@ -382,19 +309,14 @@
     font-size: 0.875rem;
   }
 
+  /* --- Responsive --- */
   @media (max-width: 1100px) {
     .cde-pt__grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .cde-pt__header { padding: 0 30px; }
   }
   @media (max-width: 768px) {
     .cde-pt__grid { grid-template-columns: 1fr; gap: 20px; }
     .cde-pt__pagination { gap: 4px; }
     .cde-pt__page-btn { min-width: 36px; height: 36px; font-size: 0.8rem; }
-    .cde-pt__page-title { font-size: 34px; }
-    .cde-pt__subtitle { font-size: 16px; }
-    .header-decoration span { width: 60px; }
-    .cde-pt__thumb { height: 260px; }
-    .cde-pt__excerpt { min-height: auto; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -408,22 +330,26 @@
 
 <script>
 (function() {
+  /* =========================================================
+     CONFIGURACIÓN — Cambiar slug para cada post type.
+     ========================================================= */
   var POST_TYPE_CONFIG = {
-    slug: 'parla-de-la-mujer',
+    slug: 'parla-de-la-mujer',   // ← Cambiar este valor
     perPage: 9,
     apiBase: 'https://cdeldorado.gob.ar/wp-json/wp/v2/'
   };
 
-  var CARD_ICONS = ['\u265C', '\uD83D\uDCAC', '\u2655'];
-
+  /* --- State --- */
   var currentPage = 1;
   var totalPages = 1;
 
+  /* --- DOM --- */
   var grid = document.getElementById('cde-pt-grid');
   var loading = document.getElementById('cde-pt-loading');
   var empty = document.getElementById('cde-pt-empty');
   var pagination = document.getElementById('cde-pt-pagination');
 
+  /* --- Helpers --- */
   function stripHtml(html) {
     var tmp = document.createElement('div');
     tmp.innerHTML = html;
@@ -460,6 +386,7 @@
     return '';
   }
 
+  /* --- Render --- */
   function renderCards(posts) {
     if (!posts || posts.length === 0) {
       grid.innerHTML = '';
@@ -473,25 +400,23 @@
     empty.style.display = 'none';
 
     var html = '';
-    posts.forEach(function(post, idx) {
+    posts.forEach(function(post) {
       var src = getThumbSrc(post);
       var thumbHtml = src
         ? '<img src="' + src + '" alt="" loading="lazy" width="800" height="533">'
         : '<div class="cde-pt__thumb--placeholder"><svg viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg></div>';
 
       var excerpt = getExcerpt(post);
-      var icon = CARD_ICONS[idx % CARD_ICONS.length];
 
       html += '<article class="cde-pt__card">'
         + '<a class="cde-pt__thumb" href="' + post.link + '" target="_blank" rel="noopener">'
         + thumbHtml
-        + '<div class="cde-pt__card-icon">' + icon + '</div>'
         + '</a>'
         + '<div class="cde-pt__body">'
         + '<h3 class="cde-pt__title"><a href="' + post.link + '" target="_blank" rel="noopener">' + post.title.rendered + '</a></h3>'
         + (excerpt ? '<p class="cde-pt__excerpt">' + excerpt + '</p>' : '')
         + '<a class="cde-pt__link" href="' + post.link + '" target="_blank" rel="noopener">SABER MÁS</a>'
-        + '<div class="cde-pt__date"><span class="cde-pt__date-icon">&#9635;</span><span>' + formatDate(post.date) + '</span></div>'
+        + '<div class="cde-pt__date">' + formatDate(post.date) + '</div>'
         + '</div>'
         + '</article>';
     });
@@ -508,29 +433,34 @@
 
     var html = '';
 
-    html += '<button class="cde-pt__page-btn" data-page="1" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Primera p\u00e1gina">'
+    /* Primera página */
+    html += '<button class="cde-pt__page-btn" data-page="1" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Primera página">'
       + '<svg viewBox="0 0 24 24"><path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6 1.41-1.41z"/><path d="M12.41 16.59L7.83 12l4.59-4.59L11 6l-6 6 6 6 1.41-1.41z"/></svg>'
       + '</button>';
 
-    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled' : '') + ' title="P\u00e1gina anterior">'
+    /* Anterior */
+    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Página anterior">'
       + '<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>'
       + '</button>';
 
+    /* Números de página */
     var range = getPageRange(currentPage, totalPages);
     for (var i = 0; i < range.length; i++) {
       if (range[i] === '...') {
-        html += '<span class="cde-pt__page-ellipsis">\u2026</span>';
+        html += '<span class="cde-pt__page-ellipsis">…</span>';
       } else {
         var isActive = range[i] === currentPage;
         html += '<button class="cde-pt__page-btn' + (isActive ? ' cde-pt__page-btn--active' : '') + '" data-page="' + range[i] + '"' + (isActive ? ' disabled' : '') + '>' + range[i] + '</button>';
       }
     }
 
-    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="P\u00e1gina siguiente">'
+    /* Siguiente */
+    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Página siguiente">'
       + '<svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>'
       + '</button>';
 
-    html += '<button class="cde-pt__page-btn" data-page="' + totalPages + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="\u00daltima p\u00e1gina">'
+    /* Última página */
+    html += '<button class="cde-pt__page-btn" data-page="' + totalPages + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Última página">'
       + '<svg viewBox="0 0 24 24"><path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6-1.41 1.41z"/><path d="M11.59 7.41L16.18 12l-4.59 4.59L13 18l6-6-6-6-1.41 1.41z"/></svg>'
       + '</button>';
 
@@ -564,6 +494,7 @@
     return pages;
   }
 
+  /* --- Fetch --- */
   function loadPosts(page) {
     currentPage = page;
     loading.style.display = '';
@@ -597,12 +528,13 @@
         pagination.innerHTML = '';
         var errDiv = document.createElement('div');
         errDiv.className = 'cde-pt__error';
-        errDiv.innerHTML = '<p>Error al cargar las publicaciones. Verific\u00e1 la consola del navegador o intent\u00e1 nuevamente m\u00e1s tarde.</p>';
+        errDiv.innerHTML = '<p>Error al cargar las publicaciones. Verificá la consola del navegador o intentá nuevamente más tarde.</p>';
         document.getElementById('cde-pt-root').appendChild(errDiv);
         console.error('[cde-pt] Error:', err);
       });
   }
 
+  /* --- Pagination click handler --- */
   pagination.addEventListener('click', function(e) {
     var btn = e.target.closest('.cde-pt__page-btn');
     if (!btn || btn.disabled) return;
@@ -612,6 +544,7 @@
     }
   });
 
+  /* --- Init --- */
   loadPosts(1);
 })();
 </script>
