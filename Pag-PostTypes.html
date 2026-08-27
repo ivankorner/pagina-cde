@@ -1,0 +1,514 @@
+<!-- ============================================================
+     Publicaciones por Post Type
+     Pegar dentro de un bloque "HTML personalizado" en WordPress.
+     Cambiar el valor de POST_TYPE_CONFIG.slug para cada post type.
+     ============================================================ -->
+
+<div class="cde-pt" id="cde-pt-root">
+  <div class="cde-pt__loading" id="cde-pt-loading">
+    <div class="cde-pt__spinner"></div>
+    <p>Cargando publicaciones…</p>
+  </div>
+  <div class="cde-pt__grid" id="cde-pt-grid"></div>
+  <div class="cde-pt__empty" id="cde-pt-empty" style="display:none">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+    <p>No hay publicaciones disponibles.</p>
+  </div>
+  <nav class="cde-pt__pagination" id="cde-pt-pagination"></nav>
+</div>
+
+<style>
+  /* =========================================================
+     Scope: .cde-pt — no choca con estilos del tema ni Elementor.
+     ========================================================= */
+  .cde-pt,
+  .cde-pt *,
+  .cde-pt *::before,
+  .cde-pt *::after { box-sizing: border-box; }
+
+  .cde-pt {
+    --cde-pt-blue: #1e3a5f;
+    --cde-pt-gold: #c9a227;
+    --cde-pt-gold-light: #d4b445;
+    --cde-pt-white: #ffffff;
+    --cde-pt-gray-50: #f8f9fa;
+    --cde-pt-gray-100: #f1f3f5;
+    --cde-pt-gray-200: #e9ecef;
+    --cde-pt-gray-600: #6c757d;
+    --cde-pt-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --cde-pt-shadow-lg: 0 4px 20px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.06);
+    --cde-pt-radius: 8px;
+    --cde-pt-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+    padding: clamp(32px, 4vw, 56px) 0;
+  }
+
+  /* --- Grid --- */
+  .cde-pt__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* --- Card --- */
+  .cde-pt__card {
+    background: var(--cde-pt-white);
+    border-radius: var(--cde-pt-radius);
+    overflow: hidden;
+    box-shadow: var(--cde-pt-shadow);
+    transition: transform var(--cde-pt-transition), box-shadow var(--cde-pt-transition);
+    display: flex;
+    flex-direction: column;
+  }
+  .cde-pt__card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--cde-pt-shadow-lg);
+  }
+
+  /* --- Thumbnail --- */
+  .cde-pt__thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--cde-pt-gray-100);
+    display: block;
+  }
+  .cde-pt__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--cde-pt-transition);
+  }
+  .cde-pt__card:hover .cde-pt__thumb img {
+    transform: scale(1.03);
+  }
+  .cde-pt__thumb--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #eef2f9, #dce6f5);
+  }
+  .cde-pt__thumb--placeholder svg {
+    width: 48px;
+    height: 48px;
+    fill: #b0c4de;
+    opacity: 0.6;
+  }
+
+  /* --- Card Body --- */
+  .cde-pt__body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  /* --- Title --- */
+  .cde-pt__title {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 10px;
+    color: var(--cde-pt-blue);
+  }
+  .cde-pt__title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--cde-pt-transition);
+  }
+  .cde-pt__title a:hover {
+    color: var(--cde-pt-gold);
+  }
+
+  /* --- Excerpt --- */
+  .cde-pt__excerpt {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--cde-pt-gray-600);
+    margin: 0 0 16px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* --- Read More --- */
+  .cde-pt__link {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--cde-pt-gold);
+    text-decoration: none;
+    margin-bottom: 14px;
+    transition: color var(--cde-pt-transition);
+  }
+  .cde-pt__link:hover {
+    color: var(--cde-pt-gold-light);
+  }
+
+  /* --- Date --- */
+  .cde-pt__date {
+    font-size: 0.8rem;
+    color: var(--cde-pt-gray-600);
+    border-top: 1px solid var(--cde-pt-gray-200);
+    padding-top: 12px;
+  }
+
+  /* --- Loading --- */
+  .cde-pt__loading {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--cde-pt-gray-600);
+    font-size: 0.95rem;
+  }
+  .cde-pt__loading p { margin-top: 16px; }
+  .cde-pt__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--cde-pt-gray-200);
+    border-top-color: var(--cde-pt-gold);
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: cde-pt-spin 0.8s linear infinite;
+  }
+  @keyframes cde-pt-spin { to { transform: rotate(360deg); } }
+
+  /* --- Empty State --- */
+  .cde-pt__empty {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--cde-pt-gray-600);
+  }
+  .cde-pt__empty svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .cde-pt__empty p {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  /* --- Error State --- */
+  .cde-pt__error {
+    text-align: center;
+    padding: 48px 24px;
+    color: #b42318;
+    background: #fef3f2;
+    border: 1px solid #fecdca;
+    border-radius: var(--cde-pt-radius);
+    margin: 0 24px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cde-pt__error p { margin: 0; font-size: 0.95rem; }
+
+  /* --- Pagination --- */
+  .cde-pt__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    padding: 0 24px;
+  }
+  .cde-pt__pagination:empty { display: none; }
+
+  .cde-pt__page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--cde-pt-gray-200);
+    border-radius: var(--cde-pt-radius);
+    background: var(--cde-pt-white);
+    color: var(--cde-pt-blue);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--cde-pt-transition), color var(--cde-pt-transition), border-color var(--cde-pt-transition);
+    font-family: inherit;
+  }
+  .cde-pt__page-btn:hover:not(.cde-pt__page-btn--active):not(:disabled) {
+    background: var(--cde-pt-gray-50);
+    border-color: var(--cde-pt-blue);
+  }
+  .cde-pt__page-btn--active {
+    background: var(--cde-pt-gold);
+    border-color: var(--cde-pt-gold);
+    color: var(--cde-pt-white);
+    font-weight: 600;
+    cursor: default;
+  }
+  .cde-pt__page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .cde-pt__page-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+  .cde-pt__page-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    color: var(--cde-pt-gray-600);
+    font-size: 0.875rem;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 1100px) {
+    .cde-pt__grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  }
+  @media (max-width: 768px) {
+    .cde-pt__grid { grid-template-columns: 1fr; gap: 20px; }
+    .cde-pt__pagination { gap: 4px; }
+    .cde-pt__page-btn { min-width: 36px; height: 36px; font-size: 0.8rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cde-pt__card,
+    .cde-pt__thumb img,
+    .cde-pt__spinner { transition: none; animation: none; }
+    .cde-pt__card:hover { transform: none; }
+    .cde-pt__card:hover .cde-pt__thumb img { transform: none; }
+  }
+</style>
+
+<script>
+(function() {
+  /* =========================================================
+     CONFIGURACIÓN — Cambiar slug para cada post type.
+     ========================================================= */
+  var POST_TYPE_CONFIG = {
+    slug: 'parla-de-la-mujer',   // ← Cambiar este valor
+    perPage: 9,
+    apiBase: 'https://cdeldorado.gob.ar/wp-json/wp/v2/'
+  };
+
+  /* --- State --- */
+  var currentPage = 1;
+  var totalPages = 1;
+
+  /* --- DOM --- */
+  var grid = document.getElementById('cde-pt-grid');
+  var loading = document.getElementById('cde-pt-loading');
+  var empty = document.getElementById('cde-pt-empty');
+  var pagination = document.getElementById('cde-pt-pagination');
+
+  /* --- Helpers --- */
+  function stripHtml(html) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function formatDate(dateStr) {
+    var d = new Date(dateStr);
+    var months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function getExcerpt(post) {
+    if (post.excerpt && post.excerpt.rendered) {
+      return stripHtml(post.excerpt.rendered).substring(0, 140);
+    }
+    if (post.content && post.content.rendered) {
+      return stripHtml(post.content.rendered).substring(0, 140);
+    }
+    return '';
+  }
+
+  function getThumbSrc(post) {
+    if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
+      var media = post._embedded['wp:featuredmedia'][0];
+      if (media.media_details && media.media_details.sizes && media.media_details.sizes.medium_large) {
+        return media.media_details.sizes.medium_large.source_url;
+      }
+      if (media.media_details && media.media_details.sizes && media.media_details.sizes.medium) {
+        return media.media_details.sizes.medium.source_url;
+      }
+      return media.source_url;
+    }
+    return '';
+  }
+
+  /* --- Render --- */
+  function renderCards(posts) {
+    if (!posts || posts.length === 0) {
+      grid.innerHTML = '';
+      loading.style.display = 'none';
+      empty.style.display = '';
+      pagination.innerHTML = '';
+      return;
+    }
+
+    loading.style.display = 'none';
+    empty.style.display = 'none';
+
+    var html = '';
+    posts.forEach(function(post) {
+      var src = getThumbSrc(post);
+      var thumbHtml = src
+        ? '<img src="' + src + '" alt="" loading="lazy" width="800" height="533">'
+        : '<div class="cde-pt__thumb--placeholder"><svg viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg></div>';
+
+      var excerpt = getExcerpt(post);
+
+      html += '<article class="cde-pt__card">'
+        + '<a class="cde-pt__thumb" href="' + post.link + '" target="_blank" rel="noopener">'
+        + thumbHtml
+        + '</a>'
+        + '<div class="cde-pt__body">'
+        + '<h3 class="cde-pt__title"><a href="' + post.link + '" target="_blank" rel="noopener">' + post.title.rendered + '</a></h3>'
+        + (excerpt ? '<p class="cde-pt__excerpt">' + excerpt + '</p>' : '')
+        + '<a class="cde-pt__link" href="' + post.link + '" target="_blank" rel="noopener">SABER MÁS</a>'
+        + '<div class="cde-pt__date">' + formatDate(post.date) + '</div>'
+        + '</div>'
+        + '</article>';
+    });
+
+    grid.innerHTML = html;
+    renderPagination();
+  }
+
+  function renderPagination() {
+    if (totalPages <= 1) {
+      pagination.innerHTML = '';
+      return;
+    }
+
+    var html = '';
+
+    /* Primera página */
+    html += '<button class="cde-pt__page-btn" data-page="1" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Primera página">'
+      + '<svg viewBox="0 0 24 24"><path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6 1.41-1.41z"/><path d="M12.41 16.59L7.83 12l4.59-4.59L11 6l-6 6 6 6 1.41-1.41z"/></svg>'
+      + '</button>';
+
+    /* Anterior */
+    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Página anterior">'
+      + '<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>'
+      + '</button>';
+
+    /* Números de página */
+    var range = getPageRange(currentPage, totalPages);
+    for (var i = 0; i < range.length; i++) {
+      if (range[i] === '...') {
+        html += '<span class="cde-pt__page-ellipsis">…</span>';
+      } else {
+        var isActive = range[i] === currentPage;
+        html += '<button class="cde-pt__page-btn' + (isActive ? ' cde-pt__page-btn--active' : '') + '" data-page="' + range[i] + '"' + (isActive ? ' disabled' : '') + '>' + range[i] + '</button>';
+      }
+    }
+
+    /* Siguiente */
+    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Página siguiente">'
+      + '<svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>'
+      + '</button>';
+
+    /* Última página */
+    html += '<button class="cde-pt__page-btn" data-page="' + totalPages + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Última página">'
+      + '<svg viewBox="0 0 24 24"><path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6-1.41 1.41z"/><path d="M11.59 7.41L16.18 12l-4.59 4.59L13 18l6-6-6-6-1.41 1.41z"/></svg>'
+      + '</button>';
+
+    pagination.innerHTML = html;
+  }
+
+  function getPageRange(current, total) {
+    if (total <= 7) {
+      var arr = [];
+      for (var i = 1; i <= total; i++) arr.push(i);
+      return arr;
+    }
+    var pages = [];
+    if (current <= 4) {
+      for (var i = 1; i <= 5; i++) pages.push(i);
+      pages.push('...');
+      pages.push(total);
+    } else if (current >= total - 3) {
+      pages.push(1);
+      pages.push('...');
+      for (var i = total - 4; i <= total; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      pages.push('...');
+      pages.push(current - 1);
+      pages.push(current);
+      pages.push(current + 1);
+      pages.push('...');
+      pages.push(total);
+    }
+    return pages;
+  }
+
+  /* --- Fetch --- */
+  function loadPosts(page) {
+    currentPage = page;
+    loading.style.display = '';
+    grid.innerHTML = '';
+    empty.style.display = 'none';
+    pagination.innerHTML = '';
+
+    var url = POST_TYPE_CONFIG.apiBase + POST_TYPE_CONFIG.slug
+      + '?per_page=' + POST_TYPE_CONFIG.perPage
+      + '&page=' + page
+      + '&_embed=wp:featuredmedia'
+      + '&orderby=date&order=desc';
+
+    fetch(url)
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        totalPages = parseInt(res.headers.get('X-WP-TotalPages'), 10) || 1;
+        return res.json();
+      })
+      .then(function(posts) {
+        renderCards(posts);
+        var root = document.getElementById('cde-pt-root');
+        if (root) {
+          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      })
+      .catch(function(err) {
+        loading.style.display = 'none';
+        grid.innerHTML = '';
+        empty.style.display = 'none';
+        pagination.innerHTML = '';
+        var errDiv = document.createElement('div');
+        errDiv.className = 'cde-pt__error';
+        errDiv.innerHTML = '<p>Error al cargar las publicaciones. Verificá la consola del navegador o intentá nuevamente más tarde.</p>';
+        document.getElementById('cde-pt-root').appendChild(errDiv);
+        console.error('[cde-pt] Error:', err);
+      });
+  }
+
+  /* --- Pagination click handler --- */
+  pagination.addEventListener('click', function(e) {
+    var btn = e.target.closest('.cde-pt__page-btn');
+    if (!btn || btn.disabled) return;
+    var page = parseInt(btn.getAttribute('data-page'), 10);
+    if (page && page !== currentPage) {
+      loadPosts(page);
+    }
+  });
+
+  /* --- Init --- */
+  loadPosts(1);
+})();
+</script>
