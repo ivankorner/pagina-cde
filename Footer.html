@@ -4,19 +4,11 @@
     z-index: 100;
   }
 
-  .cde-footer-spacer {
-    width: 100%;
-    pointer-events: none;
-  }
-
   .cde-footer {
     background: var(--cde-blue-dark);
     color: var(--cde-white);
     font-family: 'Plus Jakarta Sans', sans-serif;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     z-index: 100;
     padding: 40px 0 0;
   }
@@ -161,8 +153,6 @@
 </style>
 
 <div class="cde-footer-wrap">
-  <div class="cde-footer-spacer" id="cdeFooterSpacer"></div>
-
   <footer class="cde-footer" id="cdeFooter">
     <div class="cde-container">
       <div class="cde-footer-main">
@@ -205,22 +195,4 @@
   </footer>
 </div>
 
-<script>
-(function() {
-  var footer = document.getElementById('cdeFooter');
-  var spacer = document.getElementById('cdeFooterSpacer');
 
-  function syncFooter() {
-    var h = footer.offsetHeight;
-    spacer.style.height = h + 'px';
-  }
-
-  syncFooter();
-
-  if (typeof ResizeObserver !== 'undefined') {
-    new ResizeObserver(syncFooter).observe(footer);
-  }
-
-  window.addEventListener('resize', syncFooter, { passive: true });
-})();
-</script>
