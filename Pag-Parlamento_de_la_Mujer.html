@@ -126,6 +126,34 @@
   .cde-pt__card:hover .cde-pt__thumb img {
     transform: scale(1.03);
   }
+  /* --- Badge --- */
+  .cde-pt__badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(198, 65, 145, 0.9);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    z-index: 2;
+    pointer-events: none;
+    line-height: 1;
+  }
+  .cde-pt__badge svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
   .cde-pt__thumb--placeholder {
     display: flex;
     align-items: center;
@@ -335,6 +363,13 @@
     .cde-pt__grid { grid-template-columns: 1fr; gap: 20px; }
     .cde-pt__pagination { gap: 4px; }
     .cde-pt__page-btn { min-width: 36px; height: 36px; font-size: 0.8rem; }
+    .cde-pt__badge {
+      font-size: 0.55rem;
+      padding: 4px 8px;
+      top: 8px;
+      right: 8px;
+    }
+    .cde-pt__badge svg { width: 10px; height: 10px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -429,6 +464,7 @@
       html += '<article class="cde-pt__card">'
         + '<a class="cde-pt__thumb" href="' + post.link + '" target="_blank" rel="noopener">'
         + thumbHtml
+        + '<span class="cde-pt__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Parlamento de la Mujer</span>'
         + '</a>'
         + '<div class="cde-pt__body">'
         + '<h3 class="cde-pt__title"><a href="' + post.link + '" target="_blank" rel="noopener">' + post.title.rendered + '</a></h3>'
