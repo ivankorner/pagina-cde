@@ -25,8 +25,12 @@ These files are **not deployed directly**. Copy the file content and paste it in
 
 ### Color palette (CSS custom properties)
 
-- `--cde-blue` — Primary blue
-- `--cde-blue-dark` — Dark blue (footer background)
+- `--cde-blue` — Primary blue (`#1e3a5f`)
+- `--cde-blue-dark` — Dark blue (`#152c4a`)
+- `#2e4f7a` — Gradient start (light blue, footer + topbar)
+- `#0e2038` — Gradient end (night blue, footer + topbar)
+- Shared gradient: `linear-gradient(135deg, #2e4f7a 0%, var(--cde-blue) 45%, #0e2038 100%)` — must stay identical in `Header.html` (`.cde-topbar`) and `Footer.html` (`.cde-footer`)
+- Gold divider: footer `border-top: 3px solid var(--cde-gold)` / topbar `border-bottom: 2px solid var(--cde-gold)`
 - `--cde-gold` — Accent gold
 - `--cde-gold-light` — Hover gold accent
 - `--cde-white` — White text/backgrounds
@@ -61,6 +65,8 @@ These files are **not deployed directly**. Copy the file content and paste it in
 ### Sticky header (`Header.html`)
 
 - `position: fixed; top: 0` with `z-index: 1000`
+- Topbar uses the shared blue gradient + `border-bottom: 2px solid var(--cde-gold)`; `.cde-header` body stays white
+- Topbar hidden at 768px, so gradient detail is desktop/tablet only
 - Scroll detection adds `.cde-nav--scrolled` class for background change
 - Mobile menu: hamburger toggles `.cde-nav__menu--open`
 - Search: hidden on desktop ≤1100px; mobile search button inline-styled in mobile nav
@@ -68,6 +74,7 @@ These files are **not deployed directly**. Copy the file content and paste it in
 ### Fixed footer (`Footer.html`)
 
 - `position: fixed; bottom: 0` with `z-index: 100`
+- Background uses the shared blue gradient + `border-top: 3px solid var(--cde-gold)`
 - Dynamic spacer via `ResizeObserver` prevents content overlap
 - Container centered at `1280px`, background full-width
 - Footer HTML block must be placed **after** content blocks in WordPress
