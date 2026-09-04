@@ -233,7 +233,7 @@
     padding: 5px 10px;
     border-radius: 20px;
     white-space: nowrap;
-    line-height: 1;
+    
     transition: background var(--cde-pt-transition);
   }
   .cde-pt__link--badge:hover {
@@ -499,7 +499,7 @@
         + '<div class="cde-pt__body">'
         + '<h3 class="cde-pt__title"><a href="' + post.link + '" target="_blank" rel="noopener">' + post.title.rendered + '</a></h3>'
         + (excerpt ? '<p class="cde-pt__excerpt">' + excerpt + '</p>' : '')
-        + '<a class="cde-pt__link " href="' + post.link + '" target="_blank" rel="noopener">SABER MÁS <svg class="cde-pt__rose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>'
+        + '<a class="cde-pt__link--badge" href="' + post.link + '" target="_blank" rel="noopener">SABER MÁS <svg class="cde-pt__rose-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>'
         + '<div class="cde-pt__date"><svg class="cde-pt__calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>' + formatDate(post.date) + '</div>'
         + '</div>'
         + '</article>';
