@@ -222,6 +222,9 @@
   }
   .cde-pt__link--badge {
     display: inline-flex;
+    align-self: flex-start;
+    width: fit-content;
+    max-width: 100%;
     align-items: center;
     gap: 4px;
     background: rgba(198, 65, 145, 0.9);
@@ -257,7 +260,7 @@
   .cde-pt__date {
     font-size: 0.8rem;
     color: #C64191;
-    border-top: 1px solid var(--cde-pt-gray-200);
+    
     padding-top: 12px;
     display: flex;
     align-items: center;
@@ -530,7 +533,7 @@
 
     /* Anterior */
     html += '<button class="cde-pt__page-btn" data-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Página anterior">'
-      + '<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>'
+      + '<svg viewBox="0 0 24 24"><path d="M15.41 7.41L10 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>'
       + '</button>';
 
     /* Números de página */
