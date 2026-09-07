@@ -1,0 +1,1145 @@
+<!-- Home - Concejo Deliberante de Eldorado | Pegar en WordPress como bloque "HTML personalizado", DESPUES del bloque Header.html y ANTES del bloque Footer.html -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward,calendar_month,campaign,event,folder_open,gavel,input,local_pharmacy,phone_in_talk,policy,search,support_agent,tour" />
+
+<style>
+  .cde-home, .cde-home *, .cde-home *::before, .cde-home *::after { box-sizing: border-box; }
+
+  .cde-home {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #374151;
+    line-height: 1.6;
+    background: var(--cde-white, #ffffff);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .cde-home .cde-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  .cde-home img { display: block; max-width: 100%; }
+  .cde-home a { text-decoration: none; }
+
+  .cde-home :focus-visible {
+    outline: 2px solid var(--cde-gold, #c9a227);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .cde-home .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .cde-home__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 12px 26px;
+    border-radius: var(--cde-radius, 8px);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform var(--cde-transition, .3s ease), box-shadow var(--cde-transition, .3s ease),
+      background var(--cde-transition, .3s ease), border-color var(--cde-transition, .3s ease), color var(--cde-transition, .3s ease);
+  }
+
+  .cde-home__btn .material-symbols-outlined { font-size: 19px; }
+
+  .cde-home__btn--gold {
+    background: var(--cde-gold, #c9a227);
+    color: #16233a;
+    box-shadow: 0 6px 18px rgba(201,162,39,.35);
+  }
+  .cde-home__btn--gold:hover {
+    background: var(--cde-gold-light, #d4b445);
+    color: #16233a;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(201,162,39,.45);
+  }
+
+  .cde-home__btn--ghost {
+    border: 1.5px solid rgba(255,255,255,.45);
+    color: var(--cde-white, #ffffff);
+    background: rgba(255,255,255,.06);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .cde-home__btn--ghost:hover {
+    border-color: var(--cde-gold, #c9a227);
+    color: var(--cde-gold-light, #d4b445);
+    background: rgba(255,255,255,.12);
+    transform: translateY(-2px);
+  }
+
+  .cde-home__btn--navy {
+    border: 1.5px solid var(--cde-blue, #1e3a5f);
+    color: var(--cde-blue, #1e3a5f);
+    background: transparent;
+  }
+  .cde-home__btn--navy:hover {
+    background: var(--cde-blue, #1e3a5f);
+    color: var(--cde-white, #ffffff);
+    transform: translateY(-2px);
+    box-shadow: var(--cde-shadow-lg, 0 4px 20px rgba(0,0,0,.1));
+  }
+
+  .cde-home__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--cde-gray-600, #6c757d);
+  }
+  .cde-home__eyebrow-num { color: var(--cde-gold, #c9a227); font-weight: 800; }
+  .cde-home__eyebrow-rule {
+    flex: 1;
+    max-width: 90px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cde-gold, #c9a227), transparent);
+  }
+
+  .cde-home__title {
+    margin: 0 0 14px;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--cde-blue, #1e3a5f);
+  }
+
+  .cde-home__lead {
+    margin: 0;
+    max-width: 640px;
+    font-size: 1.02rem;
+    color: var(--cde-gray-600, #6c757d);
+  }
+
+  .cde-home__sec-head { margin-bottom: 44px; }
+
+  .cde-home--js .cde-home-reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1);
+    transition-delay: var(--rd, 0s);
+  }
+  .cde-home--js .cde-home-reveal.is-in { opacity: 1; transform: none; }
+
+  .cde-home__hero {
+    position: relative;
+    min-height: clamp(560px, 88vh, 820px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 3px solid var(--cde-gold, #c9a227);
+    background: var(--cde-blue-dark, #152c4a);
+  }
+
+  .cde-home__hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(90deg, rgba(14,32,56,.62) 0%, rgba(14,32,56,.18) 55%, rgba(14,32,56,.38) 100%),
+      linear-gradient(180deg, rgba(14,32,56,.72) 0%, rgba(21,44,74,.42) 45%, rgba(14,32,56,.9) 100%);
+  }
+
+  .cde-home__video {
+    position: absolute;
+    inset: 0 0 -3px 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .cde-home__video-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cde-home__video-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max(100%, 177.78vh);
+    height: max(100%, 56.25vw);
+    border: 0;
+  }
+
+  .cde-home__hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 120px 0 110px;
+    max-width: 780px;
+  }
+
+  .cde-home__live {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 18px;
+    margin-bottom: 26px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.22);
+    color: var(--cde-white, #ffffff);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color var(--cde-transition, .3s ease), color var(--cde-transition, .3s ease);
+  }
+  .cde-home__live:hover { border-color: var(--cde-gold, #c9a227); color: var(--cde-gold-light, #d4b445); }
+
+  .cde-home__live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e5484d;
+    animation: cdeHomePulse 2.2s infinite;
+  }
+
+  @keyframes cdeHomePulse {
+    0% { box-shadow: 0 0 0 0 rgba(229,72,77,.55); }
+    70% { box-shadow: 0 0 0 9px rgba(229,72,77,0); }
+    100% { box-shadow: 0 0 0 0 rgba(229,72,77,0); }
+  }
+
+  .cde-home__hero-title {
+    margin: 0 0 20px;
+    font-size: clamp(2.5rem, 5vw, 3.9rem);
+    font-weight: 800;
+    line-height: 1.07;
+    letter-spacing: -1px;
+    color: var(--cde-white, #ffffff);
+  }
+
+  .cde-home__hero-accent { color: var(--cde-gold-light, #d4b445); }
+
+  .cde-home__hero-lead {
+    margin: 0 0 34px;
+    max-width: 640px;
+    font-size: 1.06rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,.85);
+  }
+
+  .cde-home__hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .cde-home__hero-content > * { animation: cdeHomeFadeUp .85s cubic-bezier(.2,.6,.2,1) both; }
+  .cde-home__hero-content > *:nth-child(1) { animation-delay: .05s; }
+  .cde-home__hero-content > *:nth-child(2) { animation-delay: .16s; }
+  .cde-home__hero-content > *:nth-child(3) { animation-delay: .27s; }
+  .cde-home__hero-content > *:nth-child(4) { animation-delay: .4s; }
+
+  @keyframes cdeHomeFadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .cde-home__access {
+    padding: 84px 0;
+    background: var(--cde-gray-50, #f8f9fa);
+  }
+
+  .cde-home__access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .cde-home__access-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 340px;
+    padding: 26px;
+    border-radius: var(--cde-radius, 8px);
+    overflow: hidden;
+    box-shadow: var(--cde-shadow, 0 1px 3px rgba(0,0,0,.08));
+    transition: transform var(--cde-transition, .3s ease), box-shadow var(--cde-transition, .3s ease);
+  }
+  .cde-home__access-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--cde-shadow-lg, 0 4px 20px rgba(0,0,0,.1));
+  }
+
+  .cde-home__access-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.6,.2,1);
+  }
+  .cde-home__access-card:hover .cde-home__access-bg { transform: scale(1.05); }
+
+  .cde-home__access-veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(14,32,56,.12) 0%, rgba(14,32,56,.45) 55%, rgba(14,32,56,.85) 100%);
+    transition: background .6s ease;
+  }
+  .cde-home__access-card:hover .cde-home__access-veil {
+    background: linear-gradient(180deg, rgba(14,32,56,.22) 0%, rgba(14,32,56,.55) 55%, rgba(14,32,56,.92) 100%);
+  }
+
+  .cde-home__access-icon {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    background: var(--cde-gold, #c9a227);
+    color: #16233a;
+  }
+  .cde-home__access-icon .material-symbols-outlined { font-size: 27px; }
+
+  .cde-home__access-txt {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cde-home__access-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--cde-white, #ffffff);
+    margin-bottom: 6px;
+  }
+
+  .cde-home__access-desc {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,.82);
+    margin-bottom: 18px;
+  }
+
+  .cde-home__access-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--cde-gold-light, #d4b445);
+  }
+  .cde-home__access-cta .material-symbols-outlined { font-size: 17px; transition: transform var(--cde-transition, .3s ease); }
+  .cde-home__access-card:hover .cde-home__access-cta .material-symbols-outlined { transform: translateX(4px); }
+
+  .cde-home__pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .cde-home__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    background: var(--cde-white, #ffffff);
+    border: 1px solid var(--cde-gray-200, #e9ecef);
+    color: var(--cde-blue, #1e3a5f);
+    font-size: 0.92rem;
+    font-weight: 700;
+    box-shadow: var(--cde-shadow, 0 1px 3px rgba(0,0,0,.08));
+    transition: transform var(--cde-transition, .3s ease), border-color var(--cde-transition, .3s ease), box-shadow var(--cde-transition, .3s ease);
+  }
+  .cde-home__pill .material-symbols-outlined { font-size: 20px; color: var(--cde-gold, #c9a227); }
+  .cde-home__pill:hover {
+    transform: translateY(-2px);
+    border-color: var(--cde-gold, #c9a227);
+    box-shadow: var(--cde-shadow-lg, 0 4px 20px rgba(0,0,0,.1));
+  }
+
+  .cde-home__news {
+    padding: 84px 0;
+    background: var(--cde-white, #ffffff);
+    scroll-margin-top: 170px;
+  }
+
+  .cde-home__news-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 44px;
+  }
+  .cde-home__news-head .cde-home__sec-head { margin-bottom: 0; flex: 1; max-width: 720px; }
+
+  .cde-home__news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .cde-home__post {
+    display: flex;
+    flex-direction: column;
+    background: var(--cde-white, #ffffff);
+    border: 1px solid var(--cde-gray-200, #e9ecef);
+    border-radius: var(--cde-radius, 8px);
+    overflow: hidden;
+    box-shadow: var(--cde-shadow, 0 1px 3px rgba(0,0,0,.08));
+    transition: transform var(--cde-transition, .3s ease), box-shadow var(--cde-transition, .3s ease), border-color var(--cde-transition, .3s ease);
+  }
+  .cde-home__post:hover {
+    transform: translateY(-4px);
+    border-color: rgba(201,162,39,.45);
+    box-shadow: var(--cde-shadow-lg, 0 4px 20px rgba(0,0,0,.1));
+  }
+
+  .cde-home__post--featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.08fr 1fr; }
+
+  .cde-home__post-thumb {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+
+  .cde-home__post--featured .cde-home__post-thumb { min-height: 340px; }
+  .cde-home__post--small .cde-home__post-thumb { aspect-ratio: 16 / 10; }
+
+  .cde-home__post-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.6,.2,1);
+  }
+  .cde-home__post--featured .cde-home__post-thumb img { position: absolute; inset: 0; }
+  .cde-home__post:hover .cde-home__post-thumb img { transform: scale(1.06); }
+
+  .cde-home__chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .cde-home__chip--img {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    background: rgba(21,44,74,.88);
+    color: var(--cde-white, #ffffff);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .cde-home__chip--gold { background: var(--cde-gold, #c9a227); color: #16233a; }
+  .cde-home__chip--soft { background: var(--cde-gray-100, #f1f3f5); color: var(--cde-blue, #1e3a5f); }
+
+  .cde-home__post-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 22px 24px;
+  }
+  .cde-home__post--featured .cde-home__post-body { padding: 36px 40px; }
+
+  .cde-home__post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+  .cde-home__post-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cde-gray-600, #6c757d);
+    margin-bottom: 10px;
+  }
+  .cde-home__post-date .material-symbols-outlined { font-size: 17px; color: var(--cde-gold, #c9a227); }
+
+  .cde-home__post-title {
+    margin: 0 0 10px;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--cde-blue, #1e3a5f);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cde-home__post-title a { color: inherit; transition: color var(--cde-transition, .3s ease); }
+  .cde-home__post:hover .cde-home__post-title a { color: var(--cde-blue-dark, #152c4a); }
+
+  .cde-home__post--featured .cde-home__post-title {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    font-weight: 800;
+    -webkit-line-clamp: 4;
+  }
+
+  .cde-home__post-excerpt {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--cde-gray-600, #6c757d);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cde-home__post--featured .cde-home__post-excerpt { -webkit-line-clamp: 5; font-size: 1rem; }
+
+  .cde-home__post-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--cde-gray-100, #f1f3f5);
+  }
+
+  .cde-home__post-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--cde-blue, #1e3a5f);
+    transition: color var(--cde-transition, .3s ease);
+  }
+  .cde-home__post-more .material-symbols-outlined { font-size: 17px; transition: transform var(--cde-transition, .3s ease); }
+  .cde-home__post-more:hover { color: var(--cde-gold, #c9a227); }
+  .cde-home__post-more:hover .material-symbols-outlined { transform: translateX(4px); }
+
+  .cde-home__pharmacy {
+    padding: 64px 0 84px;
+    background: var(--cde-gray-50, #f8f9fa);
+  }
+
+  .cde-home__pharmacy-card {
+    display: block;
+    background: var(--cde-white, #ffffff);
+    border: 1px solid var(--cde-gray-200, #e9ecef);
+    border-radius: var(--cde-radius, 8px);
+    overflow: hidden;
+    box-shadow: var(--cde-shadow, 0 1px 3px rgba(0,0,0,.08));
+    transition: transform var(--cde-transition, .3s ease), box-shadow var(--cde-transition, .3s ease);
+  }
+  .cde-home__pharmacy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--cde-shadow-lg, 0 4px 20px rgba(0,0,0,.1));
+  }
+
+  .cde-home__pharmacy-imgwrap { display: block; overflow: hidden; }
+  .cde-home__pharmacy-imgwrap img { width: 100%; height: auto; transition: transform .6s cubic-bezier(.2,.6,.2,1); }
+  .cde-home__pharmacy-card:hover .cde-home__pharmacy-imgwrap img { transform: scale(1.02); }
+
+  .cde-home__pharmacy-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    background: var(--cde-blue, #1e3a5f);
+    color: var(--cde-white, #ffffff);
+  }
+
+  .cde-home__pharmacy-ic {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.12);
+  }
+  .cde-home__pharmacy-ic .material-symbols-outlined { font-size: 24px; color: var(--cde-gold-light, #d4b445); }
+
+  .cde-home__pharmacy-txt { display: flex; flex-direction: column; }
+
+  .cde-home__pharmacy-txt strong {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--cde-white, #ffffff);
+  }
+  .cde-home__pharmacy-txt em {
+    font-style: normal;
+    font-size: 0.87rem;
+    color: rgba(255,255,255,.72);
+  }
+
+  .cde-home__pharmacy-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--cde-gold-light, #d4b445);
+  }
+  .cde-home__pharmacy-cta .material-symbols-outlined { font-size: 17px; transition: transform var(--cde-transition, .3s ease); }
+  .cde-home__pharmacy-card:hover .cde-home__pharmacy-cta .material-symbols-outlined { transform: translateX(4px); }
+
+  .cde-home__services {
+    padding: 84px 0 96px;
+    background: linear-gradient(135deg, #2e4f7a 0%, var(--cde-blue, #1e3a5f) 45%, #0e2038 100%);
+    border-top: 2px solid var(--cde-gold, #c9a227);
+  }
+
+  .cde-home__services .cde-home__eyebrow { color: rgba(255,255,255,.75); }
+  .cde-home__services .cde-home__eyebrow-rule { background: linear-gradient(90deg, rgba(255,255,255,.4), transparent); }
+  .cde-home__services .cde-home__title { color: var(--cde-white, #ffffff); }
+  .cde-home__services .cde-home__lead { color: rgba(255,255,255,.75); }
+
+  .cde-home__services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .cde-home__service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 280px;
+    padding: 24px;
+    border-radius: var(--cde-radius, 8px);
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(14,32,56,.25);
+    transition: transform var(--cde-transition, .3s ease), box-shadow var(--cde-transition, .3s ease);
+  }
+  .cde-home__service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 0 2px var(--cde-gold, #c9a227), 0 12px 30px rgba(14,32,56,.4);
+  }
+
+  .cde-home__service-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.6,.2,1);
+  }
+  .cde-home__service-card:hover .cde-home__service-bg { transform: scale(1.06); }
+
+  .cde-home__service-veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(14,32,56,.15) 0%, rgba(14,32,56,.5) 55%, rgba(14,32,56,.9) 100%);
+  }
+
+  .cde-home__service-icon {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    background: var(--cde-gold, #c9a227);
+    color: #16233a;
+  }
+  .cde-home__service-icon .material-symbols-outlined { font-size: 25px; }
+
+  .cde-home__service-title {
+    position: relative;
+    z-index: 2;
+    margin: 0 0 12px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--cde-white, #ffffff);
+  }
+
+  .cde-home__service-cta {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 13px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--cde-gold-light, #d4b445);
+  }
+  .cde-home__service-cta .material-symbols-outlined { font-size: 17px; transition: transform var(--cde-transition, .3s ease); }
+  .cde-home__service-card:hover .cde-home__service-cta .material-symbols-outlined { transform: translateX(4px); }
+
+  @media (max-width: 1100px) {
+    .cde-home__services-grid { grid-template-columns: repeat(2, 1fr); }
+    .cde-home__news { scroll-margin-top: 120px; }
+  }
+
+  @media (max-width: 900px) {
+    .cde-home__post--featured { grid-template-columns: 1fr; }
+    .cde-home__post--featured .cde-home__post-thumb { min-height: 0; aspect-ratio: 16 / 9; }
+    .cde-home__post--featured .cde-home__post-body { padding: 26px 24px; }
+  }
+
+  @media (max-width: 768px) {
+    .cde-home__hero-content { padding: 90px 0 84px; }
+    .cde-home__access { padding: 64px 0; }
+    .cde-home__news { padding: 64px 0; }
+    .cde-home__pharmacy { padding: 48px 0 64px; }
+    .cde-home__services { padding: 64px 0 76px; }
+    .cde-home__access-grid { grid-template-columns: 1fr; }
+    .cde-home__access-card { min-height: 300px; }
+    .cde-home__news-head { flex-direction: column; align-items: flex-start; }
+    .cde-home__sec-head { margin-bottom: 36px; }
+    .cde-home__news { scroll-margin-top: 110px; }
+  }
+
+  @media (max-width: 640px) {
+    .cde-home__services-grid { grid-template-columns: 1fr; }
+    .cde-home__service-card { min-height: 240px; }
+    .cde-home__news-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .cde-home__hero-ctas .cde-home__btn { width: 100%; }
+    .cde-home__pharmacy-bar { flex-wrap: wrap; }
+    .cde-home__pharmacy-cta { margin-left: 0; width: 100%; justify-content: flex-end; padding-top: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cde-home__video-frame { display: none; }
+    .cde-home__hero-content > * { animation: none !important; }
+    .cde-home__live-dot { animation: none !important; }
+    .cde-home--js .cde-home-reveal { opacity: 1; transform: none; transition: none; }
+    .cde-home__access-bg, .cde-home__post-thumb img, .cde-home__service-bg,
+    .cde-home__pharmacy-imgwrap img { transition: none !important; }
+  }
+</style>
+
+<div class="cde-home" id="cde-home">
+
+  <section class="cde-home__hero" aria-label="Concejo Deliberante de Eldorado">
+    <div class="cde-home__video" aria-hidden="true">
+      <img class="cde-home__video-poster" src="https://cdeldorado.gob.ar/wp-content/uploads/2026/09/788765200_1047124808094721_7851020151499331058_n.jpg" alt="" decoding="async">
+      <iframe class="cde-home__video-frame" src="https://www.youtube.com/embed/AdSD90T0yxo?autoplay=1&amp;mute=1&amp;controls=0&amp;rel=0&amp;playsinline=1&amp;loop=1&amp;playlist=AdSD90T0yxo&amp;modestbranding=1&amp;iv_load_policy=3&amp;disablekb=1&amp;fs=0" title="Video institucional del Concejo Deliberante de Eldorado" tabindex="-1" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <div class="cde-container">
+      <div class="cde-home__hero-content">
+        <a class="cde-home__live" href="https://www.youtube.com/channel/UCyFOyHySEdYcSwOQkpgOxrg" target="_blank" rel="noopener">
+          <span class="cde-home__live-dot" aria-hidden="true"></span>
+          Sesiones en vivo · Martes
+        </a>
+        <h1 class="cde-home__hero-title">Concejo Deliberante de <span class="cde-home__hero-accent">Eldorado</span></h1>
+        <p class="cde-home__hero-lead">El cuerpo legislativo de la Ciudad de Eldorado, Misiones. Representamos a los vecinos, elaboramos las normas que ordenan la ciudad y controlamos la gestión del Gobierno Municipal, con transparencia y compromiso.</p>
+        <div class="cde-home__hero-ctas">
+          <a class="cde-home__btn cde-home__btn--gold" href="#cde-home-novedades">Ver novedades<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          <a class="cde-home__btn cde-home__btn--ghost" href="https://expedientescde.online/" target="_blank" rel="noopener">Seguimiento de expedientes<span class="material-symbols-outlined" aria-hidden="true">folder_open</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cde-home__access" aria-labelledby="cde-home-access-title">
+    <div class="cde-container">
+      <header class="cde-home__sec-head cde-home-reveal">
+        <p class="cde-home__eyebrow"><span class="cde-home__eyebrow-num">01</span>Servicios en línea<span class="cde-home__eyebrow-rule" aria-hidden="true"></span></p>
+        <h2 class="cde-home__title" id="cde-home-access-title">Trámites y herramientas digitales</h2>
+        <p class="cde-home__lead">Acceda online a los servicios del Concejo Deliberante desde cualquier dispositivo, en cualquier momento.</p>
+      </header>
+
+      <div class="cde-home__access-grid">
+        <a class="cde-home__access-card cde-home-reveal" style="--rd:.05s" href="https://wa.me/5493751237969" target="_blank" rel="noopener">
+          <img class="cde-home__access-bg" src="https://cdeldorado.gob.ar/wp-content/uploads/2025/11/2148237245.jpg" alt="" loading="lazy" decoding="async">
+          <span class="cde-home__access-veil" aria-hidden="true"></span>
+          <span class="cde-home__access-icon"><span class="material-symbols-outlined" aria-hidden="true">support_agent</span></span>
+          <span class="cde-home__access-txt">
+            <span class="cde-home__access-title">Secretaria Parlamentaria</span>
+            <span class="cde-home__access-desc">Consulte el estado de sus expedientes</span>
+            <span class="cde-home__access-cta">Comuníquese con nosotros<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+          </span>
+        </a>
+
+        <a class="cde-home__access-card cde-home-reveal" style="--rd:.15s" href="https://instrumentos.online/" target="_blank" rel="noopener">
+          <img class="cde-home__access-bg" src="https://cdeldorado.gob.ar/wp-content/uploads/2025/11/martillo-en-el-libro-de-leyes-scaled.jpg" alt="" loading="lazy" decoding="async">
+          <span class="cde-home__access-veil" aria-hidden="true"></span>
+          <span class="cde-home__access-icon"><span class="material-symbols-outlined" aria-hidden="true">search</span></span>
+          <span class="cde-home__access-txt">
+            <span class="cde-home__access-title">Buscador de Instrumentos</span>
+            <span class="cde-home__access-desc">Explore ordenanzas, resoluciones y declaraciones del cuerpo</span>
+            <span class="cde-home__access-cta">Acceder al buscador<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+          </span>
+        </a>
+
+        <a class="cde-home__access-card cde-home-reveal" style="--rd:.25s" href="https://expedientescde.online/" target="_blank" rel="noopener">
+          <img class="cde-home__access-bg" src="https://cdeldorado.gob.ar/wp-content/uploads/2025/11/Expedientes-3.png" alt="" loading="lazy" decoding="async">
+          <span class="cde-home__access-veil" aria-hidden="true"></span>
+          <span class="cde-home__access-icon"><span class="material-symbols-outlined" aria-hidden="true">folder_open</span></span>
+          <span class="cde-home__access-txt">
+            <span class="cde-home__access-title">Seguimiento de Expedientes</span>
+            <span class="cde-home__access-desc">Consulte online el estado y la trayectoria de los expedientes</span>
+            <span class="cde-home__access-cta">Consultar expedientes<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+          </span>
+        </a>
+      </div>
+
+      <div class="cde-home__pills cde-home-reveal">
+        <a class="cde-home__pill" href="https://cdeldorado.gob.ar/digesto/"><span class="material-symbols-outlined" aria-hidden="true">gavel</span>Digesto Jurídico Municipal</a>
+        <a class="cde-home__pill" href="https://appcde.online/audiencias/public/"><span class="material-symbols-outlined" aria-hidden="true">campaign</span>Audiencias Públicas</a>
+        <a class="cde-home__pill" href="https://appcde.online/eventos/public/"><span class="material-symbols-outlined" aria-hidden="true">event</span>Eventos</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cde-home__news" id="cde-home-novedades" aria-labelledby="cde-home-news-title">
+    <div class="cde-container">
+      <div class="cde-home__news-head cde-home-reveal">
+        <header class="cde-home__sec-head">
+          <p class="cde-home__eyebrow"><span class="cde-home__eyebrow-num">02</span>Prensa y comunicación<span class="cde-home__eyebrow-rule" aria-hidden="true"></span></p>
+          <h2 class="cde-home__title" id="cde-home-news-title">Novedades</h2>
+          <p class="cde-home__lead">Sesiones ordinarias, audiencias públicas y toda la actividad legislativa del cuerpo.</p>
+        </header>
+        <a class="cde-home__btn cde-home__btn--navy" href="https://cdeldorado.gob.ar/novedades/">Más novedades<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+      </div>
+
+      <div class="cde-home__news-grid" id="cdeHomeNewsGrid">
+        <article class="cde-home__post cde-home__post--featured cde-home-reveal">
+          <a class="cde-home__post-thumb" href="https://cdeldorado.gob.ar/2026/09/01/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-cuarta-sesion-ordinaria-del-periodo-legislativo-2-026/" tabindex="-1" aria-hidden="true">
+            <img src="https://cdeldorado.gob.ar/wp-content/uploads/2026/09/788765200_1047124808094721_7851020151499331058_n.jpg" alt="" loading="lazy" decoding="async">
+          </a>
+          <div class="cde-home__post-body">
+            <div class="cde-home__post-tags">
+              <span class="cde-home__chip cde-home__chip--gold">Más reciente</span>
+              <span class="cde-home__chip cde-home__chip--soft">Novedades</span>
+            </div>
+            <h3 class="cde-home__post-title"><a href="https://cdeldorado.gob.ar/2026/09/01/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-cuarta-sesion-ordinaria-del-periodo-legislativo-2-026/">EL CONCEJO DELIBERANTE DE ELDORADO REALIZÓ LA VIGÉSIMA CUARTA SESIÓN ORDINARIA DEL PERÍODO LEGISLATIVO 2.026</a></h3>
+            <p class="cde-home__post-excerpt">El Concejo Deliberante de la Ciudad de Eldorado llevó a cabo este martes 01 de septiembre la Vigésima Cuarta Sesión Ordinaria del Período Legislativo 2026. El encuentro, que tuvo lugar en la Sala de Sesiones del cuerpo y fue registrado bajo el Acta Nº 2.171.</p>
+            <div class="cde-home__post-foot">
+              <span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>1 de septiembre de 2026</span>
+              <a class="cde-home__post-more" href="https://cdeldorado.gob.ar/2026/09/01/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-cuarta-sesion-ordinaria-del-periodo-legislativo-2-026/">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="cde-home__post cde-home__post--small cde-home-reveal" style="--rd:.05s">
+          <a class="cde-home__post-thumb" href="https://cdeldorado.gob.ar/2026/08/26/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-tercera-sesion-ordinaria-del-periodo-legislativo-2-026/" tabindex="-1" aria-hidden="true">
+            <span class="cde-home__chip cde-home__chip--img">Novedades</span>
+            <img src="https://cdeldorado.gob.ar/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-25-at-12.48.16-PM.jpeg" alt="" loading="lazy" decoding="async">
+          </a>
+          <div class="cde-home__post-body">
+            <span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>26 de agosto de 2026</span>
+            <h3 class="cde-home__post-title"><a href="https://cdeldorado.gob.ar/2026/08/26/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-tercera-sesion-ordinaria-del-periodo-legislativo-2-026/">EL CONCEJO DELIBERANTE DE ELDORADO REALIZÓ LA VIGÉSIMA TERCERA SESIÓN ORDINARIA DEL PERÍODO LEGISLATIVO 2.026</a></h3>
+            <p class="cde-home__post-excerpt">El Concejo Deliberante de la Ciudad de Eldorado llevó a cabo este martes 25 de agosto la Vigésima Tercera Sesión Ordinaria del Período Legislativo 2026, registrada bajo el Acta Nº 2.170.</p>
+            <a class="cde-home__post-more" href="https://cdeldorado.gob.ar/2026/08/26/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-tercera-sesion-ordinaria-del-periodo-legislativo-2-026/">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+        </article>
+
+        <article class="cde-home__post cde-home__post--small cde-home-reveal" style="--rd:.1s">
+          <a class="cde-home__post-thumb" href="https://cdeldorado.gob.ar/2026/08/18/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-segunda-sesion-ordinaria-del-periodo-legislativo-2-026/" tabindex="-1" aria-hidden="true">
+            <span class="cde-home__chip cde-home__chip--img">Novedades</span>
+            <img src="https://cdeldorado.gob.ar/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-18-at-11.09.02-3.jpeg" alt="" loading="lazy" decoding="async">
+          </a>
+          <div class="cde-home__post-body">
+            <span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>18 de agosto de 2026</span>
+            <h3 class="cde-home__post-title"><a href="https://cdeldorado.gob.ar/2026/08/18/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-segunda-sesion-ordinaria-del-periodo-legislativo-2-026/">EL CONCEJO DELIBERANTE DE ELDORADO REALIZÓ LA VIGÉSIMA SEGUNDA SESIÓN ORDINARIA DEL PERÍODO LEGISLATIVO 2.026</a></h3>
+            <p class="cde-home__post-excerpt">El Concejo Deliberante de la Ciudad de Eldorado llevó a cabo este martes 18 de agosto la Vigésima Segunda Sesión Ordinaria del Período Legislativo 2026, registrada bajo el Acta Nº 2.169.</p>
+            <a class="cde-home__post-more" href="https://cdeldorado.gob.ar/2026/08/18/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-segunda-sesion-ordinaria-del-periodo-legislativo-2-026/">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+        </article>
+
+        <article class="cde-home__post cde-home__post--small cde-home-reveal" style="--rd:.15s">
+          <a class="cde-home__post-thumb" href="https://cdeldorado.gob.ar/2026/08/11/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-primera-sesion-ordinaria-del-periodo-legislativo-2-026/" tabindex="-1" aria-hidden="true">
+            <span class="cde-home__chip cde-home__chip--img">Novedades</span>
+            <img src="https://cdeldorado.gob.ar/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-12-at-07.11.31-1.jpeg" alt="" loading="lazy" decoding="async">
+          </a>
+          <div class="cde-home__post-body">
+            <span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>11 de agosto de 2026</span>
+            <h3 class="cde-home__post-title"><a href="https://cdeldorado.gob.ar/2026/08/11/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-primera-sesion-ordinaria-del-periodo-legislativo-2-026/">EL CONCEJO DELIBERANTE DE ELDORADO REALIZÓ LA VIGÉSIMA PRIMERA SESIÓN ORDINARIA DEL PERÍODO LEGISLATIVO 2.026</a></h3>
+            <p class="cde-home__post-excerpt">El Concejo Deliberante de la Ciudad de Eldorado llevó a cabo este martes 11 de agosto la Vigésima Primera Sesión Ordinaria del Período Legislativo 2026, registrada bajo el Acta Nº 2.168.</p>
+            <a class="cde-home__post-more" href="https://cdeldorado.gob.ar/2026/08/11/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-primera-sesion-ordinaria-del-periodo-legislativo-2-026/">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+        </article>
+
+        <article class="cde-home__post cde-home__post--small cde-home-reveal" style="--rd:.2s">
+          <a class="cde-home__post-thumb" href="https://cdeldorado.gob.ar/2026/08/05/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-sesion-ordinaria-del-periodo-legislativo-2-026/" tabindex="-1" aria-hidden="true">
+            <span class="cde-home__chip cde-home__chip--img">Novedades</span>
+            <img src="https://cdeldorado.gob.ar/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-05-at-07.20.02-1.jpeg" alt="" loading="lazy" decoding="async">
+          </a>
+          <div class="cde-home__post-body">
+            <span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>5 de agosto de 2026</span>
+            <h3 class="cde-home__post-title"><a href="https://cdeldorado.gob.ar/2026/08/05/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-sesion-ordinaria-del-periodo-legislativo-2-026/">EL CONCEJO DELIBERANTE DE ELDORADO REALIZÓ LA VIGÉSIMA SESIÓN ORDINARIA DEL PERÍODO LEGISLATIVO 2.026</a></h3>
+            <p class="cde-home__post-excerpt">El Concejo Deliberante de la Ciudad de Eldorado llevó a cabo este martes 04 de agosto la Vigésima Sesión Ordinaria del Período Legislativo 2026, registrada bajo el Acta Nº 2.167.</p>
+            <a class="cde-home__post-more" href="https://cdeldorado.gob.ar/2026/08/05/el-concejo-deliberante-de-eldorado-realizo-la-vigesima-sesion-ordinaria-del-periodo-legislativo-2-026/">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+        </article>
+
+        <article class="cde-home__post cde-home__post--small cde-home-reveal" style="--rd:.25s">
+          <a class="cde-home__post-thumb" href="https://cdeldorado.gob.ar/2026/07/30/se-realizo-la-audiencia-publica-por-solicitud-de-excepcion-a-las-tasas-por-mejoras/" tabindex="-1" aria-hidden="true">
+            <span class="cde-home__chip cde-home__chip--img">Novedades</span>
+            <img src="https://cdeldorado.gob.ar/wp-content/uploads/2026/07/WhatsApp-Image-2026-07-30-at-07.50.23.jpeg" alt="" loading="lazy" decoding="async">
+          </a>
+          <div class="cde-home__post-body">
+            <span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>30 de julio de 2026</span>
+            <h3 class="cde-home__post-title"><a href="https://cdeldorado.gob.ar/2026/07/30/se-realizo-la-audiencia-publica-por-solicitud-de-excepcion-a-las-tasas-por-mejoras/">SE REALIZÓ LA AUDIENCIA PÚBLICA POR SOLICITUD DE EXCEPCIÓN A LAS TASAS POR MEJORAS</a></h3>
+            <p class="cde-home__post-excerpt">En la Sala de Sesiones del Concejo Deliberante se llevó adelante la Audiencia Pública convocada para tratar la solicitud de excepción al pago total de las Tasas por Mejoras.</p>
+            <a class="cde-home__post-more" href="https://cdeldorado.gob.ar/2026/07/30/se-realizo-la-audiencia-publica-por-solicitud-de-excepcion-a-las-tasas-por-mejoras/">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="cde-home__pharmacy" aria-labelledby="cde-home-pharmacy-title">
+    <div class="cde-container">
+      <a class="cde-home__pharmacy-card cde-home-reveal" href="https://cdeldorado.gob.ar/farmacias-de-turno/">
+        <span class="cde-home__pharmacy-imgwrap">
+          <img src="https://cdeldorado.gob.ar/wp-content/uploads/2023/12/farm-1.png" alt="Farmacias de turno de la Ciudad de Eldorado" loading="lazy" decoding="async">
+        </span>
+        <span class="cde-home__pharmacy-bar">
+          <span class="cde-home__pharmacy-ic"><span class="material-symbols-outlined" aria-hidden="true">local_pharmacy</span></span>
+          <span class="cde-home__pharmacy-txt">
+            <strong id="cde-home-pharmacy-title">Farmacias de Turno</strong>
+            <em>Listado semanal de farmacias de la ciudad</em>
+          </span>
+          <span class="cde-home__pharmacy-cta">Ver más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cde-home__services" aria-labelledby="cde-home-services-title">
+    <div class="cde-container">
+      <header class="cde-home__sec-head cde-home-reveal">
+        <p class="cde-home__eyebrow"><span class="cde-home__eyebrow-num">03</span>Guía del vecino<span class="cde-home__eyebrow-rule" aria-hidden="true"></span></p>
+        <h2 class="cde-home__title" id="cde-home-services-title">Servicios al ciudadano</h2>
+        <p class="cde-home__lead">Trámites, atención y herramientas para la comunidad de Eldorado.</p>
+      </header>
+
+      <div class="cde-home__services-grid">
+        <a class="cde-home__service-card cde-home-reveal" style="--rd:.05s" href="https://cdeldorado.gob.ar/telefonos-utiles/">
+          <img class="cde-home__service-bg" src="https://cdeldorado.gob.ar/wp-content/uploads/2023/12/llamada-telefonica-celular.jpg" alt="" loading="lazy" decoding="async">
+          <span class="cde-home__service-veil" aria-hidden="true"></span>
+          <span class="cde-home__service-icon"><span class="material-symbols-outlined" aria-hidden="true">phone_in_talk</span></span>
+          <h3 class="cde-home__service-title">Teléfonos Útiles</h3>
+          <span class="cde-home__service-cta">Más información<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+
+        <a class="cde-home__service-card cde-home-reveal" style="--rd:.15s" href="https://cdeldorado.gob.ar/visitas-guiadas/">
+          <img class="cde-home__service-bg" src="https://cdeldorado.gob.ar/wp-content/uploads/2023/12/Slider3.png" alt="" loading="lazy" decoding="async">
+          <span class="cde-home__service-veil" aria-hidden="true"></span>
+          <span class="cde-home__service-icon"><span class="material-symbols-outlined" aria-hidden="true">tour</span></span>
+          <h3 class="cde-home__service-title">Visitas Guiadas</h3>
+          <span class="cde-home__service-cta">Más información<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+
+        <a class="cde-home__service-card cde-home-reveal" style="--rd:.25s" href="https://cdeldorado.gob.ar/mesa-de-entrada/">
+          <img class="cde-home__service-bg" src="https://cdeldorado.gob.ar/wp-content/uploads/2024/08/mesa-de-entrada.png" alt="" loading="lazy" decoding="async">
+          <span class="cde-home__service-veil" aria-hidden="true"></span>
+          <span class="cde-home__service-icon"><span class="material-symbols-outlined" aria-hidden="true">input</span></span>
+          <h3 class="cde-home__service-title">Mesa de Entrada</h3>
+          <span class="cde-home__service-cta">Más información<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+
+        <a class="cde-home__service-card cde-home-reveal" style="--rd:.35s" href="https://cdeldorado.gob.ar/defensa-del-consumidor/">
+          <img class="cde-home__service-bg" src="https://cdeldorado.gob.ar/wp-content/uploads/2023/12/persona-primer-plano-firmando-certificado-scaled.jpg" alt="" loading="lazy" decoding="async">
+          <span class="cde-home__service-veil" aria-hidden="true"></span>
+          <span class="cde-home__service-icon"><span class="material-symbols-outlined" aria-hidden="true">policy</span></span>
+          <h3 class="cde-home__service-title">Defensa del Consumidor</h3>
+          <span class="cde-home__service-cta">Más información<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    'use strict';
+
+    var API_URL = 'https://cdeldorado.gob.ar/wp-json/wp/v2/posts?categories=1&per_page=6&orderby=date&order=desc&_embed=wp:featuredmedia';
+    var FALLBACK_IMG = 'https://cdeldorado.gob.ar/wp-content/uploads/2026/09/788765200_1047124808094721_7851020151499331058_n.jpg';
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function esc(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function stripHtml(html) {
+      var el = document.createElement('div');
+      el.innerHTML = html || '';
+      return (el.textContent || '').replace(/\s*\[\.\.\.\]\s*$/, '').replace(/\s+/g, ' ').trim();
+    }
+
+    function fmtDate(iso) {
+      try {
+        return new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso));
+      } catch (e) {
+        return String(iso || '').slice(0, 10);
+      }
+    }
+
+    function truncate(text, max) {
+      if (text.length <= max) return text;
+      var cut = text.slice(0, max);
+      cut = cut.slice(0, Math.max(cut.lastIndexOf(' '), 0));
+      return cut + '…';
+    }
+
+    function featuredImage(post) {
+      var media = post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0];
+      if (!media) return FALLBACK_IMG;
+      var sizes = media.media_details && media.media_details.sizes;
+      var pick = sizes && (sizes.medium_large || sizes.large || sizes.medium);
+      return (pick && pick.source_url) || media.source_url || FALLBACK_IMG;
+    }
+
+    function cleanTitle(post) {
+      return stripHtml(post.title && post.title.rendered);
+    }
+
+    function cleanExcerpt(post) {
+      var text = stripHtml(post.excerpt && post.excerpt.rendered);
+      return text || 'Lea la nota completa en el sitio oficial del Concejo Deliberante de Eldorado.';
+    }
+
+    function cardDate(iso) {
+      return '<span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>' + esc(fmtDate(iso)) + '</span>';
+    }
+
+    function moreLink(href) {
+      return '<a class="cde-home__post-more" href="' + esc(href) + '">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>';
+    }
+
+    function featuredCard(post) {
+      var link = esc(post.link);
+      var title = esc(cleanTitle(post));
+      return '<article class="cde-home__post cde-home__post--featured cde-home-reveal">' +
+        '<a class="cde-home__post-thumb" href="' + link + '" tabindex="-1" aria-hidden="true">' +
+        '<img src="' + esc(featuredImage(post)) + '" alt="' + title + '" loading="lazy" decoding="async"></a>' +
+        '<div class="cde-home__post-body">' +
+        '<div class="cde-home__post-tags">' +
+        '<span class="cde-home__chip cde-home__chip--gold">Más reciente</span>' +
+        '<span class="cde-home__chip cde-home__chip--soft">Novedades</span></div>' +
+        '<h3 class="cde-home__post-title"><a href="' + link + '">' + title + '</a></h3>' +
+        '<p class="cde-home__post-excerpt">' + esc(cleanExcerpt(post)) + '</p>' +
+        '<div class="cde-home__post-foot">' + cardDate(post.date) + moreLink(post.link) + '</div>' +
+        '</div></article>';
+    }
+
+    function smallCard(post, delay) {
+      var link = esc(post.link);
+      var title = esc(cleanTitle(post));
+      return '<article class="cde-home__post cde-home__post--small cde-home-reveal" style="--rd:' + delay + 's">' +
+        '<a class="cde-home__post-thumb" href="' + link + '" tabindex="-1" aria-hidden="true">' +
+        '<span class="cde-home__chip cde-home__chip--img">Novedades</span>' +
+        '<img src="' + esc(featuredImage(post)) + '" alt="' + title + '" loading="lazy" decoding="async"></a>' +
+        '<div class="cde-home__post-body">' +
+        cardDate(post.date) +
+        '<h3 class="cde-home__post-title"><a href="' + link + '">' + title + '</a></h3>' +
+        '<p class="cde-home__post-excerpt">' + esc(truncate(cleanExcerpt(post), 150)) + '</p>' +
+        moreLink(post.link) +
+        '</div></article>';
+    }
+
+    var observer = null;
+
+    function watchReveal(scope) {
+      var els = (scope || document).querySelectorAll('.cde-home-reveal:not(.is-in)');
+      if (!els.length) return;
+      if (!reduceMotion && 'IntersectionObserver' in window) {
+        if (!observer) {
+          observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -36px 0px' });
+        }
+        Array.prototype.forEach.call(els, function (el) { observer.observe(el); });
+      } else {
+        Array.prototype.forEach.call(els, function (el) { el.classList.add('is-in'); });
+      }
+    }
+
+    function renderNews(posts) {
+      var grid = document.getElementById('cdeHomeNewsGrid');
+      if (!grid) return;
+      var html = featuredCard(posts[0]);
+      for (var i = 1; i < posts.length; i++) {
+        html += smallCard(posts[i], Math.min(0.05 * i, 0.25));
+      }
+      grid.innerHTML = html;
+      watchReveal(grid);
+    }
+
+    function loadNews() {
+      if (!window.fetch || !document.getElementById('cdeHomeNewsGrid')) return;
+      fetch(API_URL)
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .then(function (posts) {
+          if (Array.isArray(posts) && posts.length) renderNews(posts);
+        })
+        .catch(function () {});
+    }
+
+    function initSmoothScroll(root) {
+      var link = root.querySelector('a[href="#cde-home-novedades"]');
+      var target = document.getElementById('cde-home-novedades');
+      if (!link || !target) return;
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+
+    function init() {
+      var root = document.getElementById('cde-home');
+      if (!root) return;
+      root.classList.add('cde-home--js');
+      watchReveal(root);
+      initSmoothScroll(root);
+      loadNews();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
