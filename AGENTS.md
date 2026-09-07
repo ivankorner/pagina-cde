@@ -41,6 +41,14 @@ These files are **not deployed directly**. Copy the file content and paste it in
 - Font: Plus Jakarta Sans (loaded via Google Fonts via `Header.html`)
 - All typography inherits from header CSS variables
 
+### Icons
+
+- All icons must come from **Material Symbols** (Google Fonts) — no inline SVG, no other icon libraries
+- Use `<span class="material-symbols-outlined">icon_name</span>` (the icon name is the text node)
+- Add the Material Symbols `<link rel="stylesheet">` (from `fonts.googleapis.com`) to each block that uses icons, and list only the `icon_names` actually used
+- Configure with CSS: `font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20` and size via `font-size` (not `width`/`height`)
+- Every block must use the exact same source (Material Symbols) for consistency
+
 ### Spacing & layout
 
 - Container max-width: `1280px` (`.cde-container`)
