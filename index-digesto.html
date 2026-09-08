@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digesto Municipal — Ciudad de Eldorado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:        #2563eb;
+      --blue-dark:   #1d4ed8;
+      --blue-light:  #eff6ff;
+      --blue-mid:    #dbeafe;
+      --cyan:        #0ea5e9;
+      --indigo:      #6366f1;
+      --dark:        #0f172a;
+      --mid:         #334155;
+      --muted:       #64748b;
+      --light:       #f1f5f9;
+      --white:       #ffffff;
+      --border:      #e2e8f0;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:   0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+      --shadow-lg:   0 20px 48px rgba(0,0,0,.1), 0 8px 20px rgba(0,0,0,.06);
+      --shadow-blue: 0 8px 32px rgba(37,99,235,.2);
+      --radius-sm:   8px;
+      --radius-md:   14px;
+      --radius-lg:   24px;
+      --radius-xl:   32px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--dark);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1rem, 3vw, 2.5rem);
+      height: 64px;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: var(--shadow-md); }
+
+    .nav-toggle {
+      display: none;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      width: 40px; height: 40px;
+      cursor: pointer;
+      align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 18px; height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-left { display: flex; align-items: center; gap: .8rem; }
+    .nav-badge {
+      background: var(--blue);
+      color: white;
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      font-size: .8rem;
+      letter-spacing: -.01em;
+      flex-shrink: 0;
+    }
+    .nav-name {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--dark);
+      letter-spacing: -.02em;
+    }
+    .nav-name span { color: var(--blue); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: .25rem;
+    }
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .84rem;
+      font-weight: 500;
+      padding: .45rem .9rem;
+      border-radius: var(--radius-sm);
+      transition: background .15s, color .15s;
+    }
+    nav ul a:hover { background: var(--light); color: var(--dark); }
+
+    .nav-cta {
+      background: var(--blue);
+      color: white !important;
+      padding: .5rem 1.1rem !important;
+      border-radius: var(--radius-sm) !important;
+      font-weight: 600 !important;
+      transition: background .15s, transform .1s !important;
+    }
+    .nav-cta:hover { background: var(--blue-dark) !important; transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: clamp(5.5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(2.5rem, 6vw, 4rem);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, #f0f7ff 0%, #fafcff 40%, #fff 100%);
+    }
+
+    /* Mesh gradient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .blob-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%);
+      top: -150px; left: -100px;
+    }
+    .blob-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(14,165,233,.1) 0%, transparent 70%);
+      top: 0; right: -80px;
+    }
+    .blob-3 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(99,102,241,.07) 0%, transparent 70%);
+      bottom: -100px; left: 40%;
+    }
+
+    /* grid dots */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(37,99,235,.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      border: 1px solid var(--blue-mid);
+      padding: .35rem 1rem;
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp .6s .1s forwards;
+    }
+    .hero-pill .dot {
+      width: 6px; height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -.03em;
+      color: var(--dark);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp .7s .2s forwards;
+    }
+    .hero-title .accent {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: italic;
+      display: inline-block;
+      padding: 0 .12em;
+      margin: 0 -.12em;
+      line-height: 1.15;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 1.2rem;
+      opacity: 0;
+      animation: fadeUp .7s .3s forwards;
+    }
+
+    .effective-notice {
+      max-width: 680px;
+      margin: 0 auto 2.8rem;
+      padding: .85rem 1.1rem;
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-md);
+      background: rgba(239, 246, 255, .92);
+      color: var(--dark);
+      font-size: .96rem;
+      font-weight: 700;
+      line-height: 1.45;
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      animation: fadeUp .7s .36s forwards;
+    }
+
+    .effective-notice strong {
+      color: var(--blue-dark);
+    }
+
+    /* ─── SEARCH CARD ─── */
+    .search-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
+      box-shadow: var(--shadow-lg);
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      opacity: 0;
+      animation: fadeUp .7s .4s forwards;
+    }
+    .search-label {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: .7rem;
+    }
+    .search-row {
+      display: flex;
+      gap: .6rem;
+    }
+    .search-input-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      background: var(--light);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: .7rem 1rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .search-input-wrap:focus-within {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+      background: white;
+    }
+    .search-icon { color: var(--muted); font-size: 1rem; flex-shrink: 0; }
+    .search-input-wrap input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .93rem;
+      color: var(--dark);
+    }
+    .search-input-wrap input::placeholder { color: #94a3b8; }
+    .search-btn {
+      background: var(--blue);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: .7rem 1.4rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .15s, transform .1s, box-shadow .15s;
+    }
+    .search-btn:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-blue);
+    }
+    .rama-select {
+      background: var(--light);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: .7rem 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .88rem;
+      color: var(--dark);
+      cursor: pointer;
+      min-width: 160px;
+    }
+    .rama-select:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+    .results-container {
+      max-width: 640px;
+      margin: 0 auto 2rem;
+    }
+    .result-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      margin-bottom: .6rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .result-item:hover {
+      border-color: var(--blue-mid);
+      box-shadow: var(--shadow-sm);
+    }
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .4rem;
+    }
+    .result-num {
+      font-weight: 700;
+      color: var(--blue);
+      font-size: .85rem;
+    }
+    .result-vigente {
+      background: #dcfce7;
+      color: #16a34a;
+      padding: .15rem .5rem;
+      border-radius: 100px;
+      font-size: .7rem;
+      font-weight: 600;
+    }
+    .result-vigente.modificada {
+      background: #fef9c3;
+      color: #ca8a04;
+    }
+    .result-vigente.derogada {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+    .result-title {
+      font-weight: 600;
+      color: var(--dark);
+      font-size: .95rem;
+      margin-bottom: .3rem;
+    }
+    .result-rama {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    .result-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: .6rem;
+    }
+    .result-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      padding: .35rem .7rem;
+      border-radius: var(--radius-sm);
+      font-size: .78rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .result-link.texto {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+    .result-link.tabla {
+      background: var(--light);
+      color: var(--mid);
+    }
+    .result-link.anexo {
+      background: #eef2ff;
+      color: var(--indigo);
+    }
+    .result-link:hover {
+      transform: translateY(-1px);
+    }
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+    }
+    .search-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-top: 1rem;
+    }
+    .tag {
+      background: var(--light);
+      color: var(--mid);
+      border: 1px solid var(--border);
+      padding: .3rem .75rem;
+      border-radius: 100px;
+      font-size: .76rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+      text-decoration: none;
+    }
+    .tag:hover { background: var(--blue-light); border-color: var(--blue-mid); color: var(--blue); }
+
+    .hero-stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp .7s .55s forwards;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+    .hero-stat-num span { color: var(--blue); }
+    .hero-stat-label {
+      font-size: .75rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: .2rem;
+    }
+    .hero-stat-sep { width: 1px; background: var(--border); align-self: stretch; }
+
+    /* ─── MARQUEE / TRUST BAR ─── */
+    .trust-bar {
+      background: var(--dark);
+      padding: .9rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .trust-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 25s linear infinite;
+      width: max-content;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      color: rgba(255,255,255,.5);
+      font-size: .8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .trust-item strong { color: rgba(255,255,255,.85); }
+    .trust-dot { width: 4px; height: 4px; background: var(--blue); border-radius: 50%; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: clamp(3.5rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem); }
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    .section-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      border: 1px solid var(--blue-mid);
+      padding: .3rem .8rem;
+      border-radius: 100px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: .8rem;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+    .section-header { margin-bottom: 3rem; }
+
+    /* ─── CATEGORIES BENTO ─── */
+    .cats-bg { background: var(--light); }
+
+    .cats-bento {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .cat-tile {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-tile::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--blue-light) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .cat-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #bfdbfe; }
+    .cat-tile:hover::before { opacity: 1; }
+
+    .cat-tile.featured {
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0ea5e9 100%);
+      border-color: transparent;
+    }
+    .cat-tile.featured .cat-tile-icon { background: rgba(255,255,255,.15); }
+    .cat-tile.featured .cat-tile-name { color: white; }
+    .cat-tile.featured .cat-tile-count { color: rgba(255,255,255,.7); }
+    .cat-tile.featured .cat-tile-total {
+      background: rgba(255,255,255,.16);
+      border-color: rgba(255,255,255,.22);
+      color: white;
+    }
+    .cat-tile.featured::before { display: none; }
+
+    .cat-tile-icon {
+      width: 40px; height: 40px;
+      background: var(--light);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      position: relative; z-index: 1;
+      flex-shrink: 0;
+    }
+    .cat-tile-body { position: relative; z-index: 1; flex: 1; }
+    .cat-tile-name {
+      font-weight: 700;
+      font-size: .92rem;
+      color: var(--dark);
+      line-height: 1.3;
+      margin-bottom: .3rem;
+    }
+    .cat-tile-count {
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .cat-tile-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-top: .7rem;
+    }
+    .cat-tile-total {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: .24rem .58rem;
+      border: 1px solid var(--blue-mid);
+      border-radius: 999px;
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      font-size: .72rem;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .cat-tile-arrow {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      color: var(--muted);
+      opacity: 0;
+      transform: translate(-4px, 4px) rotate(-45deg);
+      transition: opacity .2s, transform .2s;
+      font-size: .9rem;
+      z-index: 1;
+    }
+    .cat-tile:hover .cat-tile-arrow { opacity: 1; transform: translate(0,0) rotate(-45deg); }
+    .cat-tile.featured .cat-tile-arrow { color: rgba(255,255,255,.6); opacity: .6; }
+
+    /* ─── HOW IT WORKS ─── */
+    .how-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .how-step-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.5rem;
+      position: relative;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .how-step-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .step-number {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--blue-mid);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .how-step-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .5rem;
+    }
+    .how-step-card p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+
+    /* connector line */
+    .how-step-card::after {
+      content: '→';
+      position: absolute;
+      top: 2rem; right: -1.1rem;
+      color: var(--border);
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+    .how-step-card:last-child::after { display: none; }
+
+    /* ─── SAMPLE DOCS ─── */
+    .docs-bg { background: var(--light); }
+    .docs-layout { display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: start; }
+
+    .doc-list { display: flex; flex-direction: column; gap: .6rem; }
+    .doc-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      transition: border-color .15s, box-shadow .15s, transform .15s;
+      text-decoration: none;
+    }
+    .doc-item:hover { border-color: #bfdbfe; box-shadow: var(--shadow-sm); transform: translateX(3px); }
+    .doc-item-icon {
+      width: 38px; height: 38px;
+      background: var(--blue-light);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--blue);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .doc-item-body { flex: 1; }
+    .doc-item-num {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .doc-item-title {
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin: .1rem 0;
+    }
+    .doc-item-meta { font-size: .75rem; color: var(--muted); }
+    .doc-item-badge {
+      padding: .25rem .65rem;
+      border-radius: 100px;
+      font-size: .7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .badge-vigente { background: #dcfce7; color: #16a34a; }
+    .badge-modified { background: #fef9c3; color: #ca8a04; }
+
+    .docs-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+    .sidebar-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .sidebar-card h4 {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .sidebar-stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+    .sidebar-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .83rem;
+    }
+    .sidebar-stat span { color: var(--muted); }
+    .sidebar-stat strong { font-weight: 700; color: var(--dark); }
+    .sidebar-bar-wrap { margin-top: .3rem; }
+    .sidebar-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .sidebar-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      border-radius: 100px;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .faq-list { display: flex; flex-direction: column; gap: .5rem; }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .faq-item.open { border-color: #bfdbfe; }
+    .faq-q {
+      width: 100%;
+      background: white;
+      border: none;
+      color: var(--dark);
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      padding: 1.1rem 1.3rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .8rem;
+      transition: background .15s;
+    }
+    .faq-item.open .faq-q { background: var(--blue-light); }
+    .faq-icon {
+      width: 22px; height: 22px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      font-size: .9rem;
+      flex-shrink: 0;
+      transition: background .2s, transform .3s;
+    }
+    .faq-item.open .faq-icon { background: var(--blue); color: white; transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+      background: white;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-a p {
+      padding: 1rem 1.3rem 1.3rem;
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-visual {
+      position: sticky;
+      top: 5rem;
+    }
+    .faq-info-card {
+      background: linear-gradient(135deg, #1e40af, #2563eb);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .faq-info-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: .8rem;
+      line-height: 1.2;
+    }
+    .faq-info-card p { font-size: .9rem; opacity: .8; line-height: 1.7; margin-bottom: 1.5rem; }
+    .contact-list { display: flex; flex-direction: column; gap: .7rem; }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      font-size: .85rem;
+    }
+    .contact-row-icon {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,.15);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+    .contact-row span { opacity: .85; }
+    .contact-row strong { display: block; opacity: 1; }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--dark);
+      padding: clamp(3.5rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .cta-blob-1 {
+      width: 400px; height: 400px;
+      background: rgba(37,99,235,.3);
+      top: -100px; left: -80px;
+    }
+    .cta-blob-2 {
+      width: 300px; height: 300px;
+      background: rgba(14,165,233,.2);
+      bottom: -60px; right: 10%;
+    }
+    .cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: white;
+      letter-spacing: -.04em;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .cta-section p { color: rgba(255,255,255,.6); font-size: 1rem; margin-bottom: 2rem; }
+    .btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: white;
+      color: var(--dark);
+      border: none;
+      padding: .85rem 2rem;
+      border-radius: var(--radius-md);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.3); }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,.25);
+      padding: .85rem 2rem;
+      border-radius: var(--radius-md);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #020817;
+      padding: clamp(3rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem) 2rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand-desc {
+      font-size: .85rem;
+      color: rgba(255,255,255,.4);
+      line-height: 1.7;
+      margin-top: .8rem;
+      max-width: 280px;
+    }
+    .footer-nav-title {
+      font-size: .75rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .footer-nav-list a {
+      font-size: .85rem;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .footer-nav-list a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .78rem;
+      color: rgba(255,255,255,.3);
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.4); text-decoration: none; }
+    .footer-bottom a:hover { color: white; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s, transform .65s;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .cats-bento { grid-template-columns: repeat(3, 1fr); }
+      .how-steps-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .how-step-card:nth-child(2)::after,
+      .how-step-card:nth-child(4)::after { display: none; }
+      .docs-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .docs-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .faq-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .faq-visual { position: static; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      nav ul {
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: white;
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 0;
+        padding: .6rem 1rem 1rem;
+        box-shadow: var(--shadow-md);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s, transform .2s;
+      }
+      nav.open ul { opacity: 1; transform: none; pointer-events: auto; }
+      nav ul li { width: 100%; }
+      nav ul a { display: block; padding: .8rem 1rem; font-size: .95rem; }
+      .nav-cta { text-align: center; margin-top: .4rem; }
+
+      .cats-bento { grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+      .cat-tile { padding: 1.2rem; }
+
+      .hero-stat-sep { display: none; }
+      .hero-stats-row { gap: 1.5rem 2rem; margin-top: 2rem; }
+      .hero-stat-num { font-size: 1.6rem; }
+
+      .search-card { padding: 1.2rem; border-radius: var(--radius-md); }
+      .search-row { flex-direction: column; }
+      .search-btn { width: 100%; padding: .85rem 1rem; }
+
+      .section-header { margin-bottom: 2rem; }
+      .faq-info-card { padding: 1.8rem; }
+      .faq-info-card h3 { font-size: 1.35rem; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; margin-bottom: 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; text-align: left; }
+
+      .btn-row { flex-direction: column; align-items: stretch; }
+      .btn-white, .btn-outline { justify-content: center; }
+    }
+    @media (max-width: 520px) {
+      .nav-name { font-size: .88rem; }
+      .hero-pill { font-size: .72rem; padding: .3rem .8rem; }
+      .hero-title { font-size: clamp(2rem, 9vw, 2.6rem); }
+      .hero-sub { font-size: 1rem; margin-bottom: 1rem; }
+      .effective-notice {
+        font-size: .88rem;
+        padding: .75rem .9rem;
+        margin-bottom: 2rem;
+      }
+
+      .cats-bento { grid-template-columns: 1fr; gap: .7rem; }
+      .how-steps-grid { grid-template-columns: 1fr; }
+      .how-step-card::after { display: none; }
+      .how-step-card { padding: 1.5rem 1.2rem; }
+      .step-number { font-size: 2.4rem; }
+
+      .docs-sidebar { grid-template-columns: 1fr; }
+      .doc-item { padding: 1rem; gap: .8rem; flex-wrap: wrap; }
+      .doc-item-body { min-width: 0; flex: 1 1 100%; order: 2; }
+      .doc-item-icon { order: 1; }
+      .doc-item-badge { order: 1; margin-left: auto; }
+      .doc-item-title { font-size: .88rem; }
+      .sidebar-card { padding: 1.2rem; }
+
+      .footer-top { grid-template-columns: 1fr; gap: 1.8rem; }
+      .footer-brand-desc { max-width: 100%; }
+
+      .hero-stats-row { gap: 1.2rem 1.8rem; }
+      .hero-stat-num { font-size: 1.5rem; }
+      .hero-stat-label { font-size: .7rem; }
+
+      .trust-item { font-size: .72rem; }
+      .trust-track { gap: 2rem; }
+
+      .faq-q { font-size: .88rem; padding: .95rem 1rem; }
+      .faq-a p { padding: .9rem 1rem 1.1rem; font-size: .85rem; }
+
+      .section-chip { font-size: .7rem; }
+    }
+    @media (max-width: 360px) {
+      .cats-bento { grid-template-columns: 1fr; }
+      .nav-badge { width: 32px; height: 32px; font-size: .72rem; }
+      .search-input-wrap { padding: .6rem .8rem; }
+      .search-input-wrap input { font-size: .88rem; }
+    }
+    @media (hover: none) {
+      .cat-tile:hover { transform: none; }
+      .doc-item:hover { transform: none; }
+      .how-step-card:hover { transform: none; }
+    }
+    @media (max-width: 600px) {
+      .search-row { flex-wrap: wrap; }
+      .rama-select { width: 100%; margin-top: .5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-left">
+      
+      <div class="nav-name">Digesto Jurídico <span>Eldorado</span></div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navList">
+      <li><a href="#categorias">Ramas</a></li>
+      <li><a href="#como-funciona">Cómo funciona</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span class="dot"></span>
+        Concejo Deliberante · Ciudad de Eldorado, Misiones
+      </div>
+
+      <h1 class="hero-title">
+        El Digesto Jurídico<br><span class="accent">Municipal</span> en un clic
+      </h1>
+
+      <p class="hero-sub">
+        Accedé a toda la normativa vigente de Eldorado, Ordenanzas organizadas, actualizadas y de acceso libre.
+      </p>
+
+      <div class="effective-notice" role="note">
+        Estos instrumentos entrarán en vigencia a partir del <strong>1 de enero del año 2027</strong>.
+      </div>
+
+      <div class="search-card">
+        <div class="search-label">Buscador de ordenanzas</div>
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Número de ordenanza, tema o palabras clave…" onkeyup="if(event.key==='Enter')handleSearch()" />
+          </div>
+          <select id="ramaFilter" class="rama-select">
+            <option value="">Todas las ramas</option>
+          </select>
+          <button class="search-btn" onclick="handleSearch()">Buscar</button>
+        </div>
+        <div class="search-tags">
+          <span style="font-size:.75rem; color:var(--muted); font-weight:500; align-self:center">Frecuentes:</span>
+          <a href="#" class="tag" onclick="quickSearch('habilitaciones')">Habilitaciones</a>
+          <a href="#" class="tag" onclick="quickSearch('tránsito')">Tránsito</a>
+          <a href="#" class="tag" onclick="quickSearch('medio ambiente')">Medio ambiente</a>
+          <a href="#" class="tag" onclick="quickSearch('obras')">Obras privadas</a>
+          <a href="#" class="tag" onclick="quickSearch('tasas')">Tasas</a>
+          <a href="#" class="tag" onclick="quickSearch('presupuesto')">Presupuesto</a>
+        </div>
+      </div>
+
+      <div class="hero-stats-row">
+        <div class="hero-stat">
+          <div class="hero-stat-num">100<span>+</span></div>
+          <div class="hero-stat-label">Ordenanzas Consolidadas</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">17</div>
+          <div class="hero-stat-label">Ramas temáticas</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">100<span>%</span></div>
+          <div class="hero-stat-label">Acceso gratuito</div>
+        </div>
+        <div class="hero-stat-sep"></div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">2024</div>
+          <div class="hero-stat-label">Consolidado al año</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-track">
+      <div class="trust-item"><span class="trust-dot"></span> <strong>Acceso abierto</strong>sin registro</div>
+      <div class="trust-item"><span class="trust-dot"></span> Normativa Municipal<strong>Actualizada</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Descarga en<strong>PDF</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Digesto Jurídico<strong>Municipal</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Ordenanzas desde<strong>1971</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Clasificación<strong>Temática</strong></div>
+      <!-- duplicate for loop -->
+      <div class="trust-item"><span class="trust-dot"></span> <strong>Acceso abierto</strong>sin registro</div>
+      <div class="trust-item"><span class="trust-dot"></span> Normativa Municipal<strong>Actualizada</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Descarga en<strong>PDF</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Digesto Jurídico<strong>Municipal</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Ordenanzas desde<strong>1971</strong></div>
+      <div class="trust-item"><span class="trust-dot"></span> Clasificación<strong>Temática</strong></div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS -->
+  <section class="cats-bg" id="categorias">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-chip reveal">📚 Organización temática</div>
+        <h2 class="section-title reveal">Navegá por ramas</h2>
+        <p class="section-sub reveal">Toda la normativa organizada en grandes bloques para que encontrés lo que necesitás rápidamente.</p>
+      </div>
+
+      <div class="cats-bento">
+        <a href="#" class="cat-tile featured reveal" data-rama="I">
+          <div class="cat-tile-icon">⚖️</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">I — Administrativo</div>
+            <div class="cat-tile-count">Textos definitivos y tablas de antecedentes</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile featured reveal" data-rama="II">
+          <div class="cat-tile-icon">🏢</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">II — Comercio y Promoción Industrial</div>
+            <div class="cat-tile-count">Textos definitivos y tablas de antecedentes</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+
+        <a href="#" class="cat-tile reveal" data-rama="III">
+          <div class="cat-tile-icon">📜</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">III — Constitucional</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-1" data-rama="IV">
+          <div class="cat-tile-icon">🎭</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">IV — Cultura y Educación</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-2" data-rama="V">
+          <div class="cat-tile-icon">🏆</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">V — Deporte, Recreación y Turismo</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-3" data-rama="VI">
+          <div class="cat-tile-icon">💰</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">VI — Financiero y Tributario</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal" data-rama="VII">
+          <div class="cat-tile-icon">👨‍👩‍👧</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">VII — Género, Niñez, Familia, Juventud, Discapacidad y Personas Mayores</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-1" data-rama="VIII">
+          <div class="cat-tile-icon">🌿</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">VIII — Ambiente, Recursos Naturales y Cambio Climático</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-2" data-rama="IX">
+          <div class="cat-tile-icon">🌎</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">IX — Mercosur e Integración Regional</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-3" data-rama="X">
+          <div class="cat-tile-icon">🏗️</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">X — Obras Públicas, Viviendas y Planificación Urbana Municipal</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal" data-rama="XI">
+          <div class="cat-tile-icon">📡</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">XI — Radiodifusión y Otros Medios de Comunicación Social</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-1" data-rama="XII">
+          <div class="cat-tile-icon">🏥</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">XII — Salud</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-2" data-rama="XIII">
+          <div class="cat-tile-icon">🔒</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">XIII — Seguridad</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-3" data-rama="XIV">
+          <div class="cat-tile-icon">🏘️</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">XIV — Tierras Fiscales y Bienes del Municipio</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal" data-rama="XV">
+          <div class="cat-tile-icon">💼</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">XV — Trabajo, Seguridad Social y Régimen Previsional</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-1" data-rama="XVI">
+          <div class="cat-tile-icon">🚗</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">XVI — Tránsito, Transporte y Servicios Públicos</div>
+            <div class="cat-tile-count">Textos definitivos</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+        <a href="#" class="cat-tile reveal reveal-delay-2" data-rama="XVII">
+          <div class="cat-tile-icon">📋</div>
+          <div class="cat-tile-body">
+            <div class="cat-tile-name">XVII — Particulares</div>
+            <div class="cat-tile-count">Normativa de alcance particular</div>
+            <div class="cat-tile-meta"><span class="cat-tile-total">0 ordenanzas</span></div>
+          </div>
+          <span class="cat-tile-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section id="como-funciona">
+    <div class="container">
+      <div class="section-header" style="text-align:center; max-width:520px; margin:0 auto 3rem">
+        <div class="section-chip reveal" style="justify-content:center">⚙️ Metodología</div>
+        <h2 class="section-title reveal">¿Cómo funciona el Digesto?</h2>
+        <p class="section-sub reveal" style="margin:0 auto">Un sistema vivo de clasificación que mantiene organizada toda la normativa municipal.</p>
+      </div>
+
+      <div class="how-steps-grid">
+        <div class="how-step-card reveal">
+          <div class="step-number">01</div>
+          <h4>Clasificación temática</h4>
+          <p>Cada ordenanza es analizada y ubicada en su rama correspondiente por el equipo técnico del Concejo Deliberante.</p>
+        </div>
+        <div class="how-step-card reveal reveal-delay-1">
+          <div class="step-number">02</div>
+          <h4>Actualización continua</h4>
+          <p>Las normas derogadas o modificadas se señalan como tales. El Digesto refleja el estado jurídico vigente de cada norma.</p>
+        </div>
+        <div class="how-step-card reveal reveal-delay-2">
+          <div class="step-number">03</div>
+          <h4>Búsqueda instantánea</h4>
+          <p>Buscá por número, tema o palabras clave. Filtrá por rama y año para llegar al documento exacto en segundos.</p>
+        </div>
+        <div class="how-step-card reveal reveal-delay-3">
+          <div class="step-number">04</div>
+          <h4>Descarga en PDF</h4>
+          <p>Todo disponible para descargar sin registro. Para copias con validez legal, solicitarlas en la Mesa de Entradas del Concejo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTOS RECIENTES -->
+  <!--
+  <section class="docs-bg" id="documentos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-chip reveal">📄 Explorar normativa</div>
+        <h2 class="section-title reveal">Ordenanzas recientes</h2>
+        <p class="section-sub reveal">Las últimas normas incorporadas al Digesto Municipal.</p>
+      </div>
+
+      <div class="docs-layout">
+        <div class="doc-list">
+          <a href="#" class="doc-item reveal">
+            <div class="doc-item-icon">📋</div>
+            <div class="doc-item-body">
+              <div class="doc-item-num">Ordenanza N° 3.841/2024</div>
+              <div class="doc-item-title">Código de Tránsito Municipal — Actualización integral</div>
+              <div class="doc-item-meta">Sancionada 12 mar. 2024 · Promulgada 19 mar. 2024 · Tránsito y Transporte</div>
+            </div>
+            <span class="doc-item-badge badge-vigente">Vigente</span>
+          </a>
+          <a href="#" class="doc-item reveal reveal-delay-1">
+            <div class="doc-item-icon">🍽️</div>
+            <div class="doc-item-body">
+              <div class="doc-item-num">Ordenanza N° 3.798/2023</div>
+              <div class="doc-item-title">Régimen de Habilitación de Comercios Gastronómicos</div>
+              <div class="doc-item-meta">Sancionada 8 nov. 2023 · Promulgada 15 nov. 2023 · Habilitaciones</div>
+            </div>
+            <span class="doc-item-badge badge-vigente">Vigente</span>
+          </a>
+          <a href="#" class="doc-item reveal reveal-delay-2">
+            <div class="doc-item-icon">🌳</div>
+            <div class="doc-item-body">
+              <div class="doc-item-num">Ordenanza N° 3.756/2023</div>
+              <div class="doc-item-title">Protección de Áreas Verdes Urbanas — Parque arbolado</div>
+              <div class="doc-item-meta">Sancionada 22 jun. 2023 · Promulgada 30 jun. 2023 · Medio Ambiente</div>
+            </div>
+            <span class="doc-item-badge badge-vigente">Vigente</span>
+          </a>
+          <a href="#" class="doc-item reveal reveal-delay-3">
+            <div class="doc-item-icon">💼</div>
+            <div class="doc-item-body">
+              <div class="doc-item-num">Ordenanza N° 3.720/2022</div>
+              <div class="doc-item-title">Presupuesto General de Gastos y Cálculo de Recursos 2023</div>
+              <div class="doc-item-meta">Sancionada 15 dic. 2022 · Promulgada 29 dic. 2022 · Administración</div>
+            </div>
+            <span class="doc-item-badge badge-modified">Modificada</span>
+          </a>
+          <a href="#" class="doc-item reveal">
+            <div class="doc-item-icon">🏗️</div>
+            <div class="doc-item-body">
+              <div class="doc-item-num">Decreto N° 218/2024</div>
+              <div class="doc-item-title">Reglamentación de Permisos de Obras Menores — Procedimiento simplificado</div>
+              <div class="doc-item-meta">Firmado 5 ene. 2024 · Ejecutivo Municipal · Obras y Urbanismo</div>
+            </div>
+            <span class="doc-item-badge badge-vigente">Vigente</span>
+          </a>
+        </div>
+
+        <div class="docs-sidebar">
+          <div class="sidebar-card reveal">
+            <h4>📊 Distribución por área</h4>
+            <div class="sidebar-stat-row">
+              <div>
+                <div class="sidebar-stat"><span>Obras y Urbanismo</span><strong>189</strong></div>
+                <div class="sidebar-bar-wrap"><div class="sidebar-bar"><div class="sidebar-bar-fill" style="width:100%"></div></div></div>
+              </div>
+              <div>
+                <div class="sidebar-stat"><span>Administración</span><strong>142</strong></div>
+                <div class="sidebar-bar-wrap"><div class="sidebar-bar"><div class="sidebar-bar-fill" style="width:75%"></div></div></div>
+              </div>
+              <div>
+                <div class="sidebar-stat"><span>Habilitaciones</span><strong>115</strong></div>
+                <div class="sidebar-bar-wrap"><div class="sidebar-bar"><div class="sidebar-bar-fill" style="width:60%"></div></div></div>
+              </div>
+              <div>
+                <div class="sidebar-stat"><span>Tasas e Impuestos</span><strong>109</strong></div>
+                <div class="sidebar-bar-wrap"><div class="sidebar-bar"><div class="sidebar-bar-fill" style="width:57%"></div></div></div>
+              </div>
+              <div>
+                <div class="sidebar-stat"><span>Medio Ambiente</span><strong>97</strong></div>
+                <div class="sidebar-bar-wrap"><div class="sidebar-bar"><div class="sidebar-bar-fill" style="width:51%"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card reveal reveal-delay-1" style="background: linear-gradient(135deg,#2563eb,#0ea5e9); border-color:transparent; color:white">
+            <h4 style="color:white; margin-bottom:.6rem">📞 ¿Necesitás ayuda?</h4>
+            <p style="font-size:.85rem; opacity:.8; line-height:1.6; margin-bottom:1.2rem">El equipo del Digesto puede orientarte para encontrar la normativa que buscás.</p>
+            <a href="#faq" style="background:white; color:#1d4ed8; padding:.6rem 1.1rem; border-radius:8px; font-size:.82rem; font-weight:700; text-decoration:none; display:inline-block; transition:transform .15s" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='none'">Ver preguntas frecuentes →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="faq-layout">
+        <div>
+          <div class="section-chip reveal">❓ Preguntas frecuentes</div>
+          <h2 class="section-title reveal">Lo que más<br>nos preguntan</h2>
+          <p class="section-sub reveal" style="margin-bottom:2rem">Respuestas rápidas a las dudas más comunes sobre el Digesto Municipal de Eldorado.</p>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Qué es el Digesto Jurídico Municipal?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a"><p>El Digesto Jurídico Municipal es la compilación sistemática y ordenada de todas las normas municipales vigentes, incluyendo las ordenanzas del Concejo Deliberante y las disposiciones del Departamento Ejecutivo Municipal de Eldorado. Su objetivo es garantizar el acceso ciudadano a la normativa local de manera clara, organizada y permanentemente actualizada.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Los PDF descargados tienen validez legal?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a"><p>Las versiones PDF son para consulta e información. Para obtener copias con validez legal certificada, solicitarlas en la Mesa de Entradas del Concejo Deliberante de Eldorado, sito en Av. San Martín 175, en horario de atención al público (lunes a viernes de 6:30 a 12:30 y de 14:00 a 20:00 hs.).</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Con qué frecuencia se actualiza el Digesto?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a"><p>El Digesto se actualiza de forma continua. Cada nueva ordenanza sancionada y promulgada es incorporada oportunamente, mientras que las normas derogadas o modificadas son señaladas como tales para indicar su estado de vigencia.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Diferencia entre ordenanza, decreto y resolución?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a"><p>Las <strong>ordenanzas</strong> son normas generales sancionadas por el Concejo Deliberante. Los <strong>decretos</strong> son actos administrativos del Ejecutivo Municipal (Intendente). Las <strong>resoluciones</strong> son disposiciones de menor jerarquía emitidas por el Concejo o sus comisiones internas.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Cómo busco por número de ordenanza?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a"><p>En el buscador escribí directamente el número (por ejemplo "3841" o "3.841/2024"). El sistema te mostrará el resultado exacto. Si no conocés el número, la búsqueda por palabras clave y la navegación por ramas son las vías más eficientes.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Puedo sugerir una corrección?
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-a"><p>Sí. Si detectás un error o una norma desactualizada, escribí a <strong>digesto@cdeldorado.gob.ar</strong> o visitá la Asesoría Letrada del Concejo. Toda colaboración ciudadana es bienvenida.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-visual reveal">
+          <div class="faq-info-card">
+            <h3>¿No encontrás lo que buscás?</h3>
+            <p>El equipo del Digesto puede orientarte directamente.</p>
+            <div class="contact-list">
+              <div class="contact-row">
+                <div class="contact-row-icon">📍</div>
+                <div class="contact-row"><span>Av. San Martín 175, Eldorado<br><strong>Misiones, Argentina</strong></span></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-row-icon">🕐</div>
+                <div class="contact-row"><span>Lunes a viernes<br><strong>6:30 — 12:30 y 14:00 — 20:00 hs.</strong></span></div>
+              </div>
+              <div class="contact-row">
+                <div class="contact-row-icon">✉️</div>
+                <div class="contact-row"><span><strong>digesto@cdeldorado.gob.ar</strong></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:var(--light); border:1px solid var(--border); border-radius:var(--radius-md); padding:1.5rem">
+            <h4 style="font-size:.88rem; font-weight:700; color:var(--dark); margin-bottom:1rem">🔗 Links útiles</h4>
+            <div style="display:flex; flex-direction:column; gap:.5rem">
+              <a href="https://cdeldorado.gob.ar/" target="_blank" rel="noreferrer noopener" style="display:flex; align-items:center; justify-content:space-between; padding:.6rem .8rem; background:white; border:1px solid var(--border); border-radius:8px; text-decoration:none; font-size:.83rem; color:var(--dark); font-weight:500; transition:border-color .15s" onmouseover="this.style.borderColor='#bfdbfe'" onmouseout="this.style.borderColor='var(--border)'">Sitio oficial del CDE Eldorado<span>↗</span></a>
+              <a href="https://eldorado.gob.ar" target="_blank" rel="noreferrer noopener" style="display:flex; align-items:center; justify-content:space-between; padding:.6rem .8rem; background:white; border:1px solid var(--border); border-radius:8px; text-decoration:none; font-size:.83rem; color:var(--dark); font-weight:500; transition:border-color .15s" onmouseover="this.style.borderColor='#bfdbfe'" onmouseout="this.style.borderColor='var(--border)'">Municipio de Eldorado<span>↗</span></a><a href="https://eldorado.gob.ar/boletin-oficial" target="_blank" rel="noreferrer noopener" style="display:flex; align-items:center; justify-content:space-between; padding:.6rem .8rem; background:white; border:1px solid var(--border); border-radius:8px; text-decoration:none; font-size:.83rem; color:var(--dark); font-weight:500; transition:border-color .15s" onmouseover="this.style.borderColor='#bfdbfe'" onmouseout="this.style.borderColor='var(--border)'">Boletín Oficial de la Municipalidad de Eldorado<span>↗</span></a>
+              <a href="https://digestomisiones.gob.ar" target="_blank" rel="noreferrer noopener" style="display:flex; align-items:center; justify-content:space-between; padding:.6rem .8rem; background:white; border:1px solid var(--border); border-radius:8px; text-decoration:none; font-size:.83rem; color:var(--dark); font-weight:500; transition:border-color .15s" onmouseover="this.style.borderColor='#bfdbfe'" onmouseout="this.style.borderColor='var(--border)'">Digesto Jurídico Provincial<span>↗</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-blob cta-blob-1"></div>
+    <div class="cta-blob cta-blob-2"></div>
+    <div class="cta-inner">
+      <div class="section-chip reveal" style="background:rgba(255,255,255,.1); color:white; border-color:rgba(255,255,255,.2); margin-bottom:1.2rem">🏛️ Acceso ciudadano</div>
+      <h2 class="reveal">Toda la normativa de Eldorado, sin barreras</h2>
+      <p class="reveal">Sin registro. Sin costo. La transparencia es un derecho.</p>
+      <div class="btn-row reveal">
+        <a href="#categorias" class="btn-white">Explorar ramas →</a>
+        <a href="#" class="btn-outline">Descargar ordenanzas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contacto">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div style="display:flex; align-items:center; gap:.7rem; margin-bottom:.7rem">
+            
+            <div class="nav-name" style="color:white">Digesto Jurídico <span style="color:#60a5fa">Eldorado</span></div>
+          </div>
+          <p class="footer-brand-desc">Sistema oficial de acceso a la normativa municipal de la Ciudad de Eldorado, Misiones. Impulsado por el Concejo Deliberante Eldorado.</p>
+        </div>
+        <div>
+          <div class="footer-nav-title">Navegación</div>
+          <ul class="footer-nav-list">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#categorias">Ramas</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#faq">Preguntas frecuentes</a></li>
+          </ul>
+        </div>
+       
+        <div>
+          <div class="footer-nav-title">Contacto</div>
+          <ul class="footer-nav-list">
+            <li><a href="https://maps.app.goo.gl/XtZBqDBquUrAG4yf9" target="_blank" rel="noreferrer noopener">Av. San Martín 175</a></li>
+            <li><a href="">Eldorado, Misiones</a></li>
+            <li><a href="">Lun–Vie 6:30 — 12:30 y 14:00 — 20:00 hs.</a></li>
+            <li><a href="mailto:digesto@cdeldorado.gob.ar">digesto@cdeldorado.gob.ar</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Concejo Deliberante de la Ciudad de Eldorado · Misiones · Argentina</span>
+        <span>Digesto Jurídico Municipal — Versión 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Buscador de ordenanzas
+    const fileLabels = {
+      TEXTO: '📄 Texto',
+      TABLA: '📋 Tabla de Antecedentes',
+      ANEXO: '📎 Anexo'
+    };
+    
+    function loadRamas() {
+      fetch('ramas.php')
+        .then(r => {
+          if (!r.ok) throw new Error('No se pudieron cargar las ramas');
+          return r.json();
+        })
+        .then(data => {
+          const select = document.getElementById('ramaFilter');
+          select.querySelectorAll('option:not(:first-child)').forEach(opt => opt.remove());
+          data.forEach(rama => {
+            const opt = document.createElement('option');
+            opt.value = rama.numero;
+            opt.textContent = `${rama.numero} - ${rama.nombre} (${rama.total})`;
+            select.appendChild(opt);
+          });
+          updateCategoryCounts(data);
+        })
+        .catch(e => console.error('Error loading ramas:', e));
+    }
+
+    function formatOrdenanzaCount(total) {
+      const count = Number(total) || 0;
+      return `${count} ${count === 1 ? 'ordenanza' : 'ordenanzas'}`;
+    }
+
+    function updateCategoryCounts(ramas) {
+      ramas.forEach(rama => {
+        const tile = document.querySelector(`.cat-tile[data-rama="${rama.numero}"]`);
+        if (!tile) return;
+
+        const total = tile.querySelector('.cat-tile-total');
+        if (!total) return;
+
+        total.textContent = formatOrdenanzaCount(rama.total);
+        tile.setAttribute('aria-label', `${rama.numero} - ${rama.nombre}: ${formatOrdenanzaCount(rama.total)}`);
+      });
+    }
+    
+    function quickSearch(term) {
+      document.getElementById('searchInput').value = term;
+      handleSearch();
+    }
+
+    function getResultsContainer() {
+      let resultsContainer = document.getElementById('resultsContainer');
+      if (!resultsContainer) {
+        const searchCard = document.querySelector('.search-card');
+        resultsContainer = document.createElement('div');
+        resultsContainer.id = 'resultsContainer';
+        resultsContainer.className = 'results-container';
+        searchCard.parentNode.insertBefore(resultsContainer, searchCard.nextSibling);
+      }
+
+      return resultsContainer;
+    }
+
+    function setResultsMessage(message) {
+      const resultsContainer = getResultsContainer();
+      resultsContainer.replaceChildren();
+      const msg = document.createElement('div');
+      msg.className = 'no-results';
+      msg.textContent = message;
+      resultsContainer.appendChild(msg);
+    }
+
+    function getVigenciaLabel(value) {
+      if (value === 'M') return 'Modificada';
+      if (value === 'N') return 'Derogada';
+      return 'Vigente';
+    }
+
+    function renderResults(results) {
+      const resultsContainer = getResultsContainer();
+      const fragment = document.createDocumentFragment();
+
+      results.forEach(ordenanza => {
+        const item = document.createElement('div');
+        item.className = 'result-item';
+
+        const header = document.createElement('div');
+        header.className = 'result-header';
+
+        const number = document.createElement('span');
+        number.className = 'result-num';
+        number.textContent = `Ordenanza ${ordenanza.numero}${ordenanza.anno ? '/' + ordenanza.anno : ''}`;
+
+        const vigente = document.createElement('span');
+        vigente.className = `result-vigente ${ordenanza.vigente === 'M' ? 'modificada' : ordenanza.vigente === 'N' ? 'derogada' : ''}`;
+        vigente.textContent = getVigenciaLabel(ordenanza.vigente);
+
+        header.append(number, vigente);
+
+        const title = document.createElement('div');
+        title.className = 'result-title';
+        title.textContent = ordenanza.titulo || 'Ordenanza sin título';
+
+        const rama = document.createElement('div');
+        rama.className = 'result-rama';
+        rama.textContent = ordenanza.rama;
+
+        const links = document.createElement('div');
+        links.className = 'result-links';
+
+        ordenanza.archivos.forEach(archivo => {
+          const link = document.createElement('a');
+          link.href = archivo.ruta;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.className = `result-link ${archivo.tipo.toLowerCase()}`;
+          link.textContent = fileLabels[archivo.tipo] || archivo.tipo;
+          link.title = archivo.nombre || archivo.ruta;
+          links.appendChild(link);
+        });
+
+        item.append(header, title, rama, links);
+        fragment.appendChild(item);
+      });
+
+      resultsContainer.replaceChildren(fragment);
+    }
+    
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.trim();
+      const rama = document.getElementById('ramaFilter').value;
+      const resultsContainer = getResultsContainer();
+      
+      if (!query && !rama) {
+        resultsContainer.replaceChildren();
+        return;
+      }
+      
+      setResultsMessage('Buscando...');
+      
+      const url = `buscar.php?q=${encodeURIComponent(query)}&rama=${encodeURIComponent(rama)}&limit=100`;
+      fetch(url)
+        .then(r => {
+          if (!r.ok) throw new Error('Error en la búsqueda');
+          return r.json();
+        })
+        .then(data => {
+          if (data.error) throw new Error(data.message || 'Error en la búsqueda');
+          if (data.results.length === 0) {
+            setResultsMessage('No se encontraron ordenanzas. Probá con otros términos o elegí otra rama.');
+            return;
+          }
+          
+          renderResults(data.results);
+        })
+        .catch(e => {
+          console.error('Search error:', e);
+          setResultsMessage('Error en la búsqueda. Intentá de nuevo en unos segundos.');
+        });
+    }
+    
+    document.getElementById('ramaFilter').addEventListener('change', handleSearch);
+    loadRamas();
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Nav scroll shadow
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile nav toggle
+    const navEl = document.getElementById('navbar');
+    const navToggle = document.getElementById('navToggle');
+    navToggle.addEventListener('click', () => {
+      const open = navEl.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
+    document.querySelectorAll('#navList a').forEach(a => {
+      a.addEventListener('click', () => {
+        navEl.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('searchInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleSearch();
+    });
+
+    // Tag search shortcuts
+    document.querySelectorAll('.tag').forEach(tag => {
+      tag.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('searchInput').value = tag.textContent;
+        document.getElementById('searchInput').focus();
+        handleSearch();
+      });
+    });
+  </script>
+</body>
+</html>
