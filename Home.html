@@ -248,6 +248,45 @@
     to { opacity: 1; transform: none; }
   }
 
+  .cde-home__trust {
+    position: relative;
+    overflow: hidden;
+    padding: 14px 0;
+    background: var(--cde-blue-dark, #152c4a);
+    border-bottom: 1px solid rgba(201,162,39,.35);
+  }
+
+  .cde-home__trust-track {
+    display: flex;
+    width: max-content;
+    animation: cdeHomeMarquee 25s linear infinite;
+  }
+
+  .cde-home__trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 48px;
+    color: rgba(255,255,255,.62);
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .cde-home__trust-item strong { color: rgba(255,255,255,.94); font-weight: 700; }
+
+  .cde-home__trust-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cde-gold, #c9a227);
+    flex-shrink: 0;
+  }
+
+  @keyframes cdeHomeMarquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
   .cde-home__access {
     padding: 84px 0;
     background: var(--cde-gray-50, #f8f9fa);
@@ -742,6 +781,7 @@
     .cde-home__video-frame { display: none; }
     .cde-home__hero-content > * { animation: none !important; }
     .cde-home__live-dot { animation: none !important; }
+    .cde-home__trust-track { animation: none !important; }
     .cde-home--js .cde-home-reveal { opacity: 1; transform: none; transition: none; }
     .cde-home__access-bg, .cde-home__post-thumb img, .cde-home__service-bg,
     .cde-home__pharmacy-imgwrap img { transition: none !important; }
@@ -770,6 +810,23 @@
       </div>
     </div>
   </section>
+
+  <div class="cde-home__trust" aria-hidden="true">
+    <div class="cde-home__trust-track">
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Sesiones en vivo</strong> · todos los martes</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Seguimiento de expedientes</strong> · online</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Digesto Jurídico</strong> · Municipal</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Audiencias Públicas</strong> · participación vecinal</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Ordenanzas y resoluciones</strong> · acceso libre</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Atención al vecino</strong> · lunes a viernes</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Sesiones en vivo</strong> · todos los martes</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Seguimiento de expedientes</strong> · online</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Digesto Jurídico</strong> · Municipal</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Audiencias Públicas</strong> · participación vecinal</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Ordenanzas y resoluciones</strong> · acceso libre</span>
+      <span class="cde-home__trust-item"><span class="cde-home__trust-dot"></span><strong>Atención al vecino</strong> · lunes a viernes</span>
+    </div>
+  </div>
 
   <section class="cde-home__access" aria-labelledby="cde-home-access-title">
     <div class="cde-container">
