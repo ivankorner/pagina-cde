@@ -53,8 +53,12 @@
 
   .cde-pt {
     --cde-pt-blue: #164e63;
+    --cde-pt-blue-dark: #0f3a4a;
     --cde-pt-gold: #f28c62;
     --cde-pt-gold-light: #f6aa89;
+    --cde-pt-accent: #0f9d8a;
+    --cde-pt-accent-dark: #d96d4c;
+    --cde-pt-accent-border: #b9e1dc;
     --cde-pt-white: #ffffff;
     --cde-pt-gray-50: #f2fbfa;
     --cde-pt-gray-100: #e4f1f0;
@@ -67,6 +71,15 @@
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #1a1a1a;
     padding: clamp(32px, 4vw, 56px) 0;
+  }
+
+  .cde-pt a { text-decoration: none; }
+  .cde-pt img { display: block; max-width: 100%; }
+
+  .cde-pt :focus-visible {
+    outline: 2px solid var(--cde-pt-gold);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   .cde-pt__header {
@@ -109,194 +122,157 @@
     letter-spacing: 0.01em;
   }
 
-  /* --- Grid --- */
   .cde-pt__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 35px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 24px;
   }
 
-  /* --- Card --- */
-  .cde-pt__card {
-    background: var(--cde-pt-white);
-    border-radius: var(--cde-pt-radius);
-    border: 1px solid #b9e1dc;
-    overflow: hidden;
-    box-shadow: var(--cde-pt-shadow);
-    transition: transform var(--cde-pt-transition), box-shadow var(--cde-pt-transition);
+  .cde-pt .cde-home__post {
     display: flex;
     flex-direction: column;
+    background: var(--cde-pt-white);
+    border: 1px solid var(--cde-pt-accent-border);
+    border-radius: var(--cde-pt-radius);
+    overflow: hidden;
+    box-shadow: var(--cde-pt-shadow);
+    transition: transform var(--cde-pt-transition), box-shadow var(--cde-pt-transition), border-color var(--cde-pt-transition);
   }
-  .cde-pt__card:hover {
-    transform: translateY(-3px);
+  .cde-pt .cde-home__post:hover {
+    transform: translateY(-4px);
+    border-color: var(--cde-pt-accent);
     box-shadow: var(--cde-pt-shadow-lg);
   }
 
-  /* --- Thumbnail --- */
-  .cde-pt__thumb {
+  .cde-pt .cde-home__post--featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.08fr 1fr; }
+
+  .cde-pt .cde-home__post-thumb {
     position: relative;
-    width: 100%;
-    aspect-ratio: 3 / 2;
+    display: block;
     overflow: hidden;
     background: var(--cde-pt-gray-100);
-    display: block;
   }
-  .cde-pt__thumb img {
+
+  .cde-pt .cde-home__post--featured .cde-home__post-thumb { min-height: 340px; }
+  .cde-pt .cde-home__post--small .cde-home__post-thumb { aspect-ratio: 16 / 10; }
+
+  .cde-pt .cde-home__post-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    transition: transform var(--cde-pt-transition);
+    transition: transform .6s cubic-bezier(.2,.6,.2,1);
   }
-  .cde-pt__card:hover .cde-pt__thumb img {
-    transform: scale(1.03);
-  }
-  /* --- Badge --- */
-  .cde-pt__badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+  .cde-pt .cde-home__post--featured .cde-home__post-thumb img { position: absolute; inset: 0; }
+  .cde-pt .cde-home__post:hover .cde-home__post-thumb img { transform: scale(1.06); }
+
+  .cde-pt .cde-home__chip {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    background: rgba(15, 157, 138, 0.92);
-    backdrop-filter: blur(4px);
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
     text-transform: uppercase;
-    padding: 5px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
+  }
+
+  .cde-pt .cde-home__chip--img {
+    position: absolute;
+    top: 14px;
+    left: 14px;
     z-index: 2;
-    pointer-events: none;
-    line-height: 1;
-  }
-  .cde-pt__badge .material-symbols-outlined {
-    font-size: 12px;
-    flex-shrink: 0;
+    background: rgba(15, 157, 138, 0.92);
+    color: var(--cde-pt-white);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
 
-  .cde-pt__thumb--placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #e3f5f2, #c9e8e3);
-  }
-  .cde-pt__thumb--placeholder .material-symbols-outlined {
-    font-size: 48px;
-    color: #67aaa2;
-    opacity: 0.6;
-  }
+  .cde-pt .cde-home__chip--gold { background: var(--cde-pt-accent); color: var(--cde-pt-white); }
+  .cde-pt .cde-home__chip--soft { background: var(--cde-pt-gray-100); color: var(--cde-pt-blue); }
 
-  /* --- Card Body --- */
-  .cde-pt__body {
-    padding: 20px;
+  .cde-pt .cde-home__post-body {
     display: flex;
     flex-direction: column;
     flex: 1;
+    padding: 22px 24px;
   }
+  .cde-pt .cde-home__post--featured .cde-home__post-body { padding: 36px 40px; }
 
-  /* --- Title --- */
-  .cde-pt__title {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.3;
-    margin: 0 0 10px;
-    color: var(--cde-pt-blue);
-  }
-  .cde-pt__title a {
-    color: inherit;
-    text-decoration: none;
-    transition: color var(--cde-pt-transition);
-  }
-  .cde-pt__title a:hover {
-    color: var(--cde-pt-gold);
-  }
+  .cde-pt .cde-home__post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 
-  /* --- Excerpt --- */
-  .cde-pt__excerpt {
-    font-size: 0.875rem;
-    line-height: 1.6;
+  .cde-pt .cde-home__post-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--cde-pt-gray-600);
-    margin: 0 0 16px;
-    flex: 1;
+    margin-bottom: 10px;
+  }
+  .cde-pt .cde-home__post-date .material-symbols-outlined { font-size: 17px; color: var(--cde-pt-accent); }
+
+  .cde-pt .cde-home__post-title {
+    margin: 0 0 10px;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--cde-pt-blue);
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .cde-pt .cde-home__post-title a { color: inherit; transition: color var(--cde-pt-transition); }
+  .cde-pt .cde-home__post:hover .cde-home__post-title a { color: var(--cde-pt-blue-dark); }
 
-  /* --- Read More --- */
-  .cde-pt__link {
-    display: inline-block;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: #164e63;
-    text-decoration: none;
-    margin-bottom: 14px;
-    transition: color var(--cde-pt-transition);
-  }
-  .cde-pt__link:hover {
-    color: #d96d4c;
-  }
-  .cde-pt__link--badge {
-    display: inline-flex;
-    align-self: flex-start;
-    width: fit-content;
-    max-width: 100%;
-    align-items: center;
-    gap: 4px;
-    background: rgba(15, 157, 138, 0.92);
-    color: #fff;
-    font-size: 0.7rem; 
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-    margin-bottom: 14px;
-    transition: background var(--cde-pt-transition);
-  }
-  .cde-pt__link--badge:hover {
-    background: #d96d4c;
-    color: #fff;
-  }
-  .cde-pt__link--badge .cde-pt__arrow-icon {
-    font-size: 12px;
-    color: #fff;
-  }
-  .cde-pt__arrow-icon {
-    font-size: 14px;
-    vertical-align: -2px;
-    margin-left: 4px;
-    color: #0f9d8a;
+  .cde-pt .cde-home__post--featured .cde-home__post-title {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    font-weight: 800;
+    -webkit-line-clamp: 4;
   }
 
-  /* --- Date --- */
-  .cde-pt__date {
-    font-size: 0.8rem;
+  .cde-pt .cde-home__post-excerpt {
+    margin: 0;
+    font-size: 0.94rem;
     color: var(--cde-pt-gray-600);
-    border-top: 1px solid var(--cde-pt-gray-200);
-    padding-top: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cde-pt .cde-home__post--featured .cde-home__post-excerpt { -webkit-line-clamp: 5; font-size: 1rem; }
+
+  .cde-pt .cde-home__post-foot {
     display: flex;
     align-items: center;
-    gap: 6px;
-  }
-  .cde-pt__calendar-icon {
-    font-size: 14px;
-    flex-shrink: 0;
-    color: var(--cde-pt-gray-600);
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--cde-pt-gray-100);
   }
 
-  /* --- Loading --- */
+  .cde-pt .cde-home__post-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--cde-pt-accent);
+    transition: color var(--cde-pt-transition);
+  }
+  .cde-pt .cde-home__post-more .material-symbols-outlined { font-size: 17px; transition: transform var(--cde-pt-transition); }
+  .cde-pt .cde-home__post-more:hover { color: var(--cde-pt-accent-dark); }
+  .cde-pt .cde-home__post-more:hover .material-symbols-outlined { transform: translateX(4px); }
+
+  .cde-pt .cde-home__post--small .cde-home__post-more { margin-top: auto; }
+
   .cde-pt__loading {
     text-align: center;
     padding: 60px 24px;
@@ -315,7 +291,6 @@
   }
   @keyframes cde-pt-spin { to { transform: rotate(360deg); } }
 
-  /* --- Empty State --- */
   .cde-pt__empty {
     text-align: center;
     padding: 60px 24px;
@@ -331,7 +306,6 @@
     margin: 0;
   }
 
-  /* --- Error State --- */
   .cde-pt__error {
     text-align: center;
     padding: 48px 24px;
@@ -346,7 +320,6 @@
   }
   .cde-pt__error p { margin: 0; font-size: 0.95rem; }
 
-  /* --- Pagination --- */
   .cde-pt__pagination {
     display: flex;
     justify-content: center;
@@ -404,47 +377,42 @@
     font-size: 0.875rem;
   }
 
-  /* --- Responsive --- */
-  @media (max-width: 1100px) {
-    .cde-pt__grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  @media (max-width: 900px) {
+    .cde-pt .cde-home__post--featured { grid-template-columns: 1fr; }
+    .cde-pt .cde-home__post--featured .cde-home__post-thumb { min-height: 0; aspect-ratio: 16 / 9; }
+    .cde-pt .cde-home__post--featured .cde-home__post-body { padding: 26px 24px; }
   }
+
   @media (max-width: 768px) {
     .cde-pt__header { padding-inline: 16px; }
     .cde-pt__header::before,
     .cde-pt__header::after { width: 32px; margin-inline: 7px; }
     .cde-pt__page-title { font-size: clamp(28px, 9vw, 42px); }
     .cde-pt__subtitle { line-height: 1.45; }
-    .cde-pt__grid { grid-template-columns: 1fr; gap: 20px; }
     .cde-pt__pagination { gap: 4px; }
     .cde-pt__page-btn { min-width: 36px; height: 36px; font-size: 0.8rem; }
-    .cde-pt__badge {
-      font-size: 0.55rem;
-      padding: 4px 8px;
-      top: 8px;
-      right: 8px;
-    }
-    .cde-pt__badge .material-symbols-outlined { font-size: 10px; }
-    .cde-pt__link--badge {
-      font-size: 0.6rem;
-      padding: 4px 8px;
-    }
-    .cde-pt__link--badge .cde-pt__arrow-icon { font-size: 10px; }
+  }
+
+  @media (max-width: 640px) {
+    .cde-pt__grid { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cde-pt__card,
-    .cde-pt__thumb img,
+    .cde-pt .cde-home__post,
+    .cde-pt .cde-home__post-thumb img,
     .cde-pt__spinner { transition: none; animation: none; }
-    .cde-pt__card:hover { transform: none; }
-    .cde-pt__card:hover .cde-pt__thumb img { transform: none; }
+    .cde-pt .cde-home__post:hover { transform: none; }
+    .cde-pt .cde-home__post:hover .cde-home__post-thumb img { transform: none; }
   }
 </style>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=school,description,image,arrow_forward,calendar_today,first_page,chevron_left,chevron_right,last_page" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=description,arrow_forward,calendar_month,first_page,chevron_left,chevron_right,last_page" />
 <style>
   .cde-pt .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
     vertical-align: middle;
+    line-height: 1;
+    user-select: none;
   }
 </style>
 
@@ -454,42 +422,52 @@
      CONFIGURACIÓN — Cambiar slug para cada post type.
      ========================================================= */
   var POST_TYPE_CONFIG = {
-    slug: 'parlamento-estudiant',   // ← Cambiar este valor
+    slug: 'parlamento-estudiant',
     perPage: 9,
     apiBase: 'https://cdeldorado.gob.ar/wp-json/wp/v2/'
   };
 
-  /* --- State --- */
+  var CHIP_LABEL = 'Parlamento Estudiantil';
   var currentPage = 1;
   var totalPages = 1;
 
-  /* --- DOM --- */
   var grid = document.getElementById('cde-pt-grid');
   var loading = document.getElementById('cde-pt-loading');
   var empty = document.getElementById('cde-pt-empty');
   var pagination = document.getElementById('cde-pt-pagination');
 
-  /* --- Helpers --- */
+  function esc(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
   function stripHtml(html) {
     var tmp = document.createElement('div');
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
+    tmp.innerHTML = html || '';
+    return (tmp.textContent || tmp.innerText || '').replace(/\s*\[\.\.\.\]\s*$/, '').replace(/\s+/g, ' ').trim();
   }
 
   function formatDate(dateStr) {
-    var d = new Date(dateStr);
-    var months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    try {
+      return new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(dateStr));
+    } catch (e) {
+      return String(dateStr || '').slice(0, 10);
+    }
+  }
+
+  function truncate(text, max) {
+    if (!text || text.length <= max) return text || '';
+    var cut = text.slice(0, max);
+    cut = cut.slice(0, Math.max(cut.lastIndexOf(' '), 0));
+    return cut + '…';
   }
 
   function getExcerpt(post) {
-    if (post.excerpt && post.excerpt.rendered) {
-      return stripHtml(post.excerpt.rendered).substring(0, 140);
-    }
-    if (post.content && post.content.rendered) {
-      return stripHtml(post.content.rendered).substring(0, 140);
-    }
-    return '';
+    var text = '';
+    if (post.excerpt && post.excerpt.rendered) text = stripHtml(post.excerpt.rendered);
+    if (!text && post.content && post.content.rendered) text = stripHtml(post.content.rendered);
+    return text || 'Lea la nota completa en el sitio oficial del Concejo Deliberante de Eldorado.';
   }
 
   function getThumbSrc(post) {
@@ -498,15 +476,67 @@
       if (media.media_details && media.media_details.sizes && media.media_details.sizes.medium_large) {
         return media.media_details.sizes.medium_large.source_url;
       }
+      if (media.media_details && media.media_details.sizes && media.media_details.sizes.large) {
+        return media.media_details.sizes.large.source_url;
+      }
       if (media.media_details && media.media_details.sizes && media.media_details.sizes.medium) {
         return media.media_details.sizes.medium.source_url;
       }
-      return media.source_url;
+      return media.source_url || '';
     }
     return '';
   }
 
-  /* --- Render --- */
+  function cleanTitle(post) {
+    return stripHtml(post.title && post.title.rendered);
+  }
+
+  function cardDate(iso) {
+    return '<span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>' + esc(formatDate(iso)) + '</span>';
+  }
+
+  function moreLink(href) {
+    return '<a class="cde-home__post-more" href="' + esc(href) + '">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>';
+  }
+
+  function thumbHtml(post, title) {
+    var src = getThumbSrc(post);
+    if (!src) return '';
+    return '<img src="' + esc(src) + '" alt="' + esc(title) + '" loading="lazy" decoding="async">';
+  }
+
+  function featuredCard(post, isLatest) {
+    var link = esc(post.link);
+    var title = esc(cleanTitle(post));
+    var tags = '<div class="cde-home__post-tags">';
+    if (isLatest) tags += '<span class="cde-home__chip cde-home__chip--gold">Más reciente</span>';
+    tags += '<span class="cde-home__chip cde-home__chip--soft">' + esc(CHIP_LABEL) + '</span></div>';
+    return '<article class="cde-home__post cde-home__post--featured">' +
+      '<a class="cde-home__post-thumb" href="' + link + '" tabindex="-1" aria-hidden="true">' +
+      thumbHtml(post, title) + '</a>' +
+      '<div class="cde-home__post-body">' +
+      tags +
+      '<h3 class="cde-home__post-title"><a href="' + link + '">' + title + '</a></h3>' +
+      '<p class="cde-home__post-excerpt">' + esc(getExcerpt(post)) + '</p>' +
+      '<div class="cde-home__post-foot">' + cardDate(post.date) + moreLink(post.link) + '</div>' +
+      '</div></article>';
+  }
+
+  function smallCard(post) {
+    var link = esc(post.link);
+    var title = esc(cleanTitle(post));
+    return '<article class="cde-home__post cde-home__post--small">' +
+      '<a class="cde-home__post-thumb" href="' + link + '" tabindex="-1" aria-hidden="true">' +
+      '<span class="cde-home__chip cde-home__chip--img">' + esc(CHIP_LABEL) + '</span>' +
+      thumbHtml(post, title) + '</a>' +
+      '<div class="cde-home__post-body">' +
+      cardDate(post.date) +
+      '<h3 class="cde-home__post-title"><a href="' + link + '">' + title + '</a></h3>' +
+      '<p class="cde-home__post-excerpt">' + esc(truncate(getExcerpt(post), 150)) + '</p>' +
+      moreLink(post.link) +
+      '</div></article>';
+  }
+
   function renderCards(posts) {
     if (!posts || posts.length === 0) {
       grid.innerHTML = '';
@@ -519,34 +549,10 @@
     loading.style.display = 'none';
     empty.style.display = 'none';
 
-    var html = '';
-    posts.forEach(function(post) {
-      var src = getThumbSrc(post);
-      var thumbHtml = src
-        ? '<img src="' + src + '" alt="" loading="lazy" width="800" height="533">'
-        : '<div class="cde-pt__thumb--placeholder"><span class="material-symbols-outlined">image</span></div>';
-
-      var excerpt = getExcerpt(post);
-
-      html += '<article class="cde-pt__card">'
-        + '<a class="cde-pt__thumb" href="' + post.link + '" target="_blank" rel="noopener">'
-        + thumbHtml
-        + '<span class="cde-pt__badge"><span class="material-symbols-outlined">school</span> Parlamento Estudiantil</span>'
-        + '</a>'
-        + '<div class="cde-pt__body">'
-        + '<h3 class="cde-pt__title"><a href="' + post.link + '" target="_blank" rel="noopener">' + post.title.rendered + '</a></h3>'
-        + (excerpt ? '<p class="cde-pt__excerpt">' + excerpt + '</p>' : '')
-        + '<a class="cde-pt__link--badge" href="' + post.link + '" target="_blank" rel="noopener">SABER MÁS <span class="material-symbols-outlined cde-pt__arrow-icon">arrow_forward</span></a>'
-        + '<div class="cde-pt__date"><span class="material-symbols-outlined cde-pt__calendar-icon">calendar_today</span>' + formatDate(post.date) + '</div>'
-        + '</div>'
-        + '</article>';
-    });
-
-
-
-
-
-    
+    var html = featuredCard(posts[0], currentPage === 1);
+    for (var i = 1; i < posts.length; i++) {
+      html += smallCard(posts[i]);
+    }
 
     grid.innerHTML = html;
     renderPagination();
@@ -560,17 +566,14 @@
 
     var html = '';
 
-    /* Primera página */
     html += '<button class="cde-pt__page-btn" data-page="1" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Primera página">'
       + '<span class="material-symbols-outlined">first_page</span>'
       + '</button>';
 
-    /* Anterior */
     html += '<button class="cde-pt__page-btn" data-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Página anterior">'
       + '<span class="material-symbols-outlined">chevron_left</span>'
       + '</button>';
 
-    /* Números de página */
     var range = getPageRange(currentPage, totalPages);
     for (var i = 0; i < range.length; i++) {
       if (range[i] === '...') {
@@ -581,12 +584,10 @@
       }
     }
 
-    /* Siguiente */
     html += '<button class="cde-pt__page-btn" data-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Página siguiente">'
       + '<span class="material-symbols-outlined">chevron_right</span>'
       + '</button>';
 
-    /* Última página */
     html += '<button class="cde-pt__page-btn" data-page="' + totalPages + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Última página">'
       + '<span class="material-symbols-outlined">last_page</span>'
       + '</button>';
@@ -621,7 +622,6 @@
     return pages;
   }
 
-  /* --- Fetch --- */
   function loadPosts(page) {
     currentPage = page;
     loading.style.display = '';
@@ -644,7 +644,7 @@
       .then(function(posts) {
         renderCards(posts);
         var root = document.getElementById('cde-pt-root');
-        if (root) {
+        if (root && page > 1) {
           root.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       })
@@ -661,7 +661,6 @@
       });
   }
 
-  /* --- Pagination click handler --- */
   pagination.addEventListener('click', function(e) {
     var btn = e.target.closest('.cde-pt__page-btn');
     if (!btn || btn.disabled) return;
@@ -671,7 +670,6 @@
     }
   });
 
-  /* --- Init --- */
   loadPosts(1);
 })();
 </script>
