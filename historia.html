@@ -1,0 +1,598 @@
+<!-- Historia - Concejo Deliberante de Eldorado | Pegar en WordPress como bloque "HTML personalizado" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=account_balance,arrow_forward,description,gavel,history,how_to_vote,rule,scale,task_alt" />
+
+<style>
+  .cde-history,
+  .cde-history *,
+  .cde-history *::before,
+  .cde-history *::after { box-sizing: border-box; }
+
+  .cde-history {
+    --history-blue: var(--cde-blue, #1e3a5f);
+    --history-dark: var(--cde-blue-dark, #152c4a);
+    --history-deep: #0e2038;
+    --history-gold: var(--cde-gold, #c9a227);
+    --history-gold-light: var(--cde-gold-light, #d4b445);
+    --history-white: var(--cde-white, #fff);
+    --history-gray-50: var(--cde-gray-50, #f8f9fa);
+    --history-gray-100: var(--cde-gray-100, #f1f3f5);
+    --history-gray-200: var(--cde-gray-200, #e9ecef);
+    --history-muted: var(--cde-gray-600, #6c757d);
+    --history-shadow: var(--cde-shadow, 0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.04));
+    --history-shadow-lg: var(--cde-shadow-lg, 0 4px 20px rgba(0,0,0,.1), 0 8px 32px rgba(0,0,0,.06));
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #374151;
+    line-height: 1.7;
+    background: var(--history-white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .cde-history .cde-history__container {
+    width: min(1280px, calc(100% - 48px));
+    margin: 0 auto;
+  }
+
+  .cde-history a { color: inherit; }
+  .cde-history :focus-visible {
+    outline: 2px solid var(--history-gold);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  .cde-history .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .cde-history__hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(72px, 10vw, 132px) 0 clamp(66px, 9vw, 112px);
+    color: var(--history-white);
+    background:
+      radial-gradient(circle at 84% 18%, rgba(201,162,39,.2), transparent 27%),
+      linear-gradient(135deg, #2e4f7a 0%, var(--history-blue) 45%, var(--history-deep) 100%);
+    border-bottom: 3px solid var(--history-gold);
+  }
+  .cde-history__hero::after {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -150px;
+    bottom: -250px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 50%;
+    box-shadow: 0 0 0 34px rgba(255,255,255,.035), 0 0 0 70px rgba(255,255,255,.025);
+    pointer-events: none;
+  }
+  .cde-history__hero-content { position: relative; z-index: 1; max-width: 820px; }
+  .cde-history__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 18px;
+    color: var(--history-gold-light);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+  .cde-history__eyebrow::after {
+    content: '';
+    width: 78px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--history-gold), transparent);
+  }
+  .cde-history__hero h1 {
+    max-width: 720px;
+    margin: 0 0 22px;
+    color: var(--history-white);
+    font-size: clamp(2.5rem, 6vw, 5.2rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -1.8px;
+  }
+  .cde-history__hero h1 span { color: var(--history-gold-light); }
+  .cde-history__hero-lead {
+    max-width: 700px;
+    margin: 0;
+    color: rgba(255,255,255,.82);
+    font-size: clamp(1rem, 1.5vw, 1.18rem);
+    line-height: 1.75;
+  }
+
+  .cde-history__milestones {
+    position: relative;
+    z-index: 2;
+    margin-top: -35px;
+  }
+  .cde-history__milestones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.7);
+    border-radius: 12px;
+    background: var(--history-white);
+    box-shadow: var(--history-shadow-lg);
+  }
+  .cde-history__milestone {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 104px;
+    padding: 20px 26px;
+    border-right: 1px solid var(--history-gray-200);
+  }
+  .cde-history__milestone:last-child { border-right: 0; }
+  .cde-history__milestone-icon {
+    display: grid;
+    flex: 0 0 46px;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    color: var(--history-dark);
+    background: rgba(201,162,39,.18);
+  }
+  .cde-history__milestone-icon .material-symbols-outlined { font-size: 24px; }
+  .cde-history__milestone strong {
+    display: block;
+    color: var(--history-blue);
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+  .cde-history__milestone span:last-child { color: var(--history-muted); font-size: .82rem; }
+
+  .cde-history__section { padding: clamp(68px, 8vw, 108px) 0; }
+  .cde-history__section--soft { background: var(--history-gray-50); }
+  .cde-history__section--dark {
+    color: rgba(255,255,255,.82);
+    background: linear-gradient(135deg, #2e4f7a 0%, var(--history-blue) 45%, var(--history-deep) 100%);
+    border-top: 2px solid var(--history-gold);
+  }
+  .cde-history__section-head { max-width: 760px; margin-bottom: 42px; }
+  .cde-history__section-head--center { margin-right: auto; margin-left: auto; text-align: center; }
+  .cde-history__section-kicker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 14px;
+    color: var(--history-gold);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .cde-history__section-kicker::before {
+    content: '';
+    width: 38px;
+    height: 1px;
+    background: currentColor;
+  }
+  .cde-history__section-head--center .cde-history__section-kicker { justify-content: center; }
+  .cde-history__section-title {
+    margin: 0 0 14px;
+    color: var(--history-blue);
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -.7px;
+  }
+  .cde-history__section--dark .cde-history__section-title { color: var(--history-white); }
+  .cde-history__section-intro { max-width: 720px; margin: 0; color: var(--history-muted); }
+  .cde-history__section--dark .cde-history__section-intro { color: rgba(255,255,255,.72); }
+
+  .cde-history__story {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+    gap: clamp(36px, 7vw, 100px);
+    align-items: start;
+  }
+  .cde-history__story-copy p { margin: 0 0 22px; font-size: 1.02rem; }
+  .cde-history__story-copy p:last-child { margin-bottom: 0; }
+  .cde-history__quote {
+    position: relative;
+    margin: 0;
+    padding: 30px;
+    color: var(--history-white);
+    background: var(--history-dark);
+    border-left: 4px solid var(--history-gold);
+    border-radius: 0 10px 10px 0;
+    box-shadow: var(--history-shadow-lg);
+  }
+  .cde-history__quote .material-symbols-outlined { display: block; margin-bottom: 18px; color: var(--history-gold-light); font-size: 32px; }
+  .cde-history__quote p { margin: 0 0 18px; font-size: 1.03rem; line-height: 1.7; }
+  .cde-history__quote cite { color: rgba(255,255,255,.65); font-size: .78rem; font-style: normal; letter-spacing: .08em; text-transform: uppercase; }
+
+  .cde-history__function-layout { display: grid; grid-template-columns: minmax(230px, .3fr) minmax(0, 1fr); gap: 54px; align-items: start; }
+  .cde-history__function-aside { position: sticky; top: 24px; }
+  .cde-history__function-number { display: block; color: rgba(201,162,39,.35); font-size: clamp(4rem, 9vw, 7rem); font-weight: 800; line-height: .8; letter-spacing: -6px; }
+  .cde-history__function-aside h3 { margin: 28px 0 12px; color: var(--history-blue); font-size: 1.25rem; line-height: 1.25; }
+  .cde-history__function-aside p { margin: 0; color: var(--history-muted); font-size: .92rem; }
+  .cde-history__function-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: function;
+  }
+  .cde-history__function-list li {
+    position: relative;
+    padding: 0 0 22px 32px;
+    color: #4b5563;
+    font-size: .91rem;
+    line-height: 1.62;
+    counter-increment: function;
+  }
+  .cde-history__function-list li::before {
+    content: counter(function, decimal-leading-zero);
+    position: absolute;
+    top: 2px;
+    left: 0;
+    color: var(--history-gold);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .03em;
+  }
+  .cde-history__function-list li::after {
+    content: '';
+    position: absolute;
+    top: 25px;
+    bottom: 0;
+    left: 4px;
+    width: 1px;
+    background: var(--history-gray-200);
+  }
+  .cde-history__function-list li:last-child::after { display: none; }
+  .cde-history__function-note {
+    margin: 24px 0 0;
+    padding: 22px 24px;
+    color: var(--history-blue);
+    background: rgba(201,162,39,.12);
+    border: 1px solid rgba(201,162,39,.35);
+    border-radius: 8px;
+    font-size: .92rem;
+  }
+  .cde-history__function-note strong { font-weight: 800; }
+
+  .cde-history__control {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    padding: 30px 34px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 12px;
+  }
+  .cde-history__control-icon { color: var(--history-gold-light); font-size: 38px; }
+  .cde-history__control p { margin: 0; font-size: 1.05rem; line-height: 1.7; }
+
+  .cde-history__process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .cde-history__step {
+    position: relative;
+    min-height: 190px;
+    padding: 25px 22px;
+    background: var(--history-white);
+    border: 1px solid var(--history-gray-200);
+    border-radius: 10px;
+    box-shadow: var(--history-shadow);
+    transition: transform var(--cde-transition, .3s ease),
+      box-shadow var(--cde-transition, .3s ease),
+      border-color var(--cde-transition, .3s ease),
+      background var(--cde-transition, .3s ease);
+  }
+  .cde-history__step:hover,
+  .cde-history__step:focus-within {
+    z-index: 1;
+    transform: translateY(-8px) scale(1.02);
+    background: linear-gradient(145deg, var(--history-white), #fffdf5);
+    border-color: var(--history-gold);
+    box-shadow: 0 14px 30px rgba(21,44,74,.14), 0 0 0 3px rgba(201,162,39,.12);
+  }
+  .cde-history__step::after {
+    content: '→';
+    position: absolute;
+    top: 42px;
+    right: -17px;
+    z-index: 2;
+    color: var(--history-gold);
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .cde-history__step:last-child::after { display: none; }
+  .cde-history__step-number {
+    display: inline-block;
+    color: var(--history-gold);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .15em;
+    transition: color var(--cde-transition, .3s ease), letter-spacing var(--cde-transition, .3s ease);
+  }
+  .cde-history__step .material-symbols-outlined {
+    display: block;
+    margin: 18px 0 14px;
+    color: var(--history-blue);
+    font-size: 28px;
+    transition: color var(--cde-transition, .3s ease), transform var(--cde-transition, .3s ease);
+  }
+  .cde-history__step h3 {
+    margin: 0 0 8px;
+    color: var(--history-blue);
+    font-size: 1rem;
+    transition: color var(--cde-transition, .3s ease), transform var(--cde-transition, .3s ease);
+  }
+  .cde-history__step:hover .cde-history__step-number,
+  .cde-history__step:focus-within .cde-history__step-number {
+    color: var(--history-blue);
+    letter-spacing: .2em;
+  }
+  .cde-history__step:hover .material-symbols-outlined,
+  .cde-history__step:focus-within .material-symbols-outlined {
+    color: var(--history-gold);
+    transform: translateY(-3px) scale(1.15) rotate(-6deg);
+  }
+  .cde-history__step:hover h3,
+  .cde-history__step:focus-within h3 {
+    color: var(--history-gold);
+    transform: translateX(3px);
+  }
+  .cde-history__step p { margin: 0; color: var(--history-muted); font-size: .84rem; line-height: 1.55; }
+
+  .cde-history__definitions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 42px; }
+  .cde-history__definition { padding: 26px 22px; background: var(--history-white); border-top: 3px solid var(--history-gold); box-shadow: var(--history-shadow); }
+  .cde-history__definition .material-symbols-outlined { color: var(--history-gold); font-size: 28px; }
+  .cde-history__definition h3 { margin: 18px 0 10px; color: var(--history-blue); font-size: 1.05rem; }
+  .cde-history__definition p { margin: 0; color: var(--history-muted); font-size: .86rem; line-height: 1.6; }
+
+  .cde-history__details { max-width: 930px; margin: 46px auto 0; }
+  .cde-history__details h3 { margin: 0 0 18px; color: var(--history-blue); font-size: 1.25rem; }
+  .cde-history__details p { margin: 0 0 18px; color: #4b5563; font-size: .94rem; }
+  .cde-history__details p:last-child { margin-bottom: 0; }
+  .cde-history__final {
+    margin-top: 34px !important;
+    padding: 20px 24px;
+    color: var(--history-blue) !important;
+    background: var(--history-gray-50);
+    border-left: 3px solid var(--history-gold);
+  }
+
+  @media (max-width: 1000px) {
+    .cde-history__function-layout { grid-template-columns: 1fr; gap: 28px; }
+    .cde-history__function-aside { position: static; }
+    .cde-history__function-number { display: inline-block; margin-right: 18px; font-size: 4.5rem; }
+    .cde-history__function-aside h3 { display: inline-block; max-width: 520px; margin: 0; vertical-align: top; }
+    .cde-history__function-aside p { max-width: 640px; margin-top: -8px; margin-left: 88px; }
+    .cde-history__process-grid, .cde-history__definitions { grid-template-columns: repeat(2, 1fr); }
+    .cde-history__step:nth-child(2)::after { display: none; }
+  }
+  @media (max-width: 700px) {
+    .cde-history .cde-history__container { width: min(100% - 32px, 1280px); }
+    .cde-history__milestones-grid { grid-template-columns: 1fr; }
+    .cde-history__milestone { min-height: 80px; border-right: 0; border-bottom: 1px solid var(--history-gray-200); }
+    .cde-history__milestone:last-child { border-bottom: 0; }
+    .cde-history__story { grid-template-columns: 1fr; gap: 34px; }
+    .cde-history__function-list { grid-template-columns: 1fr; }
+    .cde-history__control { padding: 24px; }
+    .cde-history__process-grid, .cde-history__definitions { grid-template-columns: 1fr; }
+    .cde-history__step { min-height: auto; }
+    .cde-history__step::after { top: auto; right: auto; bottom: -18px; left: 50%; transform: rotate(90deg); }
+    .cde-history__step:nth-child(2)::after { display: block; }
+    .cde-history__step:last-child::after { display: none; }
+  }
+  @media (max-width: 480px) {
+    .cde-history__hero { padding-top: 60px; }
+    .cde-history__hero h1 { letter-spacing: -1px; }
+    .cde-history__function-number { font-size: 3.5rem; }
+    .cde-history__function-aside h3 { display: block; margin-top: 14px; }
+    .cde-history__function-aside p { margin-left: 0; margin-top: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cde-history *, .cde-history *::before, .cde-history *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  }
+</style>
+
+<main class="cde-history" aria-labelledby="cde-history-title">
+  <section class="cde-history__hero">
+    <div class="cde-history__container">
+      <div class="cde-history__hero-content">
+        <p class="cde-history__eyebrow">Concejo Deliberante de Eldorado</p>
+        <h1 id="cde-history-title">Historia y <span>funciones</span></h1>
+        <p class="cde-history__hero-lead">La memoria institucional de Eldorado y el marco de atribuciones que sostiene la representación, el debate y la participación ciudadana.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cde-history__milestones" aria-label="Hitos institucionales">
+    <div class="cde-history__container">
+      <div class="cde-history__milestones-grid">
+        <div class="cde-history__milestone">
+          <span class="cde-history__milestone-icon"><span class="material-symbols-outlined" aria-hidden="true">history</span></span>
+          <span><strong>1919</strong><span>Nace Eldorado</span></span>
+        </div>
+        <div class="cde-history__milestone">
+          <span class="cde-history__milestone-icon"><span class="material-symbols-outlined" aria-hidden="true">account_balance</span></span>
+          <span><strong>1950</strong><span>La colonia se convierte en municipio</span></span>
+        </div>
+        <div class="cde-history__milestone">
+          <span class="cde-history__milestone-icon"><span class="material-symbols-outlined" aria-hidden="true">gavel</span></span>
+          <span><strong>Artículo 94</strong><span>Atribuciones y deberes del Concejo</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cde-history__section" aria-labelledby="cde-history-origin-title">
+    <div class="cde-history__container">
+      <div class="cde-history__section-head">
+        <p class="cde-history__section-kicker">01 · Origen institucional</p>
+        <h2 class="cde-history__section-title" id="cde-history-origin-title">Una historia construida con participación</h2>
+      </div>
+      <div class="cde-history__story">
+        <div class="cde-history__story-copy">
+          <p>Desde 1919 la administración y las tareas legislativas de Eldorado estaban a cargo de las comisiones de fomento. En 1950 la colonia de Eldorado pasa a ser municipio. Deja de ser interventor Pantaleón Dutka dando lugar Leandro A. Berón, que luego asume como comisionado Municipal y comienza a funcionar el Honorable Concejo Municipal. Es electo como presidente del concejo el señor Alberto Bejar Barrios.</p>
+          <p>En 1919 nace Eldorado.</p>
+          <p>En Misiones ejercía su primer periodo de gobierno el Dr. Héctor Barreyro (1917-1920). Según censo de 1920 Misiones tenía una población de 63.176 habitantes, de los cuales 42.645 eran argentinos (67,5 %), 9.294 ciudadanos con derecho al sufragio y la población se quintuplicó entre 1914 y 1947 donde hubo gran concentración en Eldorado.</p>
+        </div>
+        <blockquote class="cde-history__quote">
+          <span class="material-symbols-outlined" aria-hidden="true">description</span>
+          <p>El Dr. Hipólito Irigoyen, presidente de la Nación, presentó proyecto de ley de provincialización de Misiones justificando que se “...había superado el número de habitantes exigido, que sus pueblos tenían gran actividad comercial por su posición geográfica y por la riqueza de sus tierras...”.</p>
+          <cite>Proyecto de provincialización de Misiones</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="cde-history__section cde-history__section--soft" aria-labelledby="cde-history-functions-title">
+    <div class="cde-history__container">
+      <div class="cde-history__function-layout">
+        <aside class="cde-history__function-aside">
+          <span class="cde-history__function-number">02</span>
+          <h3>El Concejo legisla, controla y representa.</h3>
+          <p>Según lo dispone el artículo 94 de la Carta Orgánica Municipal, estas son sus atribuciones y deberes.</p>
+        </aside>
+        <div>
+          <header class="cde-history__section-head">
+            <p class="cde-history__section-kicker">Marco institucional</p>
+            <h2 class="cde-history__section-title" id="cde-history-functions-title">Funciones</h2>
+            <p class="cde-history__section-intro">Atribuciones y deberes del Concejo Deliberante de Eldorado.</p>
+          </header>
+          <ul class="cde-history__function-list">
+            <li>Sancionar Ordenanzas y emitir Resoluciones, Comunicaciones y Declaraciones.</li>
+            <li>Dictar su reglamento interno, elaborar su presupuesto, elegir sus autoridades y ejercer las funciones administrativas propias del mismo.</li>
+            <li>Nombrar y remover al personal de su dependencia.</li>
+            <li>Considerar y resolver renuncias, pedidos de licencias del Intendente, Viceintendente, Concejales, Juez de Faltas, Defensor del Pueblo y del personal de su dependencia directa.</li>
+            <li>Fijar la remuneración del Intendente, Viceintendente, Secretarios, Directores, Juez de Faltas, Defensor del Pueblo y empleados. Establecer el escalafón y los conceptos que integran el régimen de remuneración de los agentes municipales.</li>
+            <li>Aprobar, a iniciativa del Departamento Ejecutivo Municipal, el organigrama de las reparticiones municipales, su estructura, misiones y organización. Dictar la normativa correspondiente, en cumplimiento de lo establecido para el empleo público municipal por esta Carta Orgánica.</li>
+            <li>Prestar acuerdo para la designación de los Magistrados y Funcionarios de la Justicia Administrativa Municipal de Faltas.</li>
+            <li>Sancionar anualmente el Presupuesto General de Gastos y Cálculo de Recursos, que se elabora conjuntamente con el Departamento Ejecutivo.</li>
+            <li>Evaluar la implementación del Presupuesto Participativo.</li>
+            <li>Dictar la Ordenanza General Fiscal Anual y fijar los derechos, tasas y contribuciones, de conformidad con esta Carta Orgánica.</li>
+            <li>Condonar deudas por tributos municipales, con el voto de los dos tercios (2/3) de sus miembros y, teniendo presente lo expresamente previsto en el artículo 192.</li>
+            <li>Crear Comisiones de Investigación en su seno, con los fines específicos y por períodos determinados. Estas Comisiones deben respetar los derechos y garantías personales, la competencia y atribuciones del Poder Judicial, debiendo formar parte de la misma los distintos bloques existentes. Vencido el plazo, las comisiones deben expedirse en todos los casos según el resultado de lo investigado.</li>
+            <li>Establecer las rentas que han de producir los bienes municipales.</li>
+            <li>Autorizar al Departamento Ejecutivo a efectuar adquisiciones, aceptar o rechazar donaciones y legados con cargo y a enajenar bienes del dominio privado municipal o constituir gravámenes sobre ellos.</li>
+            <li>Autorizar concesiones o permisos de uso de los bienes del dominio público municipal, siguiendo el procedimiento establecido en el artículo 119 de la presente.</li>
+            <li>Autorizar la desafectación de bienes de dominio público municipal, observando lo consagrado en el artículo 119.</li>
+            <li>Establecer límites y restricciones al dominio y solicitar a la Cámara de Representantes de la Provincia de Misiones la declaración de utilidad pública o de interés general a los fines de la expropiación de bienes; debiendo efectuar el procedimiento de conformidad con lo dispuesto por la Constitución Provincial, las normas que rijan en la materia y lo previsto por el artículo 119.</li>
+            <li>Sancionar regímenes de contabilidad, de contratación de obra pública, contrataciones, servicios públicos, pudiendo autorizar concesiones con los límites establecidos en la Constitución de la Provincia.</li>
+            <li>Ratificar o rechazar los Convenios celebrados por el Departamento Ejecutivo Municipal con la República Argentina, otras Naciones, la Provincia de Misiones, otras Provincias y otros Municipios.</li>
+            <li>Intervenir en los trámites de iniciativa popular y decidir los casos en que debe procederse a la revocatoria de mandato o destitución de funcionarios conforme a lo previsto en esta Carta Orgánica.</li>
+            <li>Comunicar al Departamento Ejecutivo Municipal la necesidad de convocar a elecciones Municipales cuando fuera necesario conforme a lo prescripto en esta Carta Orgánica y, en caso de que éste no lo hiciere, proceder por sí a la convocatoria.</li>
+            <li>Fijar tarifas para servicios públicos locales, considerándolas conjuntamente con sus proveedores, representantes de los usuarios y el Ente de Contralor de Servicios Públicos, disponiendo la realización de referéndum en caso de desentendimiento.</li>
+            <li>Autorizar la contratación de empréstitos y el uso del crédito público, conforme lo prescripto por la Carta Orgánica y normas que se dicten en su consecuencia.</li>
+            <li>Sancionar las Ordenanzas de instrumentación del Boletín Oficial Municipal y del Digesto Jurídico Municipal.</li>
+            <li>Someter a referéndum popular los casos que corresponda.</li>
+            <li>Sancionar el Código Fiscal Municipal, Código de Edificación, Código de Tránsito, Código de Faltas y Contravenciones, Código de Procedimiento Administrativo, Código Electoral Municipal, Código de Bromatología, Código Ambiental, Código de Ética en la Función Pública, el Estatuto para el Personal de la Administración Pública Municipal y todo otro cuerpo orgánico normativo en materia de su competencia.</li>
+            <li>Dictar normas sobre habilitación y funcionamiento de comercios, industrias y establecimientos en general.</li>
+            <li>Dictar normas relativas al saneamiento, gestión de efluentes, preservación del ambiente, conservación del suelo, salubridad e higiene urbana y en materia urbanística, edilicia, rural y de los espacios públicos, del uso del suelo, subsuelo, recursos hídricos y espacio aéreo.</li>
+            <li>Reglamentar la instalación y funcionamiento de las salas de espectáculos deportivos y de entretenimientos.</li>
+            <li>Sancionar normas que definan, delimiten e implementen un plan de Ordenamiento Territorial, con facultad de imponer restricciones y límites al dominio, determinando las zonas residenciales, industriales, comerciales, de servicios y de otras características que pudieren surgir en el futuro.</li>
+            <li>Dictar Ordenanzas referentes a publicidad y ornato en espacios y vía pública.</li>
+            <li>Dictar las normas relativas a la construcción, mantenimiento y administración de los cementerios municipales, a la fiscalización del funcionamiento de los cementerios privados y a la reglamentación de los servicios funerarios.</li>
+            <li>Reglamentar el tránsito de vehículos, el transporte de cosas y la prestación del servicio urbano de transporte de pasajeros y de carga.</li>
+            <li>Preservar la documentación del municipio reunida en el Archivo Histórico Municipal.</li>
+            <li>Fiscalizar y controlar los actos del Departamento Ejecutivo Municipal, incluidos los de la Administración indirecta, en sus aspectos patrimoniales, financieros y operativos; observar los Balances trimestrales y anuales que presente dicho Departamento, así como también examinar todos sus Libros Contables, Cuentas Bancarias y toda la documentación respaldatoria, sin perjuicio de las atribuciones que la ley otorga al Tribunal de Cuentas de la Provincia.</li>
+            <li>Proveer a los gastos no incluidos en el presupuesto y que haya urgente necesidad de atenderlos, reasignando los recursos pertinentes.</li>
+            <li>Solicitar al Tribunal de Cuentas de la Provincia, la realización de auditorías de contenido económico financiero.</li>
+            <li>Reglamentar la implementación, composición y funciones de los Consejos Consultivos Honorarios, temporarios o permanentes, creados en la presente Carta Orgánica y otros Consejos Asesores cuando las necesidades de gobierno así lo aconsejen o por iniciativa de los vecinos, como ámbitos de consulta, planificación y asesoramiento en temáticas específicas.</li>
+            <li>Crear y reglamentar el servicio de Mediación Comunitaria, como sistema alternativo de resolución de conflictos entre vecinos.</li>
+            <li>Delimitar los barrios que componen la ciudad.</li>
+            <li>Reglamentar las condiciones de elección, funcionamiento, competencias y otorgamiento de personería municipal a las Asociaciones Vecinales y demás órganos de participación ciudadana.</li>
+            <li>Dar nombres a calles, plazas, paseos y en general a cualquier lugar o establecimiento de dominio público municipal.</li>
+            <li>Sancionar normas que tiendan a la tenencia responsable de animales domésticos.</li>
+            <li>Disponer el emplazamiento, construcción, conservación y mejora de edificios, monumentos públicos, plazas, calles, caminos, puentes y demás obras públicas o privadas realizadas en espacios de dominio público municipal.</li>
+            <li>Declarar la necesidad de reforma de la Carta Orgánica municipal y proceder a su enmienda.</li>
+            <li>Realizar el control de gestión y funcionamiento de toda la administración municipal y la fiscalización del cumplimiento de las Ordenanzas.</li>
+            <li>Solicitar al Departamento Ejecutivo, informes verbales o por escrito.</li>
+            <li>Solicitar informes a reparticiones municipales, provinciales y nacionales respecto de asuntos que tengan repercusión en temáticas de su competencia.</li>
+            <li>Designar a los integrantes del Jurado de Enjuiciamiento.</li>
+            <li>Reglamentar la implementación y funcionamiento del Ente de Contralor de Servicios Públicos.</li>
+          </ul>
+          <p class="cde-history__function-note"><strong>Alcance de la enumeración:</strong> Esta enumeración no es taxativa, incumbiendo al Concejo Deliberante legislar sobre todo aquello que contribuya al bienestar del pueblo y a la satisfacción de las necesidades vitales, en el marco de lo previsto en la presente Carta Orgánica y en la Constitución Provincial.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cde-history__section cde-history__section--dark" aria-labelledby="cde-history-control-title">
+    <div class="cde-history__container">
+      <div class="cde-history__control">
+        <span class="material-symbols-outlined cde-history__control-icon" aria-hidden="true">scale</span>
+        <p id="cde-history-control-title">El Cuerpo Deliberativo tiene, además, la facultad de controlar las acciones encaradas por el Municipio, solicitando informes y explicaciones a sus funcionarios.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cde-history__section" aria-labelledby="cde-history-project-title">
+    <div class="cde-history__container">
+      <header class="cde-history__section-head cde-history__section-head--center">
+        <p class="cde-history__section-kicker">03 · Trabajo legislativo</p>
+        <h2 class="cde-history__section-title" id="cde-history-project-title">¿Cómo se presenta y se trata un proyecto?</h2>
+        <p class="cde-history__section-intro">Todo asunto que promueva o presente un Concejal deberá ser en forma de Proyecto de Ordenanza, Resolución, Declaración o de Comunicación.</p>
+      </header>
+
+      <div class="cde-history__process-grid" aria-label="Etapas de tratamiento de un proyecto">
+        <article class="cde-history__step">
+          <span class="cde-history__step-number">01 / INGRESO</span>
+          <span class="material-symbols-outlined" aria-hidden="true">description</span>
+          <h3>Presentación</h3>
+          <p>El proyecto ingresa a la sesión y se gira a la comisión que corresponde.</p>
+        </article>
+        <article class="cde-history__step">
+          <span class="cde-history__step-number">02 / ESTUDIO</span>
+          <span class="material-symbols-outlined" aria-hidden="true">rule</span>
+          <h3>Comisiones de trabajo</h3>
+          <p>Las comisiones estudian, debaten y perfeccionan el proyecto para emitir dictamen.</p>
+        </article>
+        <article class="cde-history__step">
+          <span class="cde-history__step-number">03 / DECISIÓN</span>
+          <span class="material-symbols-outlined" aria-hidden="true">how_to_vote</span>
+          <h3>Sesión</h3>
+          <p>El expediente puede ser aprobado, desaprobado o volver a comisiones.</p>
+        </article>
+        <article class="cde-history__step">
+          <span class="cde-history__step-number">04 / EJECUCIÓN</span>
+          <span class="material-symbols-outlined" aria-hidden="true">task_alt</span>
+          <h3>Promulgación o veto</h3>
+          <p>El Departamento Ejecutivo puede promulgarlo o vetarlo dentro de los 10 días hábiles.</p>
+        </article>
+      </div>
+
+      <div class="cde-history__definitions">
+        <article class="cde-history__definition">
+          <span class="material-symbols-outlined" aria-hidden="true">gavel</span>
+          <h3>¿Qué es una Ordenanza?</h3>
+          <p>Es una disposición emanada del Concejo Deliberante Eldorado (CDE), que crea, reforma, suspende o deroga una regla general, cuyo cumplimiento compete al Municipio.</p>
+        </article>
+        <article class="cde-history__definition">
+          <span class="material-symbols-outlined" aria-hidden="true">description</span>
+          <h3>¿Qué es una Resolución?</h3>
+          <p>Es una disposición que adopta el CDE, que tiene por objeto pedir informes, contestar, pedir, proponer algo o adherirse a algún asunto particular.</p>
+        </article>
+        <article class="cde-history__definition">
+          <span class="material-symbols-outlined" aria-hidden="true">account_balance</span>
+          <h3>¿Qué es una Declaración?</h3>
+          <p>Es una disposición que adopta el CDE, y que tiene por objeto expresar una opinión del Concejo sobre cualquier asunto público o privado o manifestar su voluntad de realizar algún acto, en tiempo determinado.</p>
+        </article>
+        <article class="cde-history__definition">
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          <h3>¿Qué es una Comunicación?</h3>
+          <p>Es un informe destinado a recomendar, requerir información o exponer algo al Departamento Ejecutivo (Municipalidad de la Ciudad de Eldorado).</p>
+        </article>
+      </div>
+
+      <div class="cde-history__details">
+        <h3>¿Cómo se tratan los proyectos?</h3>
+        <p>Internamente, el Concejo se divide en Comisiones por áreas temáticas, en las cuales hay un Presidente y se evalúan los proyectos que van a ser tratados en el pleno del Órgano, que han sido previamente enviados a la misma por la sesión anterior.</p>
+        <p>Los Proyectos de Ordenanzas, Resoluciones, Declaraciones y Comunicaciones son debatidos y perfeccionados para su posterior sanción por las comisiones internas de trabajo del Concejo y corresponden a temas de salud, educación, cultura, legislación general, seguridad, moralidad, tránsito, ecología, medio ambiente, etc.</p>
+        <p>Las Comisiones de Trabajo dictaminan independientemente cada una, pero a su vez interrelacionadas en un marco de congruencia para su aprobación. Una vez aprobadas o sancionadas por el Concejo Deliberante, pasan al Departamento Ejecutivo para que sean promulgadas o vetadas por el Intendente. En el caso de ser vetadas, vuelven al Concejo Deliberante para su nuevo tratamiento o rechazo del veto.</p>
+        <p><strong>Presentación del proyecto:</strong> Se tratan los expedientes en las comisiones de trabajo. Terminado el circuito de comisiones va con despacho de comisión a la sesión.</p>
+        <p>Los Concejales pueden pedir el tratamiento sobre tablas de un proyecto aunque no tengan despacho de comisión. Si salen aprobados, el Departamento Ejecutivo tiene 10 días hábiles para vetar total o parcialmente o promulgar. Si se vetan pueden volver al Concejo por única vez.</p>
+        <p class="cde-history__final"><strong>Si son promulgadas adquieren carácter público y obligatorio dentro del Municipio.</strong></p>
+      </div>
+    </div>
+  </section>
+</main>
