@@ -1,0 +1,674 @@
+<!-- ============================================================
+     Publicaciones por Post Type
+     Pegar dentro de un bloque "HTML personalizado" en WordPress.
+     Cambiar el valor de POST_TYPE_CONFIG.slug para cada post type.
+     ============================================================ -->
+
+<div class="cde-pt__page">
+<div class="cde-pt__header">
+  <p class="cde-pt__eyebrow">Guía del vecino</p>
+  <h2 class="cde-pt__page-title">Visitas Guiadas</h2>
+  <p class="cde-pt__subtitle">Conocé el Concejo Deliberante y su trabajo legislativo</p>
+</div>
+
+<div class="cde-pt" id="cde-pt-root">
+  <div class="cde-pt__loading" id="cde-pt-loading">
+    <div class="cde-pt__spinner"></div>
+    <p>Cargando publicaciones…</p>
+  </div>
+  <div class="cde-pt__grid" id="cde-pt-grid"></div>
+  <div class="cde-pt__empty" id="cde-pt-empty" style="display:none">
+    <span class="material-symbols-outlined">description</span>
+    <p>No hay publicaciones disponibles.</p>
+  </div>
+  <nav class="cde-pt__pagination" id="cde-pt-pagination"></nav>
+</div>
+</div>
+
+<style>
+  /* =========================================================
+     Scope: .cde-pt — no choca con estilos del tema ni Elementor.
+     ========================================================= */
+  .cde-pt__page {
+    --text: #1a1a1a;
+    background:
+      radial-gradient(
+        circle at 10% 20%,
+        rgba(201, 162, 39, 0.08),
+        transparent 25%
+      ),
+      radial-gradient(
+        circle at 90% 80%,
+        rgba(30, 58, 95, 0.08),
+        transparent 25%
+      ),
+      #f8f9fa;
+    color: var(--text);
+  }
+
+  .cde-pt,
+  .cde-pt *,
+  .cde-pt *::before,
+  .cde-pt *::after { box-sizing: border-box; }
+
+  .cde-pt {
+    --cde-pt-blue: #1e3a5f;
+    --cde-pt-blue-dark: #152c4a;
+    --cde-pt-gold: #c9a227;
+    --cde-pt-gold-light: #d4b445;
+    --cde-pt-accent: #c9a227;
+    --cde-pt-accent-dark: #152c4a;
+    --cde-pt-accent-border: #e9ecef;
+    --cde-pt-white: #ffffff;
+    --cde-pt-gray-50: #f8f9fa;
+    --cde-pt-gray-100: #f1f3f5;
+    --cde-pt-gray-200: #e9ecef;
+    --cde-pt-gray-600: #6c757d;
+    --cde-pt-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --cde-pt-shadow-lg: 0 4px 20px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.06);
+    --cde-pt-radius: 8px;
+    --cde-pt-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+    padding: clamp(32px, 4vw, 56px) 0;
+  }
+
+  .cde-pt a { text-decoration: none; }
+  .cde-pt img { display: block; max-width: 100%; }
+
+  .cde-pt :focus-visible {
+    outline: 2px solid var(--cde-pt-gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .cde-pt__header {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: left;
+    padding: clamp(34px, 5vw, 64px) 24px clamp(28px, 3.5vw, 44px);
+    position: relative;
+  }
+  .cde-pt__header::before {
+    content: "";
+    display: inline-block;
+    width: 56px;
+    height: 1px;
+    margin: 0 12px 4px 0;
+    background: var(--cde-pt-gold);
+    opacity: 0.8;
+  }
+  .cde-pt__header::after { display: none; }
+  .cde-pt__eyebrow {
+    margin: 0 0 12px;
+    color: var(--cde-pt-gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .cde-pt__page-title {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--cde-pt-blue);
+    line-height: 1.15;
+    margin: 0;
+  }
+  .cde-pt__subtitle {
+    margin: 14px 0 0;
+    color: var(--cde-pt-gray-600);
+    font-size: 1.02rem;
+    font-weight: 400;
+  }
+
+  .cde-pt__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .cde-pt .cde-home__post {
+    display: flex;
+    flex-direction: column;
+    background: var(--cde-pt-white);
+    border: 1px solid var(--cde-pt-accent-border);
+    border-radius: var(--cde-pt-radius);
+    overflow: hidden;
+    box-shadow: var(--cde-pt-shadow);
+    transition: transform var(--cde-pt-transition), box-shadow var(--cde-pt-transition), border-color var(--cde-pt-transition);
+  }
+  .cde-pt .cde-home__post:hover {
+    transform: translateY(-4px);
+    border-color: var(--cde-pt-accent);
+    box-shadow: var(--cde-pt-shadow-lg);
+  }
+
+  .cde-pt .cde-home__post--featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.08fr 1fr; }
+
+  .cde-pt .cde-home__post-thumb {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: var(--cde-pt-gray-100);
+  }
+
+  .cde-pt .cde-home__post--featured .cde-home__post-thumb { min-height: 340px; }
+  .cde-pt .cde-home__post--small .cde-home__post-thumb { aspect-ratio: 16 / 10; }
+
+  .cde-pt .cde-home__post-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.6,.2,1);
+  }
+  .cde-pt .cde-home__post--featured .cde-home__post-thumb img { position: absolute; inset: 0; }
+  .cde-pt .cde-home__post:hover .cde-home__post-thumb img { transform: scale(1.06); }
+
+  .cde-pt .cde-home__chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .cde-pt .cde-home__chip--img {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    background: rgba(21, 44, 74, 0.92);
+    color: var(--cde-pt-white);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .cde-pt .cde-home__chip--gold { background: var(--cde-pt-gold); color: #16233a; }
+  .cde-pt .cde-home__chip--soft { background: var(--cde-pt-gray-100); color: var(--cde-pt-blue); }
+
+  .cde-pt .cde-home__post-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 22px 24px;
+  }
+  .cde-pt .cde-home__post--featured .cde-home__post-body { padding: 36px 40px; }
+
+  .cde-pt .cde-home__post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+  .cde-pt .cde-home__post-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cde-pt-gray-600);
+    margin-bottom: 10px;
+  }
+  .cde-pt .cde-home__post-date .material-symbols-outlined { font-size: 17px; color: var(--cde-pt-accent); }
+
+  .cde-pt .cde-home__post-title {
+    margin: 0 0 10px;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--cde-pt-blue);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cde-pt .cde-home__post-title a { color: inherit; transition: color var(--cde-pt-transition); }
+  .cde-pt .cde-home__post:hover .cde-home__post-title a { color: var(--cde-pt-blue-dark); }
+
+  .cde-pt .cde-home__post--featured .cde-home__post-title {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    font-weight: 800;
+    -webkit-line-clamp: 4;
+  }
+
+  .cde-pt .cde-home__post-excerpt {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--cde-pt-gray-600);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cde-pt .cde-home__post--featured .cde-home__post-excerpt { -webkit-line-clamp: 5; font-size: 1rem; }
+
+  .cde-pt .cde-home__post-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--cde-pt-gray-100);
+  }
+
+  .cde-pt .cde-home__post-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--cde-pt-accent);
+    transition: color var(--cde-pt-transition);
+  }
+  .cde-pt .cde-home__post-more .material-symbols-outlined { font-size: 17px; transition: transform var(--cde-pt-transition); }
+  .cde-pt .cde-home__post-more:hover { color: var(--cde-pt-accent-dark); }
+  .cde-pt .cde-home__post-more:hover .material-symbols-outlined { transform: translateX(4px); }
+
+  .cde-pt .cde-home__post--small .cde-home__post-more { margin-top: auto; }
+
+  .cde-pt__loading {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--cde-pt-gray-600);
+    font-size: 0.95rem;
+  }
+  .cde-pt__loading p { margin-top: 16px; }
+  .cde-pt__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--cde-pt-gray-200);
+    border-top-color: var(--cde-pt-gold);
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: cde-pt-spin 0.8s linear infinite;
+  }
+  @keyframes cde-pt-spin { to { transform: rotate(360deg); } }
+
+  .cde-pt__empty {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--cde-pt-gray-600);
+  }
+  .cde-pt__empty .material-symbols-outlined {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .cde-pt__empty p {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .cde-pt__error {
+    text-align: center;
+    padding: 48px 24px;
+    color: #b42318;
+    background: #fef3f2;
+    border: 1px solid #fecdca;
+    border-radius: var(--cde-pt-radius);
+    margin: 0 24px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cde-pt__error p { margin: 0; font-size: 0.95rem; }
+
+  .cde-pt__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    padding: 0 24px;
+  }
+  .cde-pt__pagination:empty { display: none; }
+
+  .cde-pt__page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--cde-pt-gray-200);
+    border-radius: var(--cde-pt-radius);
+    background: var(--cde-pt-white);
+    color: var(--cde-pt-blue);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--cde-pt-transition), color var(--cde-pt-transition), border-color var(--cde-pt-transition);
+    font-family: inherit;
+  }
+  .cde-pt__page-btn:hover:not(.cde-pt__page-btn--active):not(:disabled) {
+    background: var(--cde-pt-gray-50);
+    border-color: var(--cde-pt-blue);
+  }
+  .cde-pt__page-btn--active {
+    background: var(--cde-pt-gold);
+    border-color: var(--cde-pt-gold);
+    color: #16233a;
+    font-weight: 600;
+    cursor: default;
+  }
+  .cde-pt__page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .cde-pt__page-btn .material-symbols-outlined {
+    font-size: 16px;
+    color: currentColor;
+  }
+  .cde-pt__page-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    color: var(--cde-pt-gray-600);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 900px) {
+    .cde-pt .cde-home__post--featured { grid-template-columns: 1fr; }
+    .cde-pt .cde-home__post--featured .cde-home__post-thumb { min-height: 0; aspect-ratio: 16 / 9; }
+    .cde-pt .cde-home__post--featured .cde-home__post-body { padding: 26px 24px; }
+  }
+
+  @media (max-width: 768px) {
+    .cde-pt__header { padding-inline: 16px; }
+    .cde-pt__header::before { width: 40px; }
+    .cde-pt__page-title { font-size: clamp(1.7rem, 9vw, 2.3rem); }
+    .cde-pt__subtitle { line-height: 1.45; }
+    .cde-pt__pagination { gap: 4px; }
+    .cde-pt__page-btn { min-width: 36px; height: 36px; font-size: 0.8rem; }
+  }
+
+  @media (max-width: 640px) {
+    .cde-pt__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cde-pt .cde-home__post,
+    .cde-pt .cde-home__post-thumb img,
+    .cde-pt__spinner { transition: none; animation: none; }
+    .cde-pt .cde-home__post:hover { transform: none; }
+    .cde-pt .cde-home__post:hover .cde-home__post-thumb img { transform: none; }
+  }
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=description,arrow_forward,calendar_month,first_page,chevron_left,chevron_right,last_page" />
+<style>
+  .cde-pt .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+    vertical-align: middle;
+    line-height: 1;
+    user-select: none;
+  }
+</style>
+
+<script>
+(function() {
+  /* =========================================================
+     CONFIGURACIÓN — Cambiar slug para cada post type.
+     ========================================================= */
+  var POST_TYPE_CONFIG = {
+    slug: 'visitas-guiadas',
+    perPage: 9,
+    apiBase: 'https://cdeldorado.gob.ar/wp-json/wp/v2/'
+  };
+
+  var CHIP_LABEL = 'Visitas Guiadas';
+  var currentPage = 1;
+  var totalPages = 1;
+
+  var grid = document.getElementById('cde-pt-grid');
+  var loading = document.getElementById('cde-pt-loading');
+  var empty = document.getElementById('cde-pt-empty');
+  var pagination = document.getElementById('cde-pt-pagination');
+
+  function esc(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function stripHtml(html) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html || '';
+    return (tmp.textContent || tmp.innerText || '').replace(/\s*\[\.\.\.\]\s*$/, '').replace(/\s+/g, ' ').trim();
+  }
+
+  function formatDate(dateStr) {
+    try {
+      return new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(dateStr));
+    } catch (e) {
+      return String(dateStr || '').slice(0, 10);
+    }
+  }
+
+  function truncate(text, max) {
+    if (!text || text.length <= max) return text || '';
+    var cut = text.slice(0, max);
+    cut = cut.slice(0, Math.max(cut.lastIndexOf(' '), 0));
+    return cut + '…';
+  }
+
+  function getExcerpt(post) {
+    var text = '';
+    if (post.excerpt && post.excerpt.rendered) text = stripHtml(post.excerpt.rendered);
+    if (!text && post.content && post.content.rendered) text = stripHtml(post.content.rendered);
+    return text || 'Lea la nota completa en el sitio oficial del Concejo Deliberante de Eldorado.';
+  }
+
+  function getThumbSrc(post) {
+    if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
+      var media = post._embedded['wp:featuredmedia'][0];
+      if (media.media_details && media.media_details.sizes && media.media_details.sizes.medium_large) {
+        return media.media_details.sizes.medium_large.source_url;
+      }
+      if (media.media_details && media.media_details.sizes && media.media_details.sizes.large) {
+        return media.media_details.sizes.large.source_url;
+      }
+      if (media.media_details && media.media_details.sizes && media.media_details.sizes.medium) {
+        return media.media_details.sizes.medium.source_url;
+      }
+      return media.source_url || '';
+    }
+    return '';
+  }
+
+  function cleanTitle(post) {
+    return stripHtml(post.title && post.title.rendered);
+  }
+
+  function cardDate(iso) {
+    return '<span class="cde-home__post-date"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>' + esc(formatDate(iso)) + '</span>';
+  }
+
+  function moreLink(href) {
+    return '<a class="cde-home__post-more" href="' + esc(href) + '">Saber más<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>';
+  }
+
+  function thumbHtml(post, title) {
+    var src = getThumbSrc(post);
+    if (!src) return '';
+    return '<img src="' + esc(src) + '" alt="' + esc(title) + '" loading="lazy" decoding="async">';
+  }
+
+  function featuredCard(post, isLatest) {
+    var link = esc(post.link);
+    var title = esc(cleanTitle(post));
+    var tags = '<div class="cde-home__post-tags">';
+    if (isLatest) tags += '<span class="cde-home__chip cde-home__chip--gold">Más reciente</span>';
+    tags += '<span class="cde-home__chip cde-home__chip--soft">' + esc(CHIP_LABEL) + '</span></div>';
+    return '<article class="cde-home__post cde-home__post--featured">' +
+      '<a class="cde-home__post-thumb" href="' + link + '" tabindex="-1" aria-hidden="true">' +
+      thumbHtml(post, title) + '</a>' +
+      '<div class="cde-home__post-body">' +
+      tags +
+      '<h3 class="cde-home__post-title"><a href="' + link + '">' + title + '</a></h3>' +
+      '<p class="cde-home__post-excerpt">' + esc(getExcerpt(post)) + '</p>' +
+      '<div class="cde-home__post-foot">' + cardDate(post.date) + moreLink(post.link) + '</div>' +
+      '</div></article>';
+  }
+
+  function smallCard(post) {
+    var link = esc(post.link);
+    var title = esc(cleanTitle(post));
+    return '<article class="cde-home__post cde-home__post--small">' +
+      '<a class="cde-home__post-thumb" href="' + link + '" tabindex="-1" aria-hidden="true">' +
+      '<span class="cde-home__chip cde-home__chip--img">' + esc(CHIP_LABEL) + '</span>' +
+      thumbHtml(post, title) + '</a>' +
+      '<div class="cde-home__post-body">' +
+      cardDate(post.date) +
+      '<h3 class="cde-home__post-title"><a href="' + link + '">' + title + '</a></h3>' +
+      '<p class="cde-home__post-excerpt">' + esc(truncate(getExcerpt(post), 150)) + '</p>' +
+      moreLink(post.link) +
+      '</div></article>';
+  }
+
+  function renderCards(posts) {
+    if (!posts || posts.length === 0) {
+      grid.innerHTML = '';
+      loading.style.display = 'none';
+      empty.style.display = '';
+      pagination.innerHTML = '';
+      return;
+    }
+
+    loading.style.display = 'none';
+    empty.style.display = 'none';
+
+    var html = featuredCard(posts[0], currentPage === 1);
+    for (var i = 1; i < posts.length; i++) {
+      html += smallCard(posts[i]);
+    }
+
+    grid.innerHTML = html;
+    renderPagination();
+  }
+
+  function renderPagination() {
+    if (totalPages <= 1) {
+      pagination.innerHTML = '';
+      return;
+    }
+
+    var html = '';
+
+    html += '<button class="cde-pt__page-btn" data-page="1" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Primera página">'
+      + '<span class="material-symbols-outlined">first_page</span>'
+      + '</button>';
+
+    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled' : '') + ' title="Página anterior">'
+      + '<span class="material-symbols-outlined">chevron_left</span>'
+      + '</button>';
+
+    var range = getPageRange(currentPage, totalPages);
+    for (var i = 0; i < range.length; i++) {
+      if (range[i] === '...') {
+        html += '<span class="cde-pt__page-ellipsis">…</span>';
+      } else {
+        var isActive = range[i] === currentPage;
+        html += '<button class="cde-pt__page-btn' + (isActive ? ' cde-pt__page-btn--active' : '') + '" data-page="' + range[i] + '"' + (isActive ? ' disabled' : '') + '>' + range[i] + '</button>';
+      }
+    }
+
+    html += '<button class="cde-pt__page-btn" data-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Página siguiente">'
+      + '<span class="material-symbols-outlined">chevron_right</span>'
+      + '</button>';
+
+    html += '<button class="cde-pt__page-btn" data-page="' + totalPages + '" ' + (currentPage === totalPages ? 'disabled' : '') + ' title="Última página">'
+      + '<span class="material-symbols-outlined">last_page</span>'
+      + '</button>';
+
+    pagination.innerHTML = html;
+  }
+
+  function getPageRange(current, total) {
+    if (total <= 7) {
+      var arr = [];
+      for (var i = 1; i <= total; i++) arr.push(i);
+      return arr;
+    }
+    var pages = [];
+    if (current <= 4) {
+      for (var i = 1; i <= 5; i++) pages.push(i);
+      pages.push('...');
+      pages.push(total);
+    } else if (current >= total - 3) {
+      pages.push(1);
+      pages.push('...');
+      for (var i = total - 4; i <= total; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      pages.push('...');
+      pages.push(current - 1);
+      pages.push(current);
+      pages.push(current + 1);
+      pages.push('...');
+      pages.push(total);
+    }
+    return pages;
+  }
+
+  function loadPosts(page) {
+    currentPage = page;
+    loading.style.display = '';
+    grid.innerHTML = '';
+    empty.style.display = 'none';
+    pagination.innerHTML = '';
+
+    var url = POST_TYPE_CONFIG.apiBase + POST_TYPE_CONFIG.slug
+      + '?per_page=' + POST_TYPE_CONFIG.perPage
+      + '&page=' + page
+      + '&_embed=wp:featuredmedia'
+      + '&orderby=date&order=desc';
+
+    fetch(url)
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        totalPages = parseInt(res.headers.get('X-WP-TotalPages'), 10) || 1;
+        return res.json();
+      })
+      .then(function(posts) {
+        renderCards(posts);
+        var root = document.getElementById('cde-pt-root');
+        if (root && page > 1) {
+          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      })
+      .catch(function(err) {
+        loading.style.display = 'none';
+        grid.innerHTML = '';
+        empty.style.display = 'none';
+        pagination.innerHTML = '';
+        var errDiv = document.createElement('div');
+        errDiv.className = 'cde-pt__error';
+        errDiv.innerHTML = '<p>Error al cargar las publicaciones. Verificá la consola del navegador o intentá nuevamente más tarde.</p>';
+        document.getElementById('cde-pt-root').appendChild(errDiv);
+        console.error('[cde-pt] Error:', err);
+      });
+  }
+
+  pagination.addEventListener('click', function(e) {
+    var btn = e.target.closest('.cde-pt__page-btn');
+    if (!btn || btn.disabled) return;
+    var page = parseInt(btn.getAttribute('data-page'), 10);
+    if (page && page !== currentPage) {
+      loadPosts(page);
+    }
+  });
+
+  loadPosts(1);
+})();
+</script>
