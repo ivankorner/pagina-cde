@@ -70,12 +70,11 @@ These files are **not deployed directly**. Copy the file content and paste it in
 
 ## Component patterns
 
-### Sticky header (`Header.html`)
+### Header (`Header.html`)
 
-- `position: fixed; top: 0` with `z-index: 1000`
+- Header remains in the normal document flow and scrolls with the page
 - Topbar uses the shared blue gradient + `border-bottom: 2px solid var(--cde-gold)`; `.cde-header` body stays white
 - Topbar hidden at 768px, so gradient detail is desktop/tablet only
-- Scroll detection adds `.cde-nav--scrolled` class for background change
 - Mobile menu: hamburger toggles `.cde-nav__menu--open`
 - Search: hidden on desktop ≤1100px; mobile search button inline-styled in mobile nav
 
