@@ -1,0 +1,418 @@
+<!-- Farmacias de turno - Concejo Deliberante de Eldorado | Bloque HTML personalizado para WordPress -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=calendar_month,call,directions,location_on,local_pharmacy,open_in_new,today" />
+
+<style>
+  .cde-farm, .cde-farm *, .cde-farm *::before, .cde-farm *::after { box-sizing: border-box; }
+  .cde-farm {
+    --cde-farm-blue: var(--cde-blue, #1e3a5f);
+    --cde-farm-dark: var(--cde-blue-dark, #152c4a);
+    --cde-farm-gold: var(--cde-gold, #c9a227);
+    --cde-farm-gold-light: var(--cde-gold-light, #d4b445);
+    --cde-farm-gray: var(--cde-gray-600, #6c757d);
+    --cde-farm-line: var(--cde-gray-200, #e9ecef);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #374151;
+    line-height: 1.55;
+    background: #f7f8fa;
+    -webkit-font-smoothing: antialiased;
+  }
+  .cde-farm .cde-farm__container { width: min(1280px, calc(100% - 48px)); margin: 0 auto; }
+  .cde-farm a { color: inherit; text-decoration: none; }
+  .cde-farm button { font: inherit; }
+  .cde-farm :focus-visible { outline: 3px solid var(--cde-farm-gold); outline-offset: 3px; }
+  .cde-farm .material-symbols-outlined {
+    display: inline-block;
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  .cde-farm__hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(52px, 8vw, 92px) 0 72px;
+    color: #fff;
+    background: linear-gradient(135deg, #2e4f7a 0%, var(--cde-farm-blue) 45%, #0e2038 100%);
+    border-bottom: 3px solid var(--cde-farm-gold);
+  }
+  .cde-farm__hero::after {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -110px;
+    top: -170px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    box-shadow: 0 0 0 28px rgba(255,255,255,.025), 0 0 0 58px rgba(255,255,255,.02);
+    pointer-events: none;
+  }
+  .cde-farm__hero-content { position: relative; z-index: 1; max-width: 800px; }
+  .cde-farm__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 17px;
+    color: var(--cde-farm-gold-light);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .cde-farm__eyebrow::after { content: ''; width: 72px; height: 1px; background: rgba(212,180,69,.7); }
+  .cde-farm__hero h1 { margin: 0 0 15px; color: #fff; font-size: clamp(2.2rem, 5vw, 4.3rem); font-weight: 800; line-height: 1.03; letter-spacing: -1.5px; }
+  .cde-farm__hero h1 span { color: var(--cde-farm-gold-light); }
+  .cde-farm__hero-lead { max-width: 680px; margin: 0; color: rgba(255,255,255,.8); font-size: 1.05rem; }
+  .cde-farm__date-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 44px;
+    margin-top: 28px;
+    padding: 9px 16px;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    color: rgba(255,255,255,.9);
+    background: rgba(255,255,255,.08);
+    font-size: .86rem;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+  }
+  .cde-farm__date-pill .material-symbols-outlined { color: var(--cde-farm-gold-light); font-size: 20px; }
+
+  .cde-farm__main { padding: 48px 0 88px; }
+  .cde-farm__today {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 32px;
+    padding: 25px 28px;
+    border: 1px solid rgba(201,162,39,.35);
+    border-left: 5px solid var(--cde-farm-gold);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(21,44,74,.08);
+  }
+  .cde-farm__today-label { margin: 0 0 4px; color: var(--cde-farm-gold); font-size: .74rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+  .cde-farm__today h2 { margin: 0; color: var(--cde-farm-blue); font-size: clamp(1.25rem, 2.5vw, 1.7rem); line-height: 1.2; }
+  .cde-farm__today-name { margin: 5px 0 0; color: var(--cde-farm-gray); font-size: .95rem; }
+  .cde-farm__today-name strong { color: var(--cde-farm-blue); }
+  .cde-farm__today-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; color: #16233a; background: var(--cde-farm-gold); }
+  .cde-farm__today-icon .material-symbols-outlined { font-size: 28px; }
+
+  .cde-farm__section-head { margin: 0 0 24px; }
+  .cde-farm__section-kicker { margin: 0 0 8px; color: var(--cde-farm-gold); font-size: .75rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+  .cde-farm__section-head h2 { margin: 0; color: var(--cde-farm-blue); font-size: clamp(1.55rem, 3vw, 2.2rem); line-height: 1.15; }
+  .cde-farm__section-head p:last-child { max-width: 680px; margin: 10px 0 0; color: var(--cde-farm-gray); }
+
+  .cde-farm__calendar-wrap { margin-bottom: 58px; padding: 26px; border: 1px solid var(--cde-farm-line); border-radius: 10px; background: #fff; box-shadow: 0 3px 14px rgba(21,44,74,.045); }
+  .cde-farm__calendar-title { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 21px; }
+  .cde-farm__calendar-title h3 { margin: 0; color: var(--cde-farm-blue); font-size: 1.25rem; }
+  .cde-farm__legend { display: flex; flex-wrap: wrap; gap: 13px; color: var(--cde-farm-gray); font-size: .76rem; font-weight: 600; }
+  .cde-farm__legend-item { display: inline-flex; align-items: center; gap: 6px; }
+  .cde-farm__legend-dot { width: 10px; height: 10px; border-radius: 50%; background: #dfe5eb; }
+  .cde-farm__legend-dot--today { background: var(--cde-farm-gold); box-shadow: 0 0 0 3px rgba(201,162,39,.18); }
+  .cde-farm__weekdays, .cde-farm__days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+  .cde-farm__weekdays { margin-bottom: 8px; }
+  .cde-farm__weekday { padding: 5px 3px; color: var(--cde-farm-gray); font-size: .69rem; font-weight: 800; letter-spacing: .06em; text-align: center; text-transform: uppercase; }
+  .cde-farm__day {
+    position: relative;
+    min-height: 104px;
+    padding: 11px 8px 8px;
+    border: 1px solid var(--cde-farm-line);
+    border-radius: 7px;
+    color: var(--cde-farm-blue);
+    background: #fbfcfd;
+    cursor: pointer;
+    text-align: left;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .cde-farm__day:hover, .cde-farm__day.is-selected { border-color: var(--cde-farm-gold); box-shadow: 0 6px 15px rgba(21,44,74,.1); background: #fff; }
+  .cde-farm__day.is-today { border-color: var(--cde-farm-gold); background: #fffaf0; box-shadow: inset 0 0 0 2px rgba(201,162,39,.2); }
+  .cde-farm__day.is-today::before { content: 'HOY'; position: absolute; top: 7px; right: 7px; color: var(--cde-farm-gold); font-size: .58rem; font-weight: 900; letter-spacing: .08em; }
+  .cde-farm__day--empty { min-height: 0; border-color: transparent; background: transparent; pointer-events: none; }
+  .cde-farm__day-number { display: block; margin-bottom: 8px; color: var(--cde-farm-blue); font-size: 1.35rem; font-weight: 800; line-height: 1; transition: color .25s ease, transform .25s ease; }
+  .cde-farm__day:hover .cde-farm__day-number, .cde-farm__day:focus-visible .cde-farm__day-number { color: var(--cde-farm-gold); transform: scale(1.18); transform-origin: left center; }
+  .cde-farm__day-name { display: block; min-height: 31px; color: #53677c; font-size: .68rem; font-weight: 700; line-height: 1.2; }
+  .cde-farm__day .material-symbols-outlined { display: none; }
+
+  .cde-farm__selected { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr); gap: 28px; align-items: stretch; margin-bottom: 58px; }
+  .cde-farm__detail { padding: 29px; border-radius: 10px; color: #fff; background: var(--cde-farm-dark); box-shadow: 0 12px 30px rgba(21,44,74,.17); }
+  .cde-farm__detail-label { margin: 0 0 8px; color: var(--cde-farm-gold-light); font-size: .74rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+  .cde-farm__detail h3 { margin: 0 0 14px; color: #fff; font-size: clamp(1.65rem, 3vw, 2.35rem); line-height: 1.1; }
+  .cde-farm__detail-date { margin: 0 0 23px; color: rgba(255,255,255,.68); font-size: .9rem; }
+  .cde-farm__info-line { display: flex; align-items: flex-start; gap: 10px; margin: 11px 0; color: rgba(255,255,255,.83); font-size: .91rem; }
+  .cde-farm__info-line .material-symbols-outlined { flex: 0 0 auto; margin-top: 3px; color: var(--cde-farm-gold-light); font-size: 19px; }
+  .cde-farm__detail-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
+  .cde-farm__action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 9px 16px; border: 1px solid rgba(255,255,255,.27); border-radius: 6px; color: #fff; background: rgba(255,255,255,.08); font-size: .78rem; font-weight: 800; transition: background .25s ease, border-color .25s ease, color .25s ease; }
+  .cde-farm__action:hover { border-color: var(--cde-farm-gold); color: #16233a; background: var(--cde-farm-gold); }
+  .cde-farm__action .material-symbols-outlined { font-size: 18px; }
+  .cde-farm__notice { display: flex; flex-direction: column; justify-content: center; padding: 29px; border: 1px solid rgba(201,162,39,.35); border-radius: 10px; background: #fffaf0; }
+  .cde-farm__notice .material-symbols-outlined { margin-bottom: 12px; color: var(--cde-farm-gold); font-size: 30px; }
+  .cde-farm__notice h3 { margin: 0 0 8px; color: var(--cde-farm-blue); font-size: 1.15rem; }
+  .cde-farm__notice p { margin: 0; color: var(--cde-farm-gray); font-size: .88rem; }
+
+  .cde-farm__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 58px; }
+  .cde-farm__card { display: flex; flex-direction: column; min-width: 0; padding: 22px; border: 1px solid var(--cde-farm-line); border-top: 3px solid var(--cde-farm-blue); border-radius: 8px; background: #fff; box-shadow: 0 3px 12px rgba(21,44,74,.045); transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .cde-farm__card:hover { transform: translateY(-3px); border-color: rgba(201,162,39,.6); box-shadow: 0 10px 24px rgba(21,44,74,.1); }
+  .cde-farm__card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 17px; }
+  .cde-farm__card-icon { display: grid; flex: 0 0 auto; place-items: center; width: 39px; height: 39px; border-radius: 50%; color: var(--cde-farm-gold); background: #f7f3e6; }
+  .cde-farm__card-icon .material-symbols-outlined { font-size: 21px; }
+  .cde-farm__card h3 { margin: 3px 0 0; color: var(--cde-farm-blue); font-size: 1.05rem; line-height: 1.25; }
+  .cde-farm__card p { display: flex; align-items: flex-start; gap: 8px; min-height: 45px; margin: 0 0 7px; color: var(--cde-farm-gray); font-size: .85rem; }
+  .cde-farm__card p .material-symbols-outlined { flex: 0 0 auto; margin-top: 3px; color: var(--cde-farm-gold); font-size: 17px; }
+  .cde-farm__card-phone { color: var(--cde-farm-blue) !important; font-weight: 700; }
+  .cde-farm__card-phone.is-missing { color: #8a929b !important; font-weight: 500; }
+  .cde-farm__card-note { min-height: 0 !important; margin-top: 5px !important; color: #8a929b !important; font-size: .75rem !important; line-height: 1.35; }
+  .cde-farm__card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 14px; border-top: 1px solid #f0f1f3; }
+  .cde-farm__card-link { display: inline-flex; align-items: center; gap: 6px; padding: 6px 0; color: var(--cde-farm-blue); font-size: .76rem; font-weight: 800; }
+  .cde-farm__card-link:hover { color: var(--cde-farm-gold); }
+  .cde-farm__card-link .material-symbols-outlined { font-size: 17px; }
+  .cde-farm__info-note { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.62); font-size: .78rem; line-height: 1.45; }
+
+  .cde-farm__map { display: grid; grid-template-columns: .85fr 1.15fr; overflow: hidden; border-radius: 10px; color: #fff; background: linear-gradient(135deg, #2e4f7a 0%, var(--cde-farm-blue) 45%, #0e2038 100%); box-shadow: 0 12px 30px rgba(21,44,74,.14); }
+  .cde-farm__map-copy { padding: 34px; }
+  .cde-farm__map-copy h2 { margin: 0 0 11px; color: #fff; font-size: 1.65rem; line-height: 1.15; }
+  .cde-farm__map-copy p { margin: 0 0 22px; color: rgba(255,255,255,.75); font-size: .9rem; }
+  .cde-farm__map-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 6px; color: #16233a; background: var(--cde-farm-gold); font-size: .78rem; font-weight: 800; transition: background .25s ease, transform .25s ease; }
+  .cde-farm__map-link:hover { transform: translateY(-2px); background: var(--cde-farm-gold-light); }
+  .cde-farm__map-frame { display: block; width: 100%; height: 420px; min-height: 420px; border: 0; filter: saturate(.75); }
+
+  @media (max-width: 1000px) {
+    .cde-farm__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cde-farm__selected { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .cde-farm .cde-farm__container { width: min(calc(100% - 32px), 620px); }
+    .cde-farm__main { padding-top: 32px; }
+    .cde-farm__today { grid-template-columns: 1fr; padding: 22px; }
+    .cde-farm__today-icon { display: none; }
+    .cde-farm__calendar-wrap { padding: 16px 10px; }
+    .cde-farm__calendar-title { display: block; }
+    .cde-farm__legend { margin-top: 12px; }
+    .cde-farm__weekdays, .cde-farm__days { gap: 4px; }
+    .cde-farm__day { min-height: 82px; padding: 8px 5px; }
+    .cde-farm__day-number { font-size: 1.1rem; }
+    .cde-farm__day-name { font-size: .59rem; }
+    .cde-farm__day.is-today::before { top: 5px; right: 4px; font-size: .5rem; }
+    .cde-farm__cards { grid-template-columns: 1fr; }
+    .cde-farm__map { grid-template-columns: 1fr; }
+    .cde-farm__map-frame { height: 360px; min-height: 360px; }
+  }
+  @media (max-width: 440px) {
+    .cde-farm__day { min-height: 72px; }
+    .cde-farm__day-name { display: none; }
+    .cde-farm__detail, .cde-farm__notice, .cde-farm__map-copy { padding: 24px 20px; }
+    .cde-farm__map-frame { height: 320px; min-height: 320px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cde-farm *, .cde-farm *::before, .cde-farm *::after { scroll-behavior: auto !important; transition: none !important; }
+  }
+</style>
+
+<div class="cde-farm" id="cde-farmacias-turno">
+  <section class="cde-farm__hero" aria-labelledby="cde-farm-title">
+    <div class="cde-farm__container">
+      <div class="cde-farm__hero-content">
+        <p class="cde-farm__eyebrow">Guía del vecino · Eldorado</p>
+        <h1 id="cde-farm-title">Farmacias <span>de turno</span></h1>
+        <p class="cde-farm__hero-lead">Consultá el cronograma del mes, encontrá la farmacia correspondiente a cada fecha y accedé rápidamente a su dirección o ubicación.</p>
+        <div class="cde-farm__date-pill" id="cdeFarmDatePill"><span class="material-symbols-outlined" aria-hidden="true">today</span><span>Consultando la fecha actual...</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="cde-farm__main">
+    <div class="cde-farm__container">
+      <section class="cde-farm__today" aria-live="polite" aria-labelledby="cdeFarmTodayTitle">
+        <div>
+          <p class="cde-farm__today-label">Turno destacado</p>
+          <h2 id="cdeFarmTodayTitle">Buscando el turno de hoy...</h2>
+          <p class="cde-farm__today-name" id="cdeFarmTodayName"></p>
+        </div>
+        <div class="cde-farm__today-icon" aria-hidden="true"><span class="material-symbols-outlined">local_pharmacy</span></div>
+      </section>
+
+      <section aria-labelledby="cdeFarmCalendarTitle">
+        <header class="cde-farm__section-head">
+          <p class="cde-farm__section-kicker">01 · Cronograma</p>
+          <h2 id="cdeFarmCalendarTitle">Turnos de septiembre 2026</h2>
+          <p>El día de la fecha se marca automáticamente. Seleccioná cualquier día para consultar el detalle de la farmacia asignada.</p>
+        </header>
+        <div class="cde-farm__calendar-wrap">
+          <div class="cde-farm__calendar-title">
+            <h3>Septiembre 2026</h3>
+            <div class="cde-farm__legend" aria-label="Referencias del calendario">
+              <span class="cde-farm__legend-item"><span class="cde-farm__legend-dot cde-farm__legend-dot--today"></span>Fecha actual</span>
+              <span class="cde-farm__legend-item"><span class="cde-farm__legend-dot"></span>Turno cargado</span>
+            </div>
+          </div>
+          <div class="cde-farm__weekdays" aria-hidden="true">
+            <span class="cde-farm__weekday">Lun</span><span class="cde-farm__weekday">Mar</span><span class="cde-farm__weekday">Mié</span><span class="cde-farm__weekday">Jue</span><span class="cde-farm__weekday">Vie</span><span class="cde-farm__weekday">Sáb</span><span class="cde-farm__weekday">Dom</span>
+          </div>
+          <div class="cde-farm__days" id="cdeFarmDays"></div>
+        </div>
+      </section>
+
+      <section class="cde-farm__selected" aria-labelledby="cdeFarmSelectedTitle">
+        <article class="cde-farm__detail" id="cdeFarmDetail">
+          <p class="cde-farm__detail-label">Detalle del turno</p>
+          <h3 id="cdeFarmSelectedTitle">Seleccioná una fecha</h3>
+          <p class="cde-farm__detail-date" id="cdeFarmSelectedDate">El detalle de la fecha aparecerá aquí.</p>
+          <div id="cdeFarmSelectedInfo"></div>
+          <div class="cde-farm__detail-actions" id="cdeFarmSelectedActions"></div>
+        </article>
+        <aside class="cde-farm__notice">
+          <span class="material-symbols-outlined" aria-hidden="true">call</span>
+          <h3>Antes de acercarte</h3>
+          <p>Los teléfonos y horarios pueden cambiar. Cuando el dato está disponible, llamá para confirmar la atención, el stock y la modalidad del turno.</p>
+        </aside>
+      </section>
+
+      <section aria-labelledby="cdeFarmListTitle">
+        <header class="cde-farm__section-head">
+          <p class="cde-farm__section-kicker">02 · Información útil</p>
+          <h2 id="cdeFarmListTitle">Farmacias del cronograma</h2>
+          <p>Direcciones, contactos y enlaces de ubicación recopilados desde registros públicos, FarmaciasDeTurnoYa, Farmacerca y el cronograma publicado.</p>
+        </header>
+        <div class="cde-farm__cards" id="cdeFarmCards"></div>
+      </section>
+
+      <section class="cde-farm__map" aria-labelledby="cdeFarmMapTitle">
+        <div class="cde-farm__map-copy">
+          <h2 id="cdeFarmMapTitle">Ubicá farmacias en Eldorado</h2>
+          <p>Consultá el mapa general de la ciudad. Para una indicación precisa, usá el botón “Cómo llegar” de cada farmacia.</p>
+          <a class="cde-farm__map-link" href="https://www.google.com/maps/search/farmacias+Eldorado+Misiones" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Ver mapa completo</a>
+        </div>
+        <iframe class="cde-farm__map-frame" title="Mapa de farmacias en Eldorado" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-54.675%2C-26.425%2C-54.575%2C-26.395&amp;layer=mapnik"></iframe>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+  (function () {
+    'use strict';
+
+    /* Para publicar otro mes: cambiar year, month y turns. month usa 1 para enero. */
+    var config = {
+      year: 2026,
+      month: 9,
+      turns: {
+        1: 'del-norte', 2: 'farmacity', 3: 'eldorado', 4: 'la-plaza', 5: 'grobli-2', 6: 'oeste-2', 7: 'farmanic',
+        8: '9-de-julio-iv', 9: 'tiemann-ii', 10: 'bienestar', 11: 'gema', 12: 'la-buena-nina', 13: 'jesus',
+        14: '9-de-julio-iv', 15: 'solidaria', 16: 'renacer', 17: 'del-norte', 18: 'farmacity', 19: 'el-alba',
+        20: 'la-plaza', 21: 'grobli-2', 22: 'oeste-2', 23: 'farmanic', 24: '9-de-julio-iv', 25: 'tiemann-ii',
+        26: 'bienestar', 27: 'gema', 28: 'la-buena-nina', 29: 'jesus', 30: 'solidaria'
+      }
+    };
+
+    var pharmacies = {
+      'del-norte': { name: 'Del Norte', address: 'Av. San Martín 1675, km 3', phones: ['03751 430829'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Del+Norte+Av.+San+Martin+1675+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/del-norte/' },
+      'farmacity': { name: 'Farmacity', address: 'Av. San Martín 1890', phones: ['03751 450596', '0800 666 4321'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40838490,-54.60561340', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacity-19246' },
+      'eldorado': { name: 'Eldorado', address: 'Cuyo 49', phone: '', map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4089005,-54.6078143', source: 'https://www.farmacerca.com/misiones/eldorado/eldorado/' },
+      'la-plaza': { name: 'La Plaza', address: 'Lowe 194, km 9, esquina San Juan', phones: ['03751 421040'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4098491,-54.6070973', source: 'https://www.farmacerca.com/misiones/eldorado/la-plaza/' },
+      'grobli-2': { name: 'Grobli 2', address: 'Lowe 302', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Grobli+Lowe+302+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/grobli-2/', note: 'La dirección Lowe 302 corresponde a publicaciones recientes del cronograma; otros directorios indican Lowe 354.' },
+      'oeste-2': { name: 'Oeste 2', address: 'Av. San Martín 246, km 5', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Oeste+2+Av.+San+Martin+246+Eldorado+Misiones', source: '' },
+      'farmanic': { name: 'Farmanic', address: 'Batalla de Obligado 3072', phone: '+54 3751 255672', map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40527830,-54.59093530', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmanic-19441' },
+      '9-de-julio-iv': { name: '9 de Julio IV', address: 'Av. San Martín 324', phones: ['03751 446697', '03751 256404'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40411990,-54.62884370', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-9-de-julio-iv-19098', note: 'Se muestran el teléfono de la sucursal y el teléfono general publicado por la red.' },
+      'tiemann-ii': { name: 'Tiemann II', address: 'Cuyo 199, esquina San Juan', phones: ['03751 424256'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Tiemann+II+Cuyo+199+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/tiemann-ii/' },
+      'bienestar': { name: 'Bienestar', address: 'Claudio Rodrigo 114', phones: ['03751 448152', '03751 426327'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40730600,-54.60517080', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-bienestar-19100', note: 'Hay dos teléfonos publicados en directorios diferentes.' },
+      'gema': { name: 'Gema', address: 'Av. Hipólito Yrigoyen y O’Higgins', phones: ['03751 252573'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.41480200,-54.60965870', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-gema-19328', note: 'Las fuentes difieren en el número de puerta; se utiliza la intersección y el enlace de mapa.' },
+      'la-buena-nina': { name: 'La Buena Niña', address: 'Zettelmann 400', phones: ['03751 593332', '03751 479437'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40088630,-54.64954150', source: 'https://farmaciasdeturnoya.com.ar/farmacia/la-buena-nia-19110' },
+      'jesus': { name: 'Jesús Misericordioso', address: 'Av. San Martín 2295, km 10', phones: ['03751 15471233'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4083304,-54.5998845', source: 'https://www.farmacerca.com/misiones/eldorado/jesus-misericordioso/' },
+      'solidaria': { name: 'Solidaria', address: 'Tarragó Ros 2495', phones: ['03751 421952'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Solidaria+Tarrago+Ros+2495+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/solidaria/' },
+      'renacer': { name: 'Renacer', address: 'Av. San Martín 1390, km 3', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Renacer+Av.+San+Martin+1390+Eldorado+Misiones', source: '' },
+      'el-alba': { name: 'El Alba', address: 'Av. San Martín Este 3181, km 10', phones: ['03751 424713'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4083242,-54.5895100', source: 'https://www.farmacerca.com/misiones/eldorado/el-alba/', note: 'La dirección 3181 y el teléfono coinciden con el cronograma y otras fuentes locales.' }
+    };
+
+    var root = document.getElementById('cde-farmacias-turno');
+    if (!root) return;
+    var monthNames = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    var weekdayNames = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    var dateFormat = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Argentina/Buenos_Aires' });
+    var todayFormat = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long', timeZone: 'America/Argentina/Buenos_Aires' });
+
+    function escapeHtml(value) {
+      return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function todayParts() {
+      var parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Argentina/Buenos_Aires', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
+      var result = {};
+      parts.forEach(function (part) { if (part.type !== 'literal') result[part.type] = Number(part.value); });
+      return result;
+    }
+    function localDate(day) { return new Date(config.year, config.month - 1, day, 12, 0, 0); }
+    function pharmacyFor(day) { return pharmacies[config.turns[day]]; }
+    function directionsLink(item) { return '<a class="cde-farm__action" href="' + escapeHtml(item.map) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">directions</span>Cómo llegar</a>'; }
+    function getPhones(item) {
+      return item.phones || (item.phone ? [item.phone] : []);
+    }
+    function phoneMarkup(item) {
+      var phones = getPhones(item);
+      if (phones.length) return phones.map(function (phone) { return '<p class="cde-farm__card-phone"><span class="material-symbols-outlined" aria-hidden="true">call</span><a href="tel:' + escapeHtml(phone.replace(/\s/g, '')) + '">' + escapeHtml(phone) + '</a></p>'; }).join('');
+      return '<p class="cde-farm__card-phone is-missing"><span class="material-symbols-outlined" aria-hidden="true">call</span>Teléfono no disponible</p>';
+    }
+    function renderSelected(day) {
+      var item = pharmacyFor(day);
+      if (!item) return;
+      var date = localDate(day);
+      document.getElementById('cdeFarmSelectedTitle').textContent = item.name;
+      document.getElementById('cdeFarmSelectedDate').textContent = dateFormat.format(date);
+      var phones = getPhones(item);
+      var phoneInfo = phones.length ? phones.map(function (phone) { return '<p class="cde-farm__info-line"><span class="material-symbols-outlined" aria-hidden="true">call</span><a href="tel:' + escapeHtml(phone.replace(/\s/g, '')) + '">' + escapeHtml(phone) + '</a></p>'; }).join('') : '<p class="cde-farm__info-line"><span class="material-symbols-outlined" aria-hidden="true">call</span><span>Teléfono no disponible en la fuente consultada.</span></p>';
+      document.getElementById('cdeFarmSelectedInfo').innerHTML = '<p class="cde-farm__info-line"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><span>' + escapeHtml(item.address) + '</span></p>' + phoneInfo + (item.note ? '<p class="cde-farm__info-note">' + escapeHtml(item.note) + '</p>' : '');
+      document.getElementById('cdeFarmSelectedActions').innerHTML = directionsLink(item) + (item.source ? '<a class="cde-farm__action" href="' + escapeHtml(item.source) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Ver ficha</a>' : '');
+    }
+    function selectDay(day, button) {
+      root.querySelectorAll('.cde-farm__day.is-selected').forEach(function (element) { element.classList.remove('is-selected'); });
+      if (button) button.classList.add('is-selected');
+      renderSelected(day);
+    }
+    function renderCalendar() {
+      var days = document.getElementById('cdeFarmDays');
+      var firstDay = new Date(config.year, config.month - 1, 1).getDay();
+      var mondayOffset = (firstDay + 6) % 7;
+      var totalDays = new Date(config.year, config.month, 0).getDate();
+      var today = todayParts();
+      var html = '';
+      for (var blank = 0; blank < mondayOffset; blank += 1) html += '<span class="cde-farm__day cde-farm__day--empty" aria-hidden="true"></span>';
+      for (var day = 1; day <= totalDays; day += 1) {
+        var item = pharmacyFor(day);
+        var isToday = today.year === config.year && today.month === config.month && today.day === day;
+        html += '<button type="button" class="cde-farm__day' + (isToday ? ' is-today is-selected' : '') + '" data-day="' + day + '" aria-label="' + escapeHtml(day + ' de ' + monthNames[config.month - 1] + ': ' + item.name) + '">' +
+          '<span class="cde-farm__day-number">' + day + '</span><span class="cde-farm__day-name">' + escapeHtml(item.name) + '</span></button>';
+      }
+      days.innerHTML = html;
+      days.querySelectorAll('.cde-farm__day[data-day]').forEach(function (button) { button.addEventListener('click', function () { selectDay(Number(button.getAttribute('data-day')), button); }); });
+      var initialDay = today.year === config.year && today.month === config.month && config.turns[today.day] ? today.day : 1;
+      selectDay(initialDay, days.querySelector('[data-day="' + initialDay + '"]'));
+    }
+    function renderCards() {
+      var used = [];
+      Object.keys(config.turns).forEach(function (day) { if (used.indexOf(config.turns[day]) === -1) used.push(config.turns[day]); });
+      document.getElementById('cdeFarmCards').innerHTML = used.map(function (key) {
+        var item = pharmacies[key];
+        return '<article class="cde-farm__card"><div class="cde-farm__card-top"><span class="cde-farm__card-icon"><span class="material-symbols-outlined" aria-hidden="true">local_pharmacy</span></span><h3>' + escapeHtml(item.name) + '</h3></div>' +
+          '<p><span class="material-symbols-outlined" aria-hidden="true">location_on</span><span>' + escapeHtml(item.address) + '</span></p>' + phoneMarkup(item) + (item.note ? '<p class="cde-farm__card-note"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>' + escapeHtml(item.note) + '</p>' : '') +
+          '<div class="cde-farm__card-actions"><a class="cde-farm__card-link" href="' + escapeHtml(item.map) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">directions</span>Cómo llegar</a>' + (item.source ? '<a class="cde-farm__card-link" href="' + escapeHtml(item.source) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Ficha</a>' : '') + '</div></article>';
+      }).join('');
+    }
+    function init() {
+      var today = todayParts();
+      var monthLabel = monthNames[config.month - 1] + ' ' + config.year;
+      document.getElementById('cdeFarmDatePill').lastElementChild.textContent = 'Hoy es ' + todayFormat.format(new Date());
+      document.getElementById('cdeFarmTodayTitle').textContent = 'Farmacia de turno del día';
+      if (today.year === config.year && today.month === config.month && config.turns[today.day]) {
+        var todayItem = pharmacyFor(today.day);
+        document.getElementById('cdeFarmTodayName').innerHTML = '<strong>' + escapeHtml(todayItem.name) + '</strong> · ' + escapeHtml(todayItem.address);
+      } else {
+        document.getElementById('cdeFarmTodayName').textContent = 'El cronograma publicado corresponde a ' + monthLabel + '.';
+      }
+      renderCalendar();
+      renderCards();
+    }
+    init();
+  }());
+</script>
