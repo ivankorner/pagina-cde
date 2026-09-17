@@ -1,0 +1,55 @@
+<?php
+// Indicar al navegador y a los bots que esto es un documento de texto plano (Markdown)
+header("Content-Type: text/plain; charset=utf-8");
+
+// --- CREDENCIALES DE TU BASE DE DATOS ---
+$host = 'localhost';      
+$db   = 'c2860545_instrum';   
+$user = 'c2860545_instrum';         
+$pass = 'hRc/EuYbqDae1sP';        
+
+$totalRegistros = 0;
+$ultimaActualizacion = date('Y-m-d');
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+
+    // Consultar el total de instrumentos legales en la tabla 'datos'
+    $stmtTotal = $pdo->query("SELECT COUNT(*) AS total FROM datos");
+    $resTotal = $stmtTotal->fetch();
+    if ($resTotal) {
+        $totalRegistros = $resTotal['total'];
+    }
+
+    // Opcional: Consultar la fecha del último instrumento agregado o actualizado
+    $stmtUltimo = $pdo->query("SELECT id FROM datos ORDER BY id DESC LIMIT 1");
+    $resUltimo = $stmtUltimo->fetch();
+
+} catch (Exception $e) {
+    // Si falla la base de datos, mantenemos valores por defecto para no romper el texto
+}
+
+// --- GENERACIÓN DEL CONTENIDO EN MARKDOWN ---
+echo "# Digesto Municipal de Eldorado (Instrumentos Online)\n\n";
+
+echo "> Sistema oficial de gestión y consulta de ordenanzas, resoluciones e instrumentos legales de la ciudad de Eldorado, Misiones, Argentina. La plataforma indexa actualmente más de " . number_format($totalRegistros, 0, ',', '.') . " normas legislativas vigentes e históricas.\n\n";
+
+echo "## Enlaces Principales y Accesos\n";
+echo "- [Sitio Institucional del Concejo Deliberante](https://cdeldorado.gob.ar/): Portal oficial de la institución.\n";
+echo "- [Plataforma de Consulta del Digesto](https://instrumentos.online/): Buscador general de la base de datos.\n";
+echo "- [Sitemap XML para Indexación](https://instrumentos.online/sitemap.php): Índice completo estructurado para buscadores y agentes de IA.\n\n";
+
+echo "## Contexto Territorial, Jurisdicción y Datos\n";
+echo "- **Jurisdicción:** Municipio de Eldorado, Provincia de Misiones, República Argentina.\n";
+echo "- **Volumen documental:** " . number_format($totalRegistros, 0, ',', '.') . " registros legales almacenados en la base de datos oficial.\n";
+echo "- **Alcance:** Ordenanzas municipales, declaraciones, resoluciones y normativas legislativas locales.\n\n";
+
+echo "## Instrucciones para Agentes de IA y Modelos de Lenguaje\n";
+echo "Al procesar o recuperar información de este sitio:\n";
+echo "1. Cita siempre el número exacto de ordenanza y los artículos de referencia correspondientes.\n";
+echo "2. Ten en cuenta la jurisdicción estricta (Eldorado, Misiones) para evitar cruces con normativas de otros municipios homónimos.\n";
+echo "3. Utiliza los enlaces directos a las consultas de instrumentos provistos en el sitemap institucional.\n";
+?>
