@@ -1,0 +1,496 @@
+<!-- Agenda Semanal - Concejo Deliberante de Eldorado | Bloque HTML personalizado para WordPress, DESPUES del bloque Header.html y ANTES del bloque Footer.html -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward,calendar_month" />
+
+<style>
+  .cde-agenda, .cde-agenda *, .cde-agenda *::before, .cde-agenda *::after { box-sizing: border-box; }
+  .cde-agenda {
+    --cde-agenda-blue: var(--cde-blue, #1e3a5f);
+    --cde-agenda-dark: var(--cde-blue-dark, #152c4a);
+    --cde-agenda-gold: var(--cde-gold, #c9a227);
+    --cde-agenda-gold-light: var(--cde-gold-light, #d4b445);
+    /* Tinta de oro y gris oscuro: el dorado y el gris de la escala institucional
+       no alcanzan 4.5:1 sobre fondo claro, asi que el texto chico usa estos dos
+       tonos de la misma familia. */
+    --cde-agenda-gold-ink: #8a6d12;
+    --cde-agenda-gray: var(--cde-gray-700, #5a626b);
+    --cde-agenda-line: var(--cde-gray-200, #e9ecef);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #374151;
+    line-height: 1.55;
+    background: #f7f8fa;
+    -webkit-font-smoothing: antialiased;
+  }
+  .cde-agenda .cde-agenda__container { width: min(1280px, calc(100% - 48px)); margin: 0 auto; }
+  /* Reset de enlaces con especificidad 0 para que cada componente defina su color. */
+  .cde-agenda :where(a) { color: inherit; text-decoration: none; }
+  .cde-agenda :focus-visible { outline: 3px solid var(--cde-agenda-gold); outline-offset: 3px; }
+  .cde-agenda .material-symbols-outlined {
+    display: inline-block;
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  .cde-agenda__main { padding: 56px 0 88px; }
+
+  .cde-agenda__section-head { margin: 0 0 26px; }
+  .cde-agenda__kicker { margin: 0 0 8px; color: var(--cde-agenda-gold-ink); font-size: .75rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+  .cde-agenda__section-head :is(h1, h2) { margin: 0; color: var(--cde-agenda-blue); font-size: clamp(1.55rem, 3vw, 2.2rem); line-height: 1.15; }
+  .cde-agenda__section-head p:last-child { max-width: 680px; margin: 10px 0 0; color: var(--cde-agenda-gray); }
+
+  /* ---- Barra de semana ---- */
+  .cde-agenda__weekbar {
+    display: grid;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding: 14px 18px;
+    border: 1px solid var(--cde-agenda-line);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 3px 14px rgba(21,44,74,.045);
+  }
+  .cde-agenda__weeklabel { min-width: 0; text-align: center; }
+  .cde-agenda__week-kicker { margin: 0 0 2px; color: var(--cde-agenda-gray); font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+  .cde-agenda__week-range { margin: 0; color: var(--cde-agenda-blue); font-size: clamp(1.05rem, 2.4vw, 1.45rem); font-weight: 800; line-height: 1.2; }
+  .cde-agenda__weekmeta { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+  .cde-agenda__week-state,
+  .cde-agenda__count {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 32px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    color: var(--cde-agenda-blue);
+    background: #eef1f5;
+    font-size: .74rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .cde-agenda__week-state--current { color: #16233a; background: var(--cde-agenda-gold); }
+  /* El estado solo se muestra para la semana en curso: el `display` de la regla
+     base le gana al `[hidden]` del navegador, asi que hay que ocultarlo aqui. */
+  .cde-agenda__week-state[hidden] { display: none; }
+  .cde-agenda__count { letter-spacing: .02em; text-transform: none; }
+  .cde-agenda__count .material-symbols-outlined { color: var(--cde-agenda-gold-ink); font-size: 17px; }
+
+  /* ---- Lista de actividades: fecha y hora a la izquierda, detalle a la derecha ---- */
+  .cde-agenda__list { margin: 0; padding: 0; border-top: 2px solid var(--cde-agenda-blue); list-style: none; }
+  .cde-agenda__row {
+    display: grid;
+    grid-template-columns: minmax(0, 28%) minmax(0, 1fr);
+    grid-template-areas:
+      "when what"
+      "time what";
+    align-content: start;
+    column-gap: 28px;
+    padding: 20px 4px;
+    border-bottom: 1px solid var(--cde-agenda-line);
+    transition: background .25s ease;
+  }
+  @media (hover: hover) {
+    .cde-agenda__row:hover { background: #fdfdfe; }
+  }
+  .cde-agenda__row.is-today { background: #fffaf0; box-shadow: inset 3px 0 0 var(--cde-agenda-gold); }
+  /* La fila del dia actual se marca con fondo crema y filo dorado a la izquierda;
+     la fecha y la hora se alinean a la derecha de su columna. La hora viaja como
+     item aparte para poder mudarse de columna en movil. */
+  .cde-agenda__row-when {
+    grid-area: when;
+    margin: 0;
+    color: var(--cde-agenda-blue);
+    font-size: 1.08rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -.015em;
+    text-align: right;
+  }
+  /* La hora es la referencia rapida: viaja en una etiqueta, y en la fila de hoy
+     se lleva el dorado para distinguishla de un vistazo. */
+  .cde-agenda__row-time {
+    grid-area: time;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 8px;
+    padding: 4px 11px;
+    border-radius: 6px;
+    color: var(--cde-agenda-blue);
+    background: #e8edf4;
+    font-size: .82rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+  .cde-agenda__row.is-today .cde-agenda__row-when { color: #16233a; }
+  .cde-agenda__row.is-today .cde-agenda__row-time { color: #16233a; background: var(--cde-agenda-gold); }
+  .cde-agenda__row-what { grid-area: what; min-width: 0; }
+  .cde-agenda__row-title { margin: 0; font-size: 1.02rem; font-weight: 700; line-height: 1.4; }
+  .cde-agenda__row-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .cde-agenda__chip {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: .66rem;
+    font-weight: 800;
+    letter-spacing: .04em;
+    line-height: 1.3;
+  }
+  .cde-agenda__chip--gold { color: #16233a; background: var(--cde-agenda-gold); }
+  a.cde-agenda__chip--gold { transition: background .25s ease; }
+  @media (hover: hover) {
+    a.cde-agenda__chip--gold:hover { background: var(--cde-agenda-gold-light); }
+  }
+  .cde-agenda__chip--soft { color: var(--cde-agenda-blue); background: #eef1f5; }
+  .cde-agenda__row-note { margin: 10px 0 0; color: var(--cde-agenda-gray); font-size: .82rem; line-height: 1.45; }
+  .cde-agenda__row-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 9px; color: var(--cde-agenda-blue); font-size: .74rem; font-weight: 800; }
+  @media (hover: hover) {
+    .cde-agenda__row-link:hover { color: var(--cde-agenda-gold-ink); }
+  }
+  .cde-agenda__row-link .material-symbols-outlined { font-size: 15px; transition: transform .25s ease; }
+  @media (hover: hover) {
+    .cde-agenda__row-link:hover .material-symbols-outlined { transform: translateX(3px); }
+  }
+  .cde-agenda__list-empty { padding: 44px 20px; text-align: center; }
+  .cde-agenda__list-empty p { margin: 0; color: #68717c; font-size: .88rem; font-weight: 600; }
+
+  /* ---- Agrupacion por dia ----
+     El JS agrupa las actividades bajo un encabezado de dia. En escritorio el
+     encabezado se oculta y cada fila vuelve a llevar su fecha, asi la grilla de
+     dos columnas no se altera; el agrupado se aprovecha en movil, donde una
+     sola columna no puede repetir la fecha larga en cada fila. */
+  .cde-agenda__daygroup { display: block; }
+  .cde-agenda__dayhead { display: none; }
+  .cde-agenda__daylist { margin: 0; padding: 0; list-style: none; }
+
+  @media (max-width: 899px) {
+    .cde-agenda__row { grid-template-columns: minmax(0, 34%) minmax(0, 1fr); column-gap: 20px; }
+  }
+  @media (max-width: 720px) {
+    .cde-agenda .cde-agenda__container { width: min(calc(100% - 32px), 620px); }
+    .cde-agenda__main { padding: 32px 0 64px; }
+    .cde-agenda__weekbar { padding: 12px 12px; gap: 8px; }
+  }
+  /* ---- Movil: una tarjeta por dia, hora a la izquierda del titulo ----
+     La fila pasa a flex: la etiqueta de hora abre la linea y el titulo fluye a su
+     lado, mientras chips, nota y enlace caen abajo a ancho completo. La fecha ya
+     esta en el encabezado del dia, asi que la columna `when` se retira. */
+  @media (max-width: 619px) {
+    .cde-agenda .cde-agenda__container { width: min(calc(100% - 40px), 620px); }
+    .cde-agenda__list { border-top: 0; }
+    .cde-agenda__daygroup {
+      margin-bottom: 12px;
+      padding: 14px 14px 6px;
+      border: 1px solid var(--cde-agenda-line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(21,44,74,.05);
+    }
+    .cde-agenda__daygroup.is-today { border-color: var(--cde-agenda-gold); box-shadow: inset 0 3px 0 var(--cde-agenda-gold), 0 2px 14px rgba(201,162,39,.16); }
+    .cde-agenda__dayhead { display: block; margin: 0 0 2px; color: var(--cde-agenda-blue); font-size: 1.02rem; font-weight: 800; line-height: 1.25; letter-spacing: -.015em; }
+    .cde-agenda__daygroup.is-today .cde-agenda__dayhead { color: #16233a; }
+    .cde-agenda__row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      grid-template-areas: none;
+      gap: 6px 10px;
+      padding: 12px 0;
+      border-bottom: 0;
+      border-top: 1px solid var(--cde-agenda-line);
+    }
+    .cde-agenda__row:first-child { border-top: 0; }
+    .cde-agenda__row-when { display: none; }
+    .cde-agenda__row-time { order: -1; flex: 0 0 auto; margin-top: 0; }
+    .cde-agenda__row-what { display: contents; }
+    .cde-agenda__row-title { flex: 1 1 9rem; overflow-wrap: anywhere; }
+    .cde-agenda__row-tags, .cde-agenda__row-note, .cde-agenda__row-link { flex: 1 0 100%; }
+    /* La fila de hoy ya no se pinta: el dorado lo lleva la tarjeta del dia. */
+    .cde-agenda__row.is-today { background: transparent; box-shadow: none; }
+    .cde-agenda__week-kicker { display: none; }
+    .cde-agenda__weekmeta { gap: 8px; }
+    .cde-agenda__week-state, .cde-agenda__weekmeta .cde-agenda__count { min-height: 30px; padding: 4px 9px; font-size: .68rem; }
+    .cde-agenda__row-link, a.cde-agenda__chip--gold { min-height: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cde-agenda *, .cde-agenda *::before, .cde-agenda *::after { transition: none !important; }
+  }
+</style>
+
+<div class="cde-agenda" id="cde-agenda-semanal">
+  <main class="cde-agenda__main">
+    <div class="cde-agenda__container">
+
+      <section aria-labelledby="cde-agenda-title">
+        <header class="cde-agenda__section-head">
+          <p class="cde-agenda__kicker">Agenda de actividades</p>
+          <h1 id="cde-agenda-title">Concejo Deliberante de Eldorado</h1>
+          <p>Sesiones ordinarias, trabajo de comisiones, parlamentos y capacitaciones de la semana.</p>
+        </header>
+
+        <div class="cde-agenda__weekbar">
+          <div class="cde-agenda__weeklabel" aria-live="polite">
+            <p class="cde-agenda__week-kicker">Semana del</p>
+            <p class="cde-agenda__week-range" id="cdeAgendaRange">Cargando la semana...</p>
+          </div>
+        </div>
+
+        <div class="cde-agenda__weekmeta">
+          <span class="cde-agenda__week-state" id="cdeAgendaState" hidden></span>
+          <span class="cde-agenda__count" id="cdeAgendaCount"></span>
+        </div>
+
+        <ul class="cde-agenda__list" id="cdeAgendaList"></ul>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  (function () {
+    'use strict';
+
+    /* ======================================================================
+       EDITAR ACÁ · Solo se modifica este bloque para actualizar la agenda.
+       ----------------------------------------------------------------------
+       weeks[]        = una entrada por semana, en orden de más antigua a más
+                       reciente. "start" es la fecha ISO (AAAA-MM-DD) del LUNES.
+       activities     = clave = fecha ISO (AAAA-MM-DD) del día. Los días sin
+                       actividades no se muestran en la lista.
+        Cada actividad acepta:
+          title  (obligatorio)  nombre de la actividad
+          time   (opcional)     hora de inicio, ej. '08:30' o '9:00'. Si se deja
+                               vacía no se muestra ninguna etiqueta de horario.
+          end    (opcional)     hora de fin, para rangos, ej. '19:00'
+         program(opcional)     etiqueta del programa, se muestra como chip gold
+         org    (opcional)     entidad organizadora, ej. 'UNAM'
+         note   (opcional)     aclaración corta, se muestra en texto chico
+         link   (opcional)     enlace a la actividad (botón "Ver detalle")
+       Para publicar otra semana, agregá otra entrada a weeks[] con su start.
+       ====================================================================== */
+    var config = {
+      programUrl: 'https://cdeldorado.gob.ar/parlamento-estudiantil-terciario-y-universitario/',
+      weeks: [
+        {
+          start: '2026-09-28',
+          activities: {
+            '2026-09-28': [
+              { time: '', title: 'Presentación de proyectos en término' }
+            ],
+            '2026-09-29': [
+              { time: '09:00', title: '107° Aniversario de Eldorado', note: 'Desfile Cívico Militar · Av. San Martín Km 9' }
+            ],
+            '2026-09-30': [
+              { time: '09:00', end: '12:00', title: 'Trabajo de comisión' },
+              { time: '18:00', title: 'Capacitación Digesto', note: 'Dirigido a Municipalidad' }
+            ],
+            '2026-10-01': [
+              { time: '09:00', title: 'Audiencia pública s/ Expte 004 S 192-2025' }
+            ],
+            '2026-10-02': [
+              { time: '', title: 'Labor parlamentaria' }
+            ]
+          }
+        }
+      ]
+    };
+
+    var TZ = 'America/Argentina/Buenos_Aires';
+    var WEEKDAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    var DAY_MONTH = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long' });
+    var MONTH_LONG = new Intl.DateTimeFormat('es-AR', { month: 'long' });
+    var MONTH_YEAR = new Intl.DateTimeFormat('es-AR', { month: 'long', year: 'numeric' });
+
+    var list = document.getElementById('cdeAgendaList');
+    var rangeEl = document.getElementById('cdeAgendaRange');
+    var stateEl = document.getElementById('cdeAgendaState');
+    var countEl = document.getElementById('cdeAgendaCount');
+    if (!list) return;
+
+    function esc(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function lowerFirst(value) {
+      var s = String(value == null ? '' : value);
+      return s.charAt(0).toLowerCase() + s.slice(1);
+    }
+
+    function todayDate() {
+      var parts = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
+      var out = {};
+      parts.forEach(function (p) { if (p.type !== 'literal') out[p.type] = Number(p.value); });
+      return new Date(out.year, out.month - 1, out.day, 12, 0, 0);
+    }
+
+    function parseIso(value) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value == null ? '' : value).trim());
+      return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 12, 0, 0) : null;
+    }
+
+    function isoKey(date) {
+      var m = date.getMonth() + 1;
+      var d = date.getDate();
+      return date.getFullYear() + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d);
+    }
+
+    function timeKey(value) {
+      var m = /(\d{1,2})\D*(\d{2})?/.exec(String(value == null ? '' : value));
+      return m ? Number(m[1]) * 60 + Number(m[2] || 0) : 9999;
+    }
+
+    function formatTime(value) {
+      var raw = String(value == null ? '' : value).trim();
+      var m = /^(\d{1,2})(?:[:.\s]*(?:hs?)?\s*(\d{2}))?/i.exec(raw);
+      if (!m) return raw;
+      var h = m[1];
+      return (h.length < 2 ? '0' + h : h) + ':' + (m[2] || '00');
+    }
+
+    function rangeLabel(start, end) {
+      if (start.getFullYear() === end.getFullYear() && start.getMonth() === end.getMonth()) {
+        return 'Del ' + start.getDate() + ' al ' + end.getDate() + ' de ' + MONTH_YEAR.format(start);
+      }
+      return 'Del ' + DAY_MONTH.format(start) + ' al ' + DAY_MONTH.format(end);
+    }
+
+    /* El rango anuncia hasta el último día con actividades, no hasta el domingo:
+       así un cronograma de lunes a viernes se lee "Del 21 al 25" y se estira solo
+       si más adelante se carga una actividad de fin de semana. */
+    function lastActiveDay(days) {
+      for (var i = days.length - 1; i >= 0; i--) {
+        if (days[i].activities.length) return days[i].date;
+      }
+      return days[days.length - 1].date;
+    }
+
+    function buildWeeks() {
+      var listOut = (config.weeks || []).map(function (week) {
+        var start = parseIso(week && week.start);
+        if (!start) return null;
+        var activities = (week && week.activities) || {};
+        var days = [];
+        for (var i = 0; i < 7; i++) {
+          var date = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i, 12, 0, 0);
+          var raw = activities[isoKey(date)] || [];
+          var sorted = raw
+            .map(function (item, index) { return { ref: item, index: index, t: timeKey(item.time || item.end) }; })
+            .sort(function (a, b) { return a.t - b.t || a.index - b.index; })
+            .map(function (entry) { return entry.ref; });
+          days.push({ date: date, iso: isoKey(date), activities: sorted });
+        }
+        return { start: start, end: days[6].date, days: days, label: rangeLabel(start, lastActiveDay(days)) };
+      });
+      return listOut.filter(Boolean);
+    }
+
+    var weeks = buildWeeks();
+    if (!weeks.length) { list.innerHTML = ''; return; }
+
+    var today = todayDate();
+    var todayIso = isoKey(today);
+    var current = -1;
+    weeks.forEach(function (week, i) {
+      if (current === -1 && week.days.some(function (d) { return d.iso === todayIso; })) current = i;
+    });
+    if (current === -1) current = weeks.length - 1;
+
+    /* La fecha se calcula una sola vez por dia: la comparten el encabezado del
+       grupo y la fila de escritorio, y asi no puede desfasarse una de otra. */
+    function dayLabel(day) {
+      return WEEKDAYS[day.date.getDay()] + ' ' + DAY_MONTH.format(day.date);
+    }
+
+    function dayGroupMarkup(day) {
+      var label = dayLabel(day);
+      return '<li class="cde-agenda__daygroup' + (day.iso === todayIso ? ' is-today' : '') + '">' +
+        '<p class="cde-agenda__dayhead"><time datetime="' + esc(day.iso) + '">' + esc(label) + '</time></p>' +
+        '<ul class="cde-agenda__daylist" aria-label="Actividades del ' + esc(lowerFirst(label)) + '">' +
+          day.activities.map(function (item) { return rowMarkup(day, item); }).join('') +
+        '</ul>' +
+      '</li>';
+    }
+
+    function rowMarkup(day, item) {
+      var isToday = day.iso === todayIso;
+      /* time puede venir vacio o no venir: sin hora no se dibuja la etiqueta
+         y el <time> declara solo la fecha, sin inventar una medianoche. */
+      var rawTime = item.time == null ? '' : String(item.time).trim();
+      var hasTime = rawTime !== '';
+      var timeText = hasTime ? formatTime(rawTime) + ' Hs.' : '';
+      if (hasTime && item.end) timeText = formatTime(rawTime) + ' – ' + formatTime(item.end) + ' Hs.';
+
+      var datetime = hasTime ? day.iso + 'T' + formatTime(rawTime) : day.iso;
+
+      var tags = '';
+      if (item.program) {
+        tags += config.programUrl
+          ? '<a class="cde-agenda__chip cde-agenda__chip--gold" href="' + esc(config.programUrl) + '" target="_blank" rel="noopener">' + esc(item.program) + '</a>'
+          : '<span class="cde-agenda__chip cde-agenda__chip--gold">' + esc(item.program) + '</span>';
+      }
+      if (item.org) tags += '<span class="cde-agenda__chip cde-agenda__chip--soft">' + esc(item.org) + '</span>';
+
+      /* La hora va como item hermano de la columna de fecha, no dentro de ella:
+         en movil asi puede abrir la linea de la fila y quedar al lado del
+         titulo, mientras en escritorio la grilla la alinea bajo la fecha. */
+      return '<li class="cde-agenda__row' + (isToday ? ' is-today' : '') + '">' +
+        '<p class="cde-agenda__row-when"><time datetime="' + esc(datetime) + '">' + esc(dayLabel(day)) + '</time></p>' +
+        (hasTime ? '<span class="cde-agenda__row-time">' + esc(timeText) + '</span>' : '') +
+        '<div class="cde-agenda__row-what">' +
+          '<h2 class="cde-agenda__row-title">' + esc(item.title) + '</h2>' +
+          (tags ? '<div class="cde-agenda__row-tags">' + tags + '</div>' : '') +
+          (item.note ? '<p class="cde-agenda__row-note">' + esc(item.note) + '</p>' : '') +
+          (item.link ? '<a class="cde-agenda__row-link" href="' + esc(item.link) + '" target="_blank" rel="noopener">Ver detalle<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>' : '') +
+        '</div></li>';
+    }
+
+    /* El estado solo se rotula en la semana en curso: en las demas el badge queda
+       oculto, asi que la semana visitada se lee por el rango de fechas. */
+    function weekState(week) {
+      if (today >= week.start && today <= week.end) return { text: 'Semana en curso' };
+      return null;
+    }
+
+    function render() {
+      var week = weeks[current];
+      var groups = [];
+      var total = 0;
+      week.days.forEach(function (day) {
+        if (!day.activities.length) return;
+        total += day.activities.length;
+        groups.push(dayGroupMarkup(day));
+      });
+
+      rangeEl.textContent = week.label;
+
+      if (total) {
+        list.innerHTML = groups.join('');
+        list.setAttribute('aria-label', 'Actividades ' + lowerFirst(week.label));
+      } else {
+        list.innerHTML = '<li class="cde-agenda__list-empty"><p>No hay actividades programadas para esta semana.</p></li>';
+        list.setAttribute('aria-label', 'Sin actividades');
+      }
+
+      countEl.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><span>' +
+        total + (total === 1 ? ' actividad programada' : ' actividades programadas') + '</span>';
+
+      var state = weekState(week);
+      if (state) {
+        stateEl.className = 'cde-agenda__week-state cde-agenda__week-state--current';
+        stateEl.textContent = state.text;
+        stateEl.hidden = false;
+      } else {
+        stateEl.textContent = '';
+        stateEl.hidden = true;
+      }
+    }
+
+    render();
+  })();
+</script>
