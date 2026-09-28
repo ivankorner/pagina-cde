@@ -1,5 +1,6 @@
 <!-- Farmacias de turno - Concejo Deliberante de Eldorado | Bloque HTML personalizado para WordPress -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=calendar_month,call,directions,location_on,local_pharmacy,open_in_new,today" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=calendar_month,call,directions,fit_screen,location_on,local_pharmacy,open_in_new,today" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
   .cde-farm, .cde-farm *, .cde-farm *::before, .cde-farm *::after { box-sizing: border-box; }
@@ -20,6 +21,7 @@
   .cde-farm a { color: inherit; text-decoration: none; }
   .cde-farm button { font: inherit; }
   .cde-farm :focus-visible { outline: 3px solid var(--cde-farm-gold); outline-offset: 3px; }
+  .cde-farm .cde-farm__sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .cde-farm .material-symbols-outlined {
     display: inline-block;
     font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 20;
@@ -177,7 +179,45 @@
   .cde-farm__map-copy p { margin: 0 0 22px; color: rgba(255,255,255,.75); font-size: .9rem; }
   .cde-farm__map-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 6px; color: #16233a; background: var(--cde-farm-gold); font-size: .78rem; font-weight: 800; transition: background .25s ease, transform .25s ease; }
   .cde-farm__map-link:hover { transform: translateY(-2px); background: var(--cde-farm-gold-light); }
-  .cde-farm__map-frame { display: block; width: 100%; height: 420px; min-height: 420px; border: 0; filter: saturate(.75); }
+  .cde-farm__map-frame { position: relative; z-index: 0; width: 100%; height: 420px; min-height: 420px; background: #e8eaee; }
+  .cde-farm__map-reset {
+    position: absolute; z-index: 500; top: 12px; right: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; padding: 0;
+    border: 0; border-radius: 6px;
+    color: #16233a; background: var(--cde-farm-gold);
+    box-shadow: 0 4px 12px rgba(21,44,74,.28);
+    cursor: pointer; transition: background .25s ease, transform .25s ease;
+  }
+  .cde-farm__map-reset:hover { background: var(--cde-farm-gold-light); transform: translateY(-2px); }
+  .cde-farm__map-reset .material-symbols-outlined { font-size: 20px; }
+
+  .cde-farm .leaflet-container { z-index: 0; font-family: inherit; background: #e8eaee; }
+  .cde-farm .leaflet-tile-pane { filter: saturate(.82); }
+  .cde-farm .leaflet-bar, .cde-farm .leaflet-control-attribution { border-radius: 6px; box-shadow: 0 2px 8px rgba(21,44,74,.2); }
+  .cde-farm .leaflet-bar a { width: 32px; height: 32px; line-height: 32px; color: var(--cde-farm-dark); }
+  .cde-farm .leaflet-bar a:hover { background: #f1f3f6; }
+  .cde-farm .leaflet-control-attribution { padding: 2px 6px; background: rgba(255,255,255,.86); font-size: .62rem; }
+  .cde-farm .leaflet-control-attribution a { color: var(--cde-farm-blue); text-decoration: underline; }
+  .cde-farm .leaflet-popup-content-wrapper { border-radius: 8px; box-shadow: 0 10px 26px rgba(21,44,74,.24); }
+  .cde-farm .leaflet-popup-content { margin: 16px 18px; font-size: .82rem; line-height: 1.5; }
+  .cde-farm .leaflet-popup-tip { box-shadow: none; }
+  .cde-farm .leaflet-popup-close-button { width: 32px; height: 32px; color: var(--cde-farm-gray); font: 20px/32px inherit; }
+  .cde-farm .leaflet-popup-close-button:hover { color: var(--cde-farm-dark); }
+  .cde-farm__marker { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 2px solid #fff; border-radius: 50% 50% 50% 4px; color: #fff; background: var(--cde-farm-blue); box-shadow: 0 3px 8px rgba(21,44,74,.4); transform: rotate(-45deg); }
+  .cde-farm__marker .material-symbols-outlined { font-size: 17px; transform: rotate(45deg); }
+  .cde-farm__marker.is-selected { background: var(--cde-farm-gold); }
+  .cde-farm__popup-title { margin: 0 0 3px; color: var(--cde-farm-dark); font-size: .95rem; font-weight: 800; line-height: 1.25; }
+  .cde-farm__popup-line { display: flex; align-items: flex-start; gap: 7px; margin: 5px 0 0; color: #4b5563; }
+  .cde-farm__popup-line .material-symbols-outlined { flex: none; font-size: 15px; color: var(--cde-farm-gray); }
+  .cde-farm__popup-note { margin: 8px 0 0; padding-top: 8px; border-top: 1px solid var(--cde-farm-line); color: var(--cde-farm-gray); font-size: .72rem; line-height: 1.4; }
+  .cde-farm__popup-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+  .cde-farm__popup-link { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 7px 12px; border-radius: 5px; color: #16233a; background: var(--cde-farm-gold); font-size: .72rem; font-weight: 800; }
+  .cde-farm__popup-link:hover { background: var(--cde-farm-gold-light); }
+  .cde-farm__popup-link--ghost { color: var(--cde-farm-blue); background: #eef1f5; }
+  .cde-farm__popup-link--ghost:hover { background: #e2e7ee; }
+  .cde-farm__popup-link .material-symbols-outlined { font-size: 15px; }
+  .cde-farm__map-fallback-frame { display: block; width: 100%; height: 100%; border: 0; }
 
   @media (max-width: 1000px) {
     .cde-farm__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -282,10 +322,12 @@
       <section class="cde-farm__map" aria-labelledby="cdeFarmMapTitle">
         <div class="cde-farm__map-copy">
           <h2 id="cdeFarmMapTitle">Ubicá farmacias en Eldorado</h2>
-          <p>Consultá el mapa general de la ciudad. Para una indicación precisa, usá el botón “Cómo llegar” de cada farmacia.</p>
+          <p>Cada punto del mapa es una farmacia del cronograma. Tocá un marcador para ver la dirección, el teléfono y el enlace a Google Maps. Para una indicación precisa, usá el botón “Cómo llegar”.</p>
           <a class="cde-farm__map-link" href="https://www.google.com/maps/search/farmacias+Eldorado+Misiones" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Ver mapa completo</a>
         </div>
-        <iframe class="cde-farm__map-frame" title="Mapa de farmacias en Eldorado" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-54.675%2C-26.425%2C-54.575%2C-26.395&amp;layer=mapnik"></iframe>
+        <div class="cde-farm__map-frame" id="cdeFarmMap" role="group" aria-label="Mapa de ubicaciones de las farmacias del cronograma">
+          <button type="button" class="cde-farm__map-reset" id="cdeFarmMapReset" hidden><span class="material-symbols-outlined" aria-hidden="true">fit_screen</span><span class="cde-farm__sr-only">Ver todas las farmacias en el mapa</span></button>
+        </div>
       </section>
     </div>
   </main>
@@ -309,22 +351,22 @@
     };
 
     var pharmacies = {
-      'del-norte': { name: 'Del Norte', address: 'Av. San Martín 1675, km 3', phones: ['03751 430829'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Del+Norte+Av.+San+Martin+1675+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/del-norte/' },
-      'farmacity': { name: 'Farmacity', address: 'Av. San Martín 1890', phones: ['03751 450596', '0800 666 4321'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40838490,-54.60561340', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacity-19246' },
-      'eldorado': { name: 'Eldorado', address: 'Cuyo 49', phone: '', map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4089005,-54.6078143', source: 'https://www.farmacerca.com/misiones/eldorado/eldorado/' },
-      'la-plaza': { name: 'La Plaza', address: 'Lowe 194, km 9, esquina San Juan', phones: ['03751 421040'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4098491,-54.6070973', source: 'https://www.farmacerca.com/misiones/eldorado/la-plaza/' },
-      'grobli-2': { name: 'Grobli 2', address: 'Lowe 302', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Grobli+Lowe+302+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/grobli-2/', note: 'La dirección Lowe 302 corresponde a publicaciones recientes del cronograma; otros directorios indican Lowe 354.' },
-      'oeste-2': { name: 'Oeste 2', address: 'Av. San Martín 246, km 5', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Oeste+2+Av.+San+Martin+246+Eldorado+Misiones', source: '' },
-      'farmanic': { name: 'Farmanic', address: 'Batalla de Obligado 3072', phone: '+54 3751 255672', map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40527830,-54.59093530', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmanic-19441' },
-      '9-de-julio-iv': { name: '9 de Julio IV', address: 'Av. San Martín 324', phones: ['03751 446697', '03751 256404'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40411990,-54.62884370', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-9-de-julio-iv-19098', note: 'Se muestran el teléfono de la sucursal y el teléfono general publicado por la red.' },
-      'tiemann-ii': { name: 'Tiemann II', address: 'Cuyo 199, esquina San Juan', phones: ['03751 424256'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Tiemann+II+Cuyo+199+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/tiemann-ii/' },
-      'bienestar': { name: 'Bienestar', address: 'Claudio Rodrigo 114', phones: ['03751 448152', '03751 426327'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40730600,-54.60517080', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-bienestar-19100', note: 'Hay dos teléfonos publicados en directorios diferentes.' },
-      'gema': { name: 'Gema', address: 'Av. Hipólito Yrigoyen y O’Higgins', phones: ['03751 252573'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.41480200,-54.60965870', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-gema-19328', note: 'Las fuentes difieren en el número de puerta; se utiliza la intersección y el enlace de mapa.' },
-      'la-buena-nina': { name: 'La Buena Niña', address: 'Zettelmann 400', phones: ['03751 593332', '03751 479437'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40088630,-54.64954150', source: 'https://farmaciasdeturnoya.com.ar/farmacia/la-buena-nia-19110' },
-      'jesus': { name: 'Jesús Misericordioso', address: 'Av. San Martín 2295, km 10', phones: ['03751 15471233'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4083304,-54.5998845', source: 'https://www.farmacerca.com/misiones/eldorado/jesus-misericordioso/' },
-      'solidaria': { name: 'Solidaria', address: 'Tarragó Ros 2495', phones: ['03751 421952'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Solidaria+Tarrago+Ros+2495+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/solidaria/' },
-      'renacer': { name: 'Renacer', address: 'Av. San Martín 1390, km 3', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Renacer+Av.+San+Martin+1390+Eldorado+Misiones', source: '' },
-      'el-alba': { name: 'El Alba', address: 'Av. San Martín Este 3181, km 10', phones: ['03751 424713'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4083242,-54.5895100', source: 'https://www.farmacerca.com/misiones/eldorado/el-alba/', note: 'La dirección 3181 y el teléfono coinciden con el cronograma y otras fuentes locales.' }
+      'del-norte': { coords: [-26.4082855, -54.6076592], name: 'Del Norte', address: 'Av. San Martín 1675, km 3', phones: ['03751 430829'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Del+Norte+Av.+San+Martin+1675+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/del-norte/' },
+      'farmacity': { coords: [-26.4083849, -54.6056134], name: 'Farmacity', address: 'Av. San Martín 1890', phones: ['03751 450596', '0800 666 4321'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40838490,-54.60561340', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacity-19246' },
+      'eldorado': { coords: [-26.4089005, -54.6078143], name: 'Eldorado', address: 'Cuyo 49', phone: '', map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4089005,-54.6078143', source: 'https://www.farmacerca.com/misiones/eldorado/eldorado/' },
+      'la-plaza': { coords: [-26.4098491, -54.6070973], name: 'La Plaza', address: 'Lowe 194, km 9, esquina San Juan', phones: ['03751 421040'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4098491,-54.6070973', source: 'https://www.farmacerca.com/misiones/eldorado/la-plaza/' },
+      'grobli-2': { coords: [-26.4109902, -54.6070171], name: 'Grobli 2', address: 'Lowe 302', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Grobli+Lowe+302+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/grobli-2/', note: 'La dirección Lowe 302 corresponde a publicaciones recientes del cronograma; otros directorios indican Lowe 354.' },
+      'oeste-2': { coords: [-26.4039393, -54.6289967], name: 'Oeste 2', address: 'Av. San Martín 246, km 5', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Oeste+2+Av.+San+Martin+246+Eldorado+Misiones', source: '' },
+      'farmanic': { coords: [-26.4052783, -54.5909353], name: 'Farmanic', address: 'Batalla de Obligado 3072', phone: '+54 3751 255672', map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40527830,-54.59093530', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmanic-19441' },
+      '9-de-julio-iv': { coords: [-26.4041199, -54.6288437], name: '9 de Julio IV', address: 'Av. San Martín 324', phones: ['03751 446697', '03751 256404'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40411990,-54.62884370', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-9-de-julio-iv-19098', note: 'Se muestran el teléfono de la sucursal y el teléfono general publicado por la red.' },
+      'tiemann-ii': { coords: [-26.4099708, -54.6078034], name: 'Tiemann II', address: 'Cuyo 199, esquina San Juan', phones: ['03751 424256'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Tiemann+II+Cuyo+199+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/tiemann-ii/' },
+      'bienestar': { coords: [-26.4073060, -54.6051708], name: 'Bienestar', address: 'Claudio Rodrigo 114', phones: ['03751 448152', '03751 426327'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40730600,-54.60517080', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-bienestar-19100', note: 'Hay dos teléfonos publicados en directorios diferentes.' },
+      'gema': { coords: [-26.4148020, -54.6096587], name: 'Gema', address: 'Av. Hipólito Yrigoyen y O’Higgins', phones: ['03751 252573'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.41480200,-54.60965870', source: 'https://farmaciasdeturnoya.com.ar/farmacia/farmacia-gema-19328', note: 'Las fuentes difieren en el número de puerta; se utiliza la intersección y el enlace de mapa.' },
+      'la-buena-nina': { coords: [-26.4008863, -54.6495415], name: 'La Buena Niña', address: 'Zettelmann 400', phones: ['03751 593332', '03751 479437'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.40088630,-54.64954150', source: 'https://farmaciasdeturnoya.com.ar/farmacia/la-buena-nia-19110' },
+      'jesus': { coords: [-26.4083304, -54.5998845], name: 'Jesús Misericordioso', address: 'Av. San Martín 2295, km 10', phones: ['03751 15471233'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4083304,-54.5998845', source: 'https://www.farmacerca.com/misiones/eldorado/jesus-misericordioso/' },
+      'solidaria': { coords: [-26.4051243, -54.5991966], approx: true, name: 'Solidaria', address: 'Tarragó Ros 2495', phones: ['03751 421952'], map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Solidaria+Tarrago+Ros+2495+Eldorado+Misiones', source: 'https://www.farmacerca.com/misiones/eldorado/solidaria/', note: 'El punto del mapa está calculado sobre la calle Tarragó Ross, porque el número 2495 no está geocodificado. Usá el enlace de Google Maps para la ubicación exacta.' },
+      'renacer': { coords: [-26.4072631, -54.6118560], name: 'Renacer', address: 'Av. San Martín 1390, km 3', phone: '', map: 'https://www.google.com/maps/search/?api=1&query=Farmacia+Renacer+Av.+San+Martin+1390+Eldorado+Misiones', source: '' },
+      'el-alba': { coords: [-26.4083242, -54.5895100], name: 'El Alba', address: 'Av. San Martín Este 3181, km 10', phones: ['03751 424713'], map: 'https://www.google.com/maps/dir/?api=1&destination=-26.4083242,-54.5895100', source: 'https://www.farmacerca.com/misiones/eldorado/el-alba/', note: 'La dirección 3181 y el teléfono coinciden con el cronograma y otras fuentes locales.' }
     };
 
     var root = document.getElementById('cde-farmacias-turno');
@@ -369,6 +411,7 @@
       root.querySelectorAll('.cde-farm__day.is-selected').forEach(function (element) { element.classList.remove('is-selected'); });
       if (button) button.classList.add('is-selected');
       renderSelected(day);
+      focusMapMarker(config.turns[day]);
     }
     function renderCalendar() {
       var days = document.getElementById('cdeFarmDays');
@@ -389,16 +432,125 @@
       var initialDay = today.year === config.year && today.month === config.month && config.turns[today.day] ? today.day : 1;
       selectDay(initialDay, days.querySelector('[data-day="' + initialDay + '"]'));
     }
-    function renderCards() {
+    function usedKeys() {
       var used = [];
       Object.keys(config.turns).forEach(function (day) { if (used.indexOf(config.turns[day]) === -1) used.push(config.turns[day]); });
-      document.getElementById('cdeFarmCards').innerHTML = used.map(function (key) {
+      return used;
+    }
+    function renderCards() {
+      document.getElementById('cdeFarmCards').innerHTML = usedKeys().map(function (key) {
         var item = pharmacies[key];
         return '<article class="cde-farm__card"><div class="cde-farm__card-top"><span class="cde-farm__card-icon"><span class="material-symbols-outlined" aria-hidden="true">local_pharmacy</span></span><h3>' + escapeHtml(item.name) + '</h3></div>' +
           '<p><span class="material-symbols-outlined" aria-hidden="true">location_on</span><span>' + escapeHtml(item.address) + '</span></p>' + phoneMarkup(item) + (item.note ? '<p class="cde-farm__card-note"><span class="material-symbols-outlined" aria-hidden="true">location_on</span>' + escapeHtml(item.note) + '</p>' : '') +
           '<div class="cde-farm__card-actions"><a class="cde-farm__card-link" href="' + escapeHtml(item.map) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">directions</span>Cómo llegar</a>' + (item.source ? '<a class="cde-farm__card-link" href="' + escapeHtml(item.source) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Ficha</a>' : '') + '</div></article>';
       }).join('');
     }
+    var MAP_FALLBACK_SRC = 'https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7147.068340524904!2d-54.608642100000004!3d-26.406233350000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sfarmacias%20Eldorado%20Misiones!5e0!3m2!1ses!2sar!4v1790590562292!5m2!1ses!2sar';
+    var mapState = null;
+
+    function mapPopupHtml(item) {
+      var phones = getPhones(item);
+      var phoneLine = phones.length
+        ? '<p class="cde-farm__popup-line"><span class="material-symbols-outlined" aria-hidden="true">call</span><span>' + phones.map(function (phone) { return '<a href="tel:' + escapeHtml(phone.replace(/\s/g, '')) + '">' + escapeHtml(phone) + '</a>'; }).join(' · ') + '</span></p>'
+        : '<p class="cde-farm__popup-line"><span class="material-symbols-outlined" aria-hidden="true">call</span><span>Teléfono no disponible</span></p>';
+      return '<h3 class="cde-farm__popup-title">' + escapeHtml(item.name) + '</h3>' +
+        '<p class="cde-farm__popup-line"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><span>' + escapeHtml(item.address) + '</span></p>' + phoneLine +
+        (item.approx ? '<p class="cde-farm__popup-note">Ubicación aproximada a nivel de calle.</p>' : '') +
+        (item.note ? '<p class="cde-farm__popup-note">' + escapeHtml(item.note) + '</p>' : '') +
+        '<div class="cde-farm__popup-actions">' +
+        '<a class="cde-farm__popup-link" href="' + escapeHtml(item.map) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">directions</span>Cómo llegar</a>' +
+        (item.source ? '<a class="cde-farm__popup-link cde-farm__popup-link--ghost" href="' + escapeHtml(item.source) + '" target="_blank" rel="noopener"><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span>Ficha</a>' : '') +
+        '</div>';
+    }
+
+    function renderMapFallback(host) {
+      var frame = document.createElement('iframe');
+      frame.className = 'cde-farm__map-fallback-frame';
+      frame.title = 'Mapa de farmacias en Eldorado';
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.setAttribute('allowfullscreen', '');
+      frame.src = MAP_FALLBACK_SRC;
+      host.textContent = '';
+      host.appendChild(frame);
+    }
+
+    function initMap() {
+      var host = document.getElementById('cdeFarmMap');
+      var reset = document.getElementById('cdeFarmMapReset');
+      if (!host) return;
+      if (!window.L) { renderMapFallback(host); return; }
+
+      var map = L.map(host, { scrollWheelZoom: false });
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      function markerIcon(selected) {
+        return L.divIcon({
+          className: '',
+          html: '<span class="cde-farm__marker' + (selected ? ' is-selected' : '') + '"><span class="material-symbols-outlined" aria-hidden="true">local_pharmacy</span></span>',
+          iconSize: [34, 34],
+          iconAnchor: [17, 32],
+          popupAnchor: [0, -30]
+        });
+      }
+
+      var icons = { base: markerIcon(false), active: markerIcon(true) };
+      var group = L.featureGroup();
+      var markers = {};
+      usedKeys().forEach(function (key) {
+        var item = pharmacies[key];
+        if (!item || !item.coords) return;
+        var marker = L.marker(item.coords, { icon: icons.base, title: item.name, alt: item.name + ', ' + item.address });
+        marker.bindPopup(mapPopupHtml(item), { maxWidth: 260 });
+        marker.addTo(group);
+        markers[key] = marker;
+      });
+      group.addTo(map);
+
+      function fitAll() {
+        map.closePopup();
+        if (Object.keys(markers).length) {
+          map.fitBounds(group.getBounds(), { padding: [30, 30], maxZoom: 16 });
+        }
+      }
+      fitAll();
+      mapState = { map: map, group: group, markers: markers, icons: icons };
+
+      if (reset) {
+        reset.hidden = false;
+        reset.addEventListener('click', fitAll);
+      }
+      window.requestAnimationFrame(function () { map.invalidateSize(); });
+    }
+
+    function focusMapMarker(key) {
+      if (!mapState) return;
+      var marker = mapState.markers[key];
+      if (!marker) return;
+      if (mapState.selected && mapState.selected !== key) mapState.selected.setIcon(mapState.icons.base);
+      marker.setIcon(mapState.icons.active);
+      mapState.selected = marker;
+      var point = marker.getLatLng();
+      if (!mapState.map.getBounds().pad(-0.2).contains(point)) mapState.map.panTo(point);
+      marker.openPopup();
+    }
+
+    function loadLeaflet(done) {
+      if (window.L) { done(); return; }
+      var finished = false;
+      function finish() { if (finished) return; finished = true; done(); }
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      script.async = true;
+      script.onload = finish;
+      script.onerror = finish;
+      document.head.appendChild(script);
+      window.setTimeout(finish, 8000);
+    }
+
     function init() {
       var today = todayParts();
       var monthLabel = monthNames[config.month - 1] + ' ' + config.year;
@@ -412,6 +564,7 @@
       }
       renderCalendar();
       renderCards();
+      loadLeaflet(initMap);
     }
     init();
   }());
